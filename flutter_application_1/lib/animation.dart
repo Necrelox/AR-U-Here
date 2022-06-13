@@ -17,7 +17,6 @@ class _DelayAnimationState extends State<DelayAnimation>
   @override
   void initState() {
     super.initState();
-
     //Donner une valeur à notre controller
     _controller = AnimationController(
       vsync: this,

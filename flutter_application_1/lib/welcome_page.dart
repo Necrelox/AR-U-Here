@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'animation.dart';
+import 'didactiel1.dart';
 
+// flutter pub get pour charger le font
 class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -9,7 +11,7 @@ class WelcomePage extends StatelessWidget {
       backgroundColor: Color(0xFFF4976C),
       body: SingleChildScrollView(
           child: Container(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           vertical: 60,
           horizontal: 30,
         ),
@@ -23,19 +25,25 @@ class WelcomePage extends StatelessWidget {
           DelayAnimation(
               delay: 2000,
               child: Container(
-                margin: const EdgeInsets.only(
-                  top: 60,
-                  bottom: 180,
-                ),
-                child: Text(
-                  "Rejoignez plus de 500 établissements qui utilisent AR U-HERE au quotidien.",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                    color: Color(0XFF303C6C),
-                    fontSize: 26,
+                  margin: const EdgeInsets.only(
+                    top: 60,
+                    bottom: 140,
                   ),
-                ),
-              )),
+                  width: 300,
+                  height: 150,
+                  decoration: ShapeDecoration(
+                      color: Color(0XFFFBE8A6),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0))),
+                  padding: EdgeInsets.all(15),
+                  child: Text(
+                    "Rejoignez plus de 500 établissements qui utilisent AR U-HERE au quotidien.",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      color: Color(0XFF303C6C),
+                      fontSize: 26,
+                    ),
+                  ))),
           DelayAnimation(
               delay: 2500,
               child: Container(
@@ -73,7 +81,14 @@ class WelcomePage extends StatelessWidget {
                         fontSize: 26,
                       ),
                     ),
-                    onPressed: () {}),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DidactielOne(),
+                        ),
+                      );
+                    }),
               )),
         ]),
       )),
