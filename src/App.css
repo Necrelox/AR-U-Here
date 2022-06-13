@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+:root {
+  --primary-color: #25273a;
+  --primary-shadow-color: #FBE8A6;
+  --primary-text-color: #04a8f3;
+  --secondary-color: #F4976C;
+}
+
+* {
+   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--primary-color);
+}
+
+.App-header {
+  width: -webkit-fill-available;
+  display: flex;
+  font-family: Georgia, serif;
+  justify-content: space-between;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10%;
+  padding-right: 10%;
+  box-shadow: 0 4px 4px rgb(19, 29, 46);
+  align-items: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  background-color: var(--primary-color);
+}
+
+.App {
+  height: 100vh;
+}
+
+.App-nav > a {
+  color: rgb(45, 50, 59);
+  font-weight: bold;
+  -webkit-text-stroke-color: var(--primary-text-color);
+  -webkit-text-stroke-width: 1px;
+  font-size: 30px;
+  padding: 30px;
+  text-decoration: none;
+  position: relative;
+  text-decoration: none;
+  line-height: 1em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: transparent;
+}
+
+.App-nav > a:hover {
+  color: var(--primary-shadow-color);
+  text-shadow: var(--primary-text-color) 4px 3px;
+  transition: 0.05s ease-in-out;
+}
+
+.Logo {
+  width: 70px;
+  height: 70px;
+  z-index: 20;
+  position: sticky;
+}
+
+.hamburger-react > div {
+  background: var(--primary-text-color)!important;
+  position: absolute;
+}
+
+.hamburger-react {
+  z-index: 20!important;
+}
+
+main > p {
+  margin-top: 150%;
+}
+
+/* sidebar Nav */
+
+.navBar {
+  position: relative;
+}
+
+.navBar button {
+  position: fixed;
+  left: 40px;
+  top: 40px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.menuNav {
+  overflow-y: scroll;
+  list-style: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 0;
+  overflow: hidden;
+  max-width: 290px;
+  z-index: 9;
+}
+
+.menuNav.showMenu {
+  background: var(--primary-color);
+  margin:0;
+  position:fixed;
+  min-width: 100%;
+  transition: all 0.5s;
+}
+
+.hamopen {
+  margin: auto;
+  width: 80%;
+  margin-top: 80px;
+  text-align: right;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+
+.hamopen > a {
+  text-decoration: none;
+  color: rgb(45, 50, 59);
+  font-weight: bold;
+  font-size: 20px;
+  margin: 50px;
+  -webkit-text-stroke: 1px var(--primary-text-color);
+  font-size: 30px;
+  padding: 30px;
+  text-decoration: none;
+  position: relative;
+  text-decoration: none;
+  line-height: 1em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: transparent;
+}
+
+.hamopen > a:hover {
+  color: var(--primary-shadow-color);
+  text-shadow: var(--primary-text-color) 4px 3px;
+  transition: 0.05s ease-in-out;
+}
+
+.Body-Title {
+  font-family: "Poppins";
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 60px;
+  width: 400px;
+  align-self: center;
+} 
+
+.Top-View {
+  margin-left: 100px;
+  margin-right: 100px;
+  padding-bottom: 10%;
+  height: 90vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.Body-Logo {
+  width: 400px;
+  align-self: center;
+}
+
+.banniere {
+  width: 100%;
+  height: 500px;
+  padding-left: 20%;
+  padding-right: 20%;
+  display: flex;
+  background-color: #303C6C;
+  justify-content: center;
+  box-shadow: 0 4px 4px rgb(19, 29, 46);
+  position: absolute;
+}
+
+.banniere > img {
+  background-color: inherit;
+}
+
+.Body-Dialog {
+  background-color: var(--primary-shadow-color);
+  border-radius: 1rem;
+  text-align: right;
+  align-self: center;
+  padding: 3%;
+}
+
+.Body-Dialog > span {
+  color: white;
+  font-size: 2.5rem;
+}
+
+.Title {
+  color: var(--secondary-color);
+}
+
+@media screen and (max-width: 1220px) {
+  .App-nav > a {
+    display: none;
+  }
+
+  .Body-Logo {
+    width: 200px;
+    height: 200px;
+  }
+
+  .banniere {
+    width: 100%;
+    height: 300px;
+    background-color: #4f3e68;
+  }
+
+  .Body-Title {
+    font-size: 40px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .App-nav > a {
+    display: none;
+  }
+
+  .Body-Logo {
+    width: 150px;
+    height: 150px;
+  }
+
+  .Top-View {
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-bottom: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .banniere {
+    width: 100%;
+    height: 150px;
+    background-color: #4f3e68;
+  }
+
+  .Body-Title {
+    font-size: 20px;
+  }
+  .App {
+    height: 20vh;
+  }
+}
+
+@media screen and (min-width: 1220px) {
+  .hamburger-react {
+    display: none;
+  }
+
+  .Body-Logo {
+    width: 400px;
+  }
+  
+  .Body-Title {
+    font-size: 60px;
+  }
+  .App {
+    height: 60vh;
+  }
+}
