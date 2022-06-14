@@ -27,12 +27,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div>
-          <img src={Logo2} alt='logo' className="Logo"/>
+          <a href="/"><img src={Logo2} alt='logo' className="Logo"/></a>
         </div>
         <nav className="App-nav">
           <a data-text="&nbsp;Get started" href="/">&nbsp;Get started&nbsp;</a>
-          <a data-text="&nbsp;About" href="/">&nbsp;About&nbsp;</a>
-          <a data-text="&nbsp;Contact" href="/">&nbsp;Contact&nbsp;</a>
+          <a data-text="&nbsp;Contact" href="#contact">&nbsp;Contact&nbsp;</a>
         </nav>
         <div>
           <Hamburger toggled={navbarOpen} toggle={setNavbarOpen} className="App-hamburger"/>
@@ -40,8 +39,7 @@ function App() {
             <ul className={`menuNav ${navbarOpen ? " showMenu" : ""}`}>
               <section className="hamopen">
                 <a data-text="&nbsp;Get started" href="/">&nbsp;Get started&nbsp;</a>
-                <a data-text="&nbsp;About" href="/">&nbsp;About&nbsp;</a>
-                <a data-text="&nbsp;Contact" href="/">&nbsp;Contact&nbsp;</a>
+                <a data-text="&nbsp;Contact" href="#contact">&nbsp;Contact&nbsp;</a>
               </section>
             </ul>
           </nav>
@@ -62,10 +60,30 @@ function App() {
           </div>
         </div>
 
-        <div className="Main">
-          
+        <div id="contact" className="Main">
+          <div className="Title-Contact">
+          <h2 className="point_fort">Notre application en 3 points</h2>
+          </div>
+          <div className="Table-Cards">
+            <div className="App-Cards">
+              <h3>Une Reconnaisance facial à toute épreuve</h3>
+            </div>
+            <div className="App-Cards">
+              <h3>Un Suivie des élèves réfléchie</h3>
+            </div>
+            <div className="App-Cards">
+              <h3>Une application approuvé par plusieur établissement</h3>          
+            </div>
+          </div>
         </div>
+
       </main>
+
+      <footer>
+        <div className="Footer">
+          <span className="Copyright">AR U-Here - &copy; 2022</span>
+        </div>
+      </footer>
     </div>
     </>
     </ThemeProvider>
