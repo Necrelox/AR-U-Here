@@ -17,6 +17,7 @@
 
 .App-header {
   width: -webkit-fill-available;
+  height: 10vh;
   display: flex;
   font-family: Georgia, serif;
   justify-content: space-between;
@@ -27,7 +28,7 @@
   box-shadow: 0 4px 4px rgb(19, 29, 46);
   align-items: center;
   position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   top: 0px;
   background-color: var(--primary-color);
 }
@@ -160,7 +161,7 @@ main > p {
   margin-left: 100px;
   margin-right: 100px;
   padding-bottom: 10%;
-  height: 90vh;
+  height: 100vh;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -178,7 +179,6 @@ main > p {
   padding-right: 20%;
   background-color: #303C6C;
   box-shadow: 4px 4px 4px 4px rgb(19, 29, 46);
-  position: relative;
   display: flex;
   justify-content: end;
 }
@@ -187,8 +187,28 @@ main > p {
   background-color: inherit;
 }
 
+.banniere2 {
+  width: 100%;
+  height: 500px;
+  padding-left: 20%;
+  padding-right: 20%;
+  background-color: #B4DFE5;
+  box-shadow: 4px 4px 4px 4px rgb(19, 29, 46);
+  display: flex;
+  justify-content: end;
+}
+
 .Body-Dialog {
   background-color: var(--primary-shadow-color);
+  box-shadow: 4px 4px 4px 4px rgb(19, 29, 46);
+  border-radius: 1rem;
+  text-align: right;
+  align-self: center;
+  padding: 3%;
+}
+
+.Body-Dialog2 {
+  background-color: var(--secondary-color);
   box-shadow: 4px 4px 4px 4px rgb(19, 29, 46);
   border-radius: 1rem;
   text-align: right;
@@ -202,6 +222,12 @@ main > p {
   font-size: 2.5rem;
 }
 
+.Body-Dialog2 > span {
+  color: white;
+  font-family: "Poppins";
+  font-size: 2.5rem;
+}
+
 .Title {
   color: var(--secondary-color);
 }
@@ -209,6 +235,11 @@ main > p {
 .Main {
   width: 100%;
   height: 90vh;
+}
+
+.Main2 {
+  width: 100%;
+  height: 80vh;
 }
 
 .Table-Cards {
@@ -242,10 +273,13 @@ main > p {
   border-radius: 1rem;
   margin-left: 3%;
   margin-right: 3%;
+  padding: 1%;
   height: 50%;
   width: 20%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column-reverse;
 }
 
 .App-Cards > * {
@@ -261,7 +295,7 @@ a:link {
 .point_fort {
   text-align: center;
   font-size: 40px;
-  color: var(--primary-text-color);
+  color: var(--primary-shadow-color);
 }
 
 .Title-Contact {
@@ -269,6 +303,11 @@ a:link {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.Card-Logo {
+  width: 200px;
+  height: 200px;
 }
 
 @media screen and (max-width: 760px) {
@@ -295,7 +334,12 @@ a:link {
     height: 150px;
   }
 
-  .Body-Title {
+  .banniere2 {
+    width: 100%;
+    height: 150px;
+  }
+
+  .Body-Title, .Title-Contact > h2 {
     font-size: 20px;
   }
   .App {
@@ -303,6 +347,37 @@ a:link {
   }
   .Body-Dialog > span {
     font-size: 1.5rem;
+  }
+
+  .Body-Dialog2 > span {
+    font-size: 1.5rem;
+  }
+  .Card-Logo {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .Table-Cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 85%;
+  }
+  .App-Cards {
+    width: 80%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    padding-left: 5%;
+    padding-right: 5%;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+  .Card-Logo {
+    width: 150px;
+    height: 150px;
   }
 }
 
@@ -321,10 +396,18 @@ a:link {
     height: 300px;
   }
 
+  .banniere2 {
+    width: 100%;
+    height: 300px;
+  }
+
   .Body-Title {
     font-size: 40px;
   }
   .Body-Dialog > span {
+    font-size: 1rem;
+  }
+  .Body-Dialog2 > span {
     font-size: 1rem;
   }
 }
@@ -345,6 +428,9 @@ a:link {
     height: 60vh;
   }
   .Body-Dialog > span {
+    font-size: 2.5rem;
+  }
+  .Body-Dialog2 > span {
     font-size: 2.5rem;
   }
 }

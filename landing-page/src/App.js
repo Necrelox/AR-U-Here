@@ -4,6 +4,9 @@ import React, { useEffect, useState } from "react";
 import Logo from './assets/logo.png';
 import Logo2 from './assets/logofav.png';
 import Image1 from './assets/face-id-4841584-4034463.webp'
+import Card1 from './assets/card1.webp'
+import Card2 from './assets/card2.webp'
+import Card3 from './assets/card3.webp'
 import { NavLink } from 'react-router-dom';
 
 import {ThemeProvider} from "styled-components";
@@ -62,17 +65,54 @@ function App() {
 
         <div id="contact" className="Main">
           <div className="Title-Contact">
-          <h2 className="point_fort">Notre application en 3 points</h2>
+            <h2 className="point_fort">Notre application en 3 points</h2>
           </div>
           <div className="Table-Cards">
             <div className="App-Cards">
-              <h3>Une Reconnaisance facial à toute épreuve</h3>
+              <h3>Une suivie des élèves réfléchies</h3>
+              <img src={Card1} alt='Card1' className="Card-Logo"/>
             </div>
             <div className="App-Cards">
-              <h3>Un Suivie des élèves réfléchie</h3>
+              <h3>Une reconnaisance facial à toute épreuve</h3>
+              <img src={Card2} alt='Card2' className="Card-Logo"/>
             </div>
             <div className="App-Cards">
-              <h3>Une application approuvé par plusieur établissement</h3>          
+              <h3>Une application approuvée par plusieurs établissements</h3>   
+              <img src={Card3} alt='Card3' className="Card-Logo"/>       
+            </div>
+          </div>
+        </div>
+
+        <div className="banniere2">
+          <div className="Body-Dialog2">
+            <span>A compléter</span>
+          </div>
+        </div>
+
+        <div id="contact" className="Main2">
+          <div className="Title-Contact">
+            <h2 className="point_fort">L'équipe Ar U-Here</h2>
+          </div>
+          <div className="Table-Cards">
+            <div className="App-Cards">
+              <h3>Nicolas DASILVA</h3>
+              <img src={Card1} alt='Card1' className="Card-Logo"/>
+            </div>
+            <div className="App-Cards">
+              <h3>Anthony GOTI</h3>
+              <img src={Card2} alt='Card2' className="Card-Logo"/>
+            </div>
+            <div className="App-Cards">
+              <h3>Thomas BOUTET</h3>   
+              <img src={Card3} alt='Card3' className="Card-Logo"/>       
+            </div>
+            <div className="App-Cards">
+              <h3>Julien PAVONI</h3>   
+              <img src={Card3} alt='Card3' className="Card-Logo"/>       
+            </div>
+            <div className="App-Cards">
+              <h3>Federico MERETO</h3>   
+              <img src={Card3} alt='Card3' className="Card-Logo"/>       
             </div>
           </div>
         </div>
