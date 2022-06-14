@@ -1,11 +1,12 @@
 // ignore_for_file: unnecessary_new
+import 'welcome_page.dart';
 import 'didactiel2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'animation.dart';
 
-class DidactielOne extends StatelessWidget {
+class DidactielThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,6 +14,21 @@ class DidactielOne extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Color(0XFF303C6C),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => WelcomePage(),
+                ),
+              );
+            },
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -34,7 +50,7 @@ class DidactielOne extends StatelessWidget {
                       )),
                   child: Center(
                     child: Text(
-                      "Nous souhaitons que l'identification des élèves au sein de votre établissement soit plus simple, sûre et accessible.",
+                      "La solution au probème de signature sur feuille, edusign et de carte étudiant perdue.",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
                         color: Color(0XFF303C6C),
@@ -48,7 +64,7 @@ class DidactielOne extends StatelessWidget {
                 delay: 1000,
                 child: SizedBox(
                   height: 250,
-                  child: Image.asset('asset/didactiel1.png'),
+                  child: Image.asset('asset/didactiel3.jpg'),
                 ),
               ),
               DelayAnimation(
@@ -75,7 +91,7 @@ class DidactielOne extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DidactielTwoo(),
+                          builder: (context) => WelcomePage(),
                         ),
                       );
                     },

@@ -17,13 +17,13 @@ class WelcomePage extends StatelessWidget {
         ),
         child: Column(children: [
           DelayAnimation(
-              delay: 1000,
+              delay: 500,
               child: Container(
                 height: 200,
                 child: Image.asset('asset/logo.png'),
               )),
           DelayAnimation(
-              delay: 2000,
+              delay: 1000,
               child: Container(
                   margin: const EdgeInsets.only(
                     top: 60,
@@ -45,7 +45,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ))),
           DelayAnimation(
-              delay: 2500,
+              delay: 1500,
               child: Container(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -64,7 +64,7 @@ class WelcomePage extends StatelessWidget {
                     onPressed: () {}),
               )),
           DelayAnimation(
-              delay: 2500,
+              delay: 1800,
               child: Container(
                 margin: const EdgeInsets.only(top: 20),
                 width: double.infinity,
