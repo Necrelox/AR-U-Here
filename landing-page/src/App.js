@@ -8,6 +8,11 @@ import Card1 from './assets/card1.webp'
 import Card2 from './assets/card2.webp'
 import Card3 from './assets/card3.webp'
 import { NavLink } from 'react-router-dom';
+import Nicolas from './assets/nicolas.jpg';
+import Anthony from './assets/anthony.jpg';
+import Thomas from './assets/thomas.jpg';
+import Julien from './assets/julien.jpg';
+import Federico from './assets/federico.jpg';
 
 import {ThemeProvider} from "styled-components";
 import { GlobalStyles } from "./components/GlobalStyles";
@@ -63,7 +68,7 @@ function App() {
           </div>
         </div>
 
-        <div id="contact" className="Main">
+        <div className="Main" id="contact">
           <div className="Title-Contact">
             <h2 className="point_fort">Notre application en 3 points</h2>
           </div>
@@ -85,7 +90,7 @@ function App() {
 
         <div className="banniere2">
           <div className="Body-Dialog2">
-            <span>A compléter</span>
+            <span>"Nous cherchons à assurer un suivi de vos élèves"</span>
           </div>
         </div>
 
@@ -95,24 +100,29 @@ function App() {
           </div>
           <div className="Table-Cards">
             <div className="App-Cards">
+              <span>Responsable Backend</span>
               <h3>Nicolas DASILVA</h3>
-              <img src={Card1} alt='Card1' className="Card-Logo"/>
+              <img src={Nicolas} alt='Card1' className="Card-Logo Card-Radius"/>
             </div>
             <div className="App-Cards">
+              <span>Chef de projet & Scrum master</span>
               <h3>Anthony GOTI</h3>
-              <img src={Card2} alt='Card2' className="Card-Logo"/>
+              <img src={Anthony} alt='Card2' className="Card-Logo Card-Radius"/>
             </div>
             <div className="App-Cards">
-              <h3>Thomas BOUTET</h3>   
-              <img src={Card3} alt='Card3' className="Card-Logo"/>       
+              <span>Assistant Back&Front</span>
+              <h3>Thomas BOUTET</h3>
+              <img src={Thomas} alt='Card3' className="Card-Logo Card-Radius"/>       
             </div>
             <div className="App-Cards">
-              <h3>Julien PAVONI</h3>   
-              <img src={Card3} alt='Card3' className="Card-Logo"/>       
+              <span>Responsable Frontend</span>
+              <h3>Julien PAVONI</h3>
+              <img src={Julien} alt='Card3' className="Card-Logo Card-Radius"/>       
             </div>
             <div className="App-Cards">
-              <h3>Federico MERETO</h3>   
-              <img src={Card3} alt='Card3' className="Card-Logo"/>       
+              <span>UI/UX Design & Backend</span>
+              <h3>Federico MERETO</h3>
+              <img src={Federico} alt='Card3' className="Card-Logo Card-Radius"/>       
             </div>
           </div>
         </div>

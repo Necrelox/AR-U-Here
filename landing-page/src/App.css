@@ -211,9 +211,9 @@ main > p {
   background-color: var(--secondary-color);
   box-shadow: 4px 4px 4px 4px rgb(19, 29, 46);
   border-radius: 1rem;
-  text-align: right;
+  text-align: center;
   align-self: center;
-  padding: 3%;
+  padding: 2%;
 }
 
 .Body-Dialog > span {
@@ -310,6 +310,10 @@ a:link {
   height: 200px;
 }
 
+.Card-Radius {
+  border-radius: 50%;
+}
+
 @media screen and (max-width: 760px) {
   .App-nav > a {
     display: none;
@@ -376,8 +380,8 @@ a:link {
     justify-content: space-between;
   }
   .Card-Logo {
-    width: 150px;
-    height: 150px;
+    width: 75px;
+    height: 75px;
   }
 }
 
@@ -387,18 +391,15 @@ a:link {
   }
 
   .Body-Logo {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
   }
 
-  .banniere {
+  .banniere, .banniere2 {
     width: 100%;
     height: 300px;
-  }
-
-  .banniere2 {
-    width: 100%;
-    height: 300px;
+    padding-left: 10%;
+    padding-right: 10%;
   }
 
   .Body-Title {
