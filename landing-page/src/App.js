@@ -70,19 +70,19 @@ function App() {
 
         <div className="Main" id="contact">
           <div className="Title-Contact">
-            <h2 className="point_fort">Notre application en 3 points</h2>
+            <h2 className="point_fort">Our application in 3 points</h2>
           </div>
           <div className="Table-Cards">
             <div className="App-Cards">
-              <h3>Une suivie des élèves réfléchies</h3>
+              <h3>Reflective student tracking</h3>
               <img src={Card1} alt='Card1' className="Card-Logo"/>
             </div>
             <div className="App-Cards">
-              <h3>Une reconnaisance facial à toute épreuve</h3>
+              <h3>Uncompromising facial recognition</h3>
               <img src={Card2} alt='Card2' className="Card-Logo"/>
             </div>
             <div className="App-Cards">
-              <h3>Une application approuvée par plusieurs établissements</h3>   
+              <h3>An application approved by several institutions</h3>   
               <img src={Card3} alt='Card3' className="Card-Logo"/>       
             </div>
           </div>
@@ -90,37 +90,37 @@ function App() {
 
         <div className="banniere2">
           <div className="Body-Dialog2">
-            <span>"Nous cherchons à assurer un suivi de vos élèves"</span>
+            <span>"We seek to follow up on your students"</span>
           </div>
         </div>
 
         <div id="contact" className="Main2">
           <div className="Title-Contact">
-            <h2 className="point_fort">L'équipe Ar U-Here</h2>
+            <h2 className="point_fort">Ar U-Here Team</h2>
           </div>
           <div className="Table-Cards">
             <div className="App-Cards">
-              <span>Responsable Backend</span>
+              <span>Backend Manager</span>
               <h3>Nicolas DASILVA</h3>
               <img src={Nicolas} alt='Card1' className="Card-Logo Card-Radius"/>
             </div>
             <div className="App-Cards">
-              <span>Chef de projet & Scrum master</span>
+              <span>Project manager & Scrum master</span>
               <h3>Anthony GOTI</h3>
               <img src={Anthony} alt='Card2' className="Card-Logo Card-Radius"/>
             </div>
             <div className="App-Cards">
-              <span>Assistant Back&Front</span>
+              <span>Back&Front Assistant</span>
               <h3>Thomas BOUTET</h3>
               <img src={Thomas} alt='Card3' className="Card-Logo Card-Radius"/>       
             </div>
             <div className="App-Cards">
-              <span>Responsable Frontend</span>
+              <span>Frontend Manager</span>
               <h3>Julien PAVONI</h3>
               <img src={Julien} alt='Card3' className="Card-Logo Card-Radius"/>       
             </div>
             <div className="App-Cards">
-              <span>UI/UX Design & Backend</span>
+              <span>Design UI/UX & Backend</span>
               <h3>Federico MERETO</h3>
               <img src={Federico} alt='Card3' className="Card-Logo Card-Radius"/>       
             </div>

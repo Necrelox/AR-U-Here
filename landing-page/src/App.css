@@ -195,7 +195,6 @@ main > p {
   background-color: #B4DFE5;
   box-shadow: 4px 4px 4px 4px rgb(19, 29, 46);
   display: flex;
-  justify-content: end;
 }
 
 .Body-Dialog {
@@ -360,6 +359,10 @@ a:link {
     width: 100px;
     height: 100px;
   }
+  .App-Cards {
+    margin-left: 1%;
+    margin-right: 1%;
+  }
 }
 
 @media screen and (max-width: 1000px) {
@@ -372,8 +375,8 @@ a:link {
   }
   .App-Cards {
     width: 80%;
-    margin-top: 3%;
-    margin-bottom: 3%;
+    margin-top: 1%;
+    margin-bottom: 1%;
     padding-left: 5%;
     padding-right: 5%;
     flex-direction: row-reverse;
@@ -401,7 +404,10 @@ a:link {
     padding-left: 10%;
     padding-right: 10%;
   }
-
+  .App-Cards {
+    margin-left: 1%;
+    margin-right: 1%;
+  }
   .Body-Title {
     font-size: 40px;
   }
@@ -410,6 +416,10 @@ a:link {
   }
   .Body-Dialog2 > span {
     font-size: 1rem;
+  }
+  .Card-Logo {
+    width: 100px;
+    height: 100px;
   }
 }
 
@@ -428,10 +438,18 @@ a:link {
   .App {
     height: 60vh;
   }
+  .App-Cards {
+    margin-left: 1%;
+    margin-right: 1%;
+  }
   .Body-Dialog > span {
     font-size: 2.5rem;
   }
   .Body-Dialog2 > span {
     font-size: 2.5rem;
+  }
+  .Card-Logo {
+    width: 150px;
+    height: 150px;
   }
 }
