@@ -195,6 +195,7 @@ main > p {
   background-color: #B4DFE5;
   box-shadow: 4px 4px 4px 4px rgb(19, 29, 46);
   display: flex;
+  justify-content: center;
 }
 
 .Body-Dialog {
