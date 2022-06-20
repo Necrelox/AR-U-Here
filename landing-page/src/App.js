@@ -1,13 +1,12 @@
 import './App.css';
 import Hamburger from 'hamburger-react';
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Logo from './assets/logo.png';
 import Logo2 from './assets/logofav.png';
 import Image1 from './assets/face-id-4841584-4034463.webp'
 import Card1 from './assets/card1.webp'
 import Card2 from './assets/card2.webp'
 import Card3 from './assets/card3.webp'
-import { NavLink } from 'react-router-dom';
 import Nicolas from './assets/nicolas.jpg';
 import Anthony from './assets/anthony.jpg';
 import Thomas from './assets/thomas.jpg';
@@ -20,14 +19,7 @@ import { lightTheme, darkTheme } from "./components/Themes"
 
 function App() {
   const [navbarOpen, setNavbarOpen] = useState(false)
-  const [theme, setTheme] = useState('light');
-  const themeToggler = () => {
-    console.log(theme);
-    theme === 'light' ? setTheme('dark') : setTheme('light')
-  }
-  const handleToggle = () => {
-    setNavbarOpen(!navbarOpen)
-  }
+  const [theme] = useState('light');
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
     <>

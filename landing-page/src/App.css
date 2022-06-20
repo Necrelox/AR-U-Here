@@ -46,11 +46,9 @@
   padding: 30px;
   text-decoration: none;
   position: relative;
-  text-decoration: none;
   line-height: 1em;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: transparent;
 }
 
 .App-nav > a:hover {
@@ -129,18 +127,14 @@ main > p {
   text-decoration: none;
   color: rgb(45, 50, 59);
   font-weight: bold;
-  font-size: 20px;
   margin: 50px;
   -webkit-text-stroke: 1px var(--primary-text-color);
   font-size: 30px;
   padding: 30px;
-  text-decoration: none;
   position: relative;
-  text-decoration: none;
   line-height: 1em;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: transparent;
 }
 
 .hamopen > a:hover {
