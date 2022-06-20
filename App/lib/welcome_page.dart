@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'animation.dart';
-import 'didactiel1.dart';
+import 'login.dart';
+import './didactiel/didactiel1.dart';
 
-// flutter pub get pour charger le font
 class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -25,25 +25,59 @@ class WelcomePage extends StatelessWidget {
           DelayAnimation(
               delay: 1000,
               child: Container(
-                  margin: const EdgeInsets.only(
-                    top: 60,
-                    bottom: 90,
-                  ),
-                  width: 320,
-                  height: 180,
-                  decoration: ShapeDecoration(
-                      color: Color(0XFFFBE8A6),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32.0))),
-                  padding: EdgeInsets.all(15),
-                  child: Text(
-                    "Rejoignez plus de 500 établissements qui utilisent AR U-HERE au quotidien.",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      color: Color(0XFF303C6C),
-                      fontSize: 26,
-                    ),
-                  ))),
+                margin: const EdgeInsets.only(
+                  top: 60,
+                  bottom: 90,
+                ),
+                width: 320,
+                height: 180,
+                decoration: ShapeDecoration(
+                    color: Color(0XFFFBE8A6),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(51.0))),
+                padding: EdgeInsets.all(15),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: const TextSpan(children: <TextSpan>[
+                          TextSpan(
+                              text: 'Rejoignez ',
+                              style: TextStyle(
+                                color: Color(0XFF303C6C),
+                                fontSize: 26,
+                              )),
+                          TextSpan(
+                              text: 'plus de 500 ',
+                              style: TextStyle(
+                                color: Color(0xFFF4976C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 26,
+                              )),
+                          TextSpan(
+                              text: 'établissements qui utilisent ',
+                              style: TextStyle(
+                                color: Color(0XFF303C6C),
+                                fontSize: 26,
+                              )),
+                          TextSpan(
+                              text: 'AR U-HERE ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFF4976C),
+                                fontSize: 26,
+                              )),
+                          TextSpan(
+                              text: 'au quotidient ',
+                              style: TextStyle(
+                                color: Color(0XFF303C6C),
+                                fontSize: 26,
+                              )),
+                        ]),
+                      ),
+                    ]),
+              )),
           DelayAnimation(
               delay: 1500,
               child: Container(

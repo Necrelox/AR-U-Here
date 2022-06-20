@@ -65,6 +65,8 @@ flutter:
     - asset/didactiel1.png
     - asset/epitech-logo.png
     - asset/didactiel3.jpg
+    - asset/didac-bar1.png
+    - asset/didac-bar2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
