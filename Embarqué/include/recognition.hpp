@@ -5,13 +5,13 @@
 ** Login   <necrelox@gmail.com>
 **
 ** Started on  Mon Jun 20 22:42:41 2022 Ruby
-** Last update Mon Jun 20 22:42:41 2022 Ruby
+** Last update Wed Jun 21 15:19:11 2022 Ruby
 */
 
 #ifndef RECOGNITION_HPP_
 # define RECOGNITION_HPP_
 
 #include <HUSKYLENS.h>
-#include "SoftwareSerial.h"
+
 
 #endif /* !RECOGNITION_HPP_ */
