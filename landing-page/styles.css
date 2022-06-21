@@ -42,8 +42,8 @@
   font-weight: bold;
   -webkit-text-stroke-color: var(--primary-text-color);
   -webkit-text-stroke-width: 1px;
-  font-size: 30px;
-  padding: 30px;
+  font-size: 20px;
+  padding: 10px;
   text-decoration: none;
   position: relative;
   line-height: 1em;
@@ -309,10 +309,6 @@ a:link {
 }
 
 @media screen and (max-width: 760px) {
-  .App-nav > a {
-    display: none;
-  }
-
   .Body-Logo {
     width: 150px;
     height: 150px;
@@ -361,6 +357,9 @@ a:link {
 }
 
 @media screen and (max-width: 1000px) {
+    .App-nav > a {
+        font-size: 10px;
+    }
   .Table-Cards {
     display: flex;
     flex-direction: column;
@@ -384,10 +383,9 @@ a:link {
 }
 
 @media screen and (max-width: 1220px) {
-  .App-nav > a {
-    display: none;
-  }
-
+    .App-nav > a {
+        font-size: 20px;
+    }
   .Body-Logo {
     width: 150px;
     height: 150px;
@@ -419,10 +417,6 @@ a:link {
 }
 
 @media screen and (min-width: 1220px) {
-  .hamburger-react {
-    display: none;
-  }
-
   .Body-Logo {
     width: 400px;
   }
