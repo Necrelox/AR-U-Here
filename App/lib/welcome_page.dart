@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'animation.dart';
-// import 'login.dart';
+import 'Login.dart';
 import './didactiel/didactiel1.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -95,7 +95,14 @@ class WelcomePage extends StatelessWidget {
                         fontSize: 26,
                       ),
                     ),
-                    onPressed: () {}),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Login(),
+                        ),
+                      );
+                    }),
               )),
           DelayAnimation(
               delay: 1800,
