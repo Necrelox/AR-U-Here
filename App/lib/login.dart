@@ -4,49 +4,52 @@ import 'package:flutter/services.dart';
 
 class Login extends StatelessWidget {
   Widget _email() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: BoxDecoration(
-            color: Color(0xFFB4DFE5),
-            borderRadius: BorderRadius.circular(51.0),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 6.0,
-                offset: Offset(0, 2),
-              ),
-            ],
-          ),
-          height: 60.0,
-          child: const TextField(
-            keyboardType: TextInputType.emailAddress,
-            style: TextStyle(
-              color: Color(0XFF303C6C),
-              fontSize: 20.0,
-              fontFamily: 'OpenSans',
+    return Container(
+      padding: EdgeInsets.only(top: 40.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const SizedBox(height: 10.0),
+          Container(
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+              color: Color(0xFFB4DFE5),
+              borderRadius: BorderRadius.circular(51.0),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 6.0,
+                  offset: Offset(0, 2),
+                ),
+              ],
             ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 12, left: 30.0),
-              prefixIcon: Icon(
-                Icons.email,
+            height: 60.0,
+            child: const TextField(
+              keyboardType: TextInputType.emailAddress,
+              style: TextStyle(
                 color: Color(0XFF303C6C),
-              ),
-              hintText: 'Enter your Email',
-              hintStyle: TextStyle(
                 fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-                color: Color(0XFF303C6C),
                 fontFamily: 'OpenSans',
               ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(top: 12, left: 30.0),
+                prefixIcon: Icon(
+                  Icons.email,
+                  color: Color(0XFF303C6C),
+                ),
+                hintText: 'Enter your Email',
+                hintStyle: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0XFF303C6C),
+                  fontFamily: 'OpenSans',
+                ),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -120,7 +123,7 @@ class Login extends StatelessWidget {
 
   Widget _loginBtn() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 200.0),
+      padding: EdgeInsets.only(top: 160.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
@@ -147,10 +150,9 @@ class Login extends StatelessWidget {
   Widget _register() {
     return Container(
       alignment: Alignment.center,
-      // ignore: deprecated_member_use
       child: FlatButton(
         onPressed: () => print("Register"),
-        padding: const EdgeInsets.only(top: 0.0),
+        // padding: const EdgeInsets.only(top: 0.0),
         child: const Text(
           "Don't have account ? Register",
           style: TextStyle(
@@ -204,7 +206,7 @@ class Login extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(height: 30),
+                      SizedBox(height: 40),
                       _email(),
                       _password(),
                       _forgotPwd(),
