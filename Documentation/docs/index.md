@@ -1,4 +1,4 @@
-# Bienvenue sur SkillZBox
+# Bienvenue sur AR-U-Here
 
 ### But du projet :
 
@@ -13,7 +13,7 @@ Le but du projet, est de de faciliter et d’automatiser la gestion des présenc
 
 **AR-U-Here** a pour objectif de faciliter la gestion de votre présence au sein de votre établissement scolaire.
     
-Typiquement, si vous oublier votre carte d'étudiant ou votre carnet vous pouvez signez sur votre portble ou vous faire valider par votre professeur via la reconnaissance facial.
+Typiquement, si vous oublier votre carte d'étudiant ou votre carnet vous pouvez signez sur votre portable ou vous faire valider par votre professeur via la reconnaissance facial.
 
 ### Differentes parties du projet :
 

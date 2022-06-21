@@ -15,7 +15,6 @@
     - **`USER_MACADDRESS`** : Les adresses MAC des utilisateurs
     - **`USER_FRIEND`** : Les amis des utilisateurs
     - **`USER_DEVICE`** : Les appareils utilisés par les utilisateurs
-    - **`USER_ACTION`** : Les actions des utilisateurs
     - **`USER_TOKEN`** : Les token
     - **`USER_FRIEND_REQUESTS`** : Les amis des utilisateurs
      
