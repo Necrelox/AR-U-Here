@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'animation.dart';
-import 'Login.dart';
+import 'Registration/login.dart';
 import './didactiel/didactiel1.dart';
 
 class WelcomePage extends StatelessWidget {

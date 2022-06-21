@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_new
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'register.dart';
 
 class Login extends StatelessWidget {
   Widget _email() {
@@ -147,11 +148,18 @@ class Login extends StatelessWidget {
     );
   }
 
-  Widget _register() {
+  Widget _register(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       child: FlatButton(
-        onPressed: () => print("Register"),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Register(),
+            ),
+          );
+        },
         // padding: const EdgeInsets.only(top: 0.0),
         child: const Text(
           "Don't have account ? Register",
@@ -211,7 +219,7 @@ class Login extends StatelessWidget {
                       _password(),
                       _forgotPwd(),
                       _loginBtn(),
-                      _register(),
+                      _register(context),
                     ],
                   ),
                 ],
