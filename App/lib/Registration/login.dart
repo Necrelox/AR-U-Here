@@ -2,8 +2,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'register.dart';
+import '../api.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  Login_state createState() => Login_state();
+}
+
+class Login_state extends State<Login> {
+  final _mailControler = TextEditingController();
+  final _passwControler = TextEditingController();
+  String email = '';
+  String pwd = '';
+
   Widget _email() {
     return Container(
       padding: EdgeInsets.only(top: 40.0),
@@ -14,7 +25,7 @@ class Login extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(
-              color: Color(0xFFB4DFE5),
+              color: const Color(0xFFB4DFE5),
               borderRadius: BorderRadius.circular(51.0),
               boxShadow: const [
                 BoxShadow(
@@ -25,14 +36,15 @@ class Login extends StatelessWidget {
               ],
             ),
             height: 60.0,
-            child: const TextField(
+            child: TextField(
+              controller: _mailControler,
               keyboardType: TextInputType.emailAddress,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0XFF303C6C),
                 fontSize: 20.0,
                 fontFamily: 'OpenSans',
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 12, left: 30.0),
                 prefixIcon: Icon(
@@ -76,13 +88,14 @@ class Login extends StatelessWidget {
               ],
             ),
             height: 60.0,
-            child: const TextField(
+            child: TextField(
+              controller: _passwControler,
               obscureText: true,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0XFF303C6C),
                 fontFamily: 'OpenSans',
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14.0),
                 prefixIcon: Icon(
@@ -128,7 +141,13 @@ class Login extends StatelessWidget {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => print('Login Button Pressed'),
+        onPressed: () async {
+          setState(() {
+            email = _mailControler.text;
+            pwd = _passwControler.text;
+          });
+          post_login("https://jsonplaceholder.typicode.com/posts", email, pwd);
+        },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(51.0),

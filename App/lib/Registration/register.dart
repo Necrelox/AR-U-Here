@@ -183,16 +183,14 @@ class Register_state extends State<Register> {
             pwd = _passwControler.text;
             school = _schoolControler.text;
           });
-          print(mail);
-          print(pwd);
-          print(school);
-          // post_register("https://jsonplaceholder.typicode.com/posts", , pwd, school)
+          post_register(
+              "https://jsonplaceholder.typicode.com/posts", mail, pwd, school);
         },
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(51.0),
         ),
-        color: Color(0XFF303C6C),
+        color: const Color(0XFF303C6C),
         child: const Text(
           'SIGN IN',
           style: TextStyle(
