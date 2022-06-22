@@ -4,6 +4,7 @@ import '../animation.dart';
 
 class Planning extends StatefulWidget {
   @override
+  // ignore: library_private_types_in_public_api
   _PlanningState createState() => _PlanningState();
 }
 
@@ -12,7 +13,7 @@ class _PlanningState extends State<Planning> {
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
 
-  TextEditingController _eventController = TextEditingController();
+  final TextEditingController _eventController = TextEditingController();
 
   @override
   void initState() {
@@ -29,7 +30,7 @@ class _PlanningState extends State<Planning> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFFF4976C),
+      backgroundColor: const Color(0XFFF4976C),
       appBar: AppBar(
         centerTitle: false,
         actions: [
@@ -67,15 +68,15 @@ class _PlanningState extends State<Planning> {
               child: Container (
                 width: double.infinity,
                 alignment: Alignment.center,
-                padding: EdgeInsets.fromLTRB(25,10,25,0),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.fromLTRB(25,10,25,0),
+                decoration: const BoxDecoration(
                 color: Color(0XFFFBE8A6),
                 // ignore: prefer_const_constructors
-                borderRadius: new BorderRadius.only(
-                  bottomRight: const Radius.circular(51.0),
-                  bottomLeft: const Radius.circular(51.0),
-                  topLeft: const Radius.circular(51.0),
-                  topRight: const Radius.circular(51.0),
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(51.0),
+                  bottomLeft: Radius.circular(51.0),
+                  topLeft: Radius.circular(51.0),
+                  topRight: Radius.circular(51.0),
                 )),
                 margin: const EdgeInsets.only(
                   top: 20,
@@ -110,17 +111,17 @@ class _PlanningState extends State<Planning> {
                 calendarStyle: CalendarStyle(
                   isTodayHighlighted: true,
                   selectedDecoration: BoxDecoration(
-                    color: Color(0XFFD2FDFF),
+                    color: const Color(0XFFD2FDFF),
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  selectedTextStyle: TextStyle(color: Colors.black),
+                  selectedTextStyle: const TextStyle(color: Colors.black),
                   todayDecoration: BoxDecoration(
-                    color: Color(0XFFB4DFE5),
+                    color: const Color(0XFFB4DFE5),
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  todayTextStyle: TextStyle(color: Colors.black),
+                  todayTextStyle: const TextStyle(color: Colors.black),
                   defaultDecoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(5.0),
@@ -131,7 +132,7 @@ class _PlanningState extends State<Planning> {
                   ),
                 ),
 
-                headerStyle: HeaderStyle(
+                headerStyle: const HeaderStyle(
                   formatButtonVisible: false,
                   titleCentered: true,
                   formatButtonShowsNext: false,
@@ -147,7 +148,7 @@ class _PlanningState extends State<Planning> {
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.fromLTRB(25,10,25,0),
+                  padding: const EdgeInsets.fromLTRB(25,10,25,0),
                   margin: const EdgeInsets.only(
                     top: 20,
                     bottom: 10,
@@ -170,43 +171,61 @@ class _PlanningState extends State<Planning> {
                 ),
               ),
 
-              DelayAnimation(
-                delay: 500,
-                child: Container(
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.fromLTRB(25,75,25,75),
-                  margin: const EdgeInsets.only(
-                    top: 10,
-                    bottom: 10,
-                    left: 20,
-                    right: 20,
-                  ),
-                  decoration: BoxDecoration(
-                      color: Color(0XFFD2FDFF),
-                      // ignore: prefer_const_constructors
-                      borderRadius: new BorderRadius.only(
-                        bottomRight: const Radius.circular(51.0),
-                        bottomLeft: const Radius.circular(51.0),
-                        topLeft: const Radius.circular(51.0),
-                        topRight: const Radius.circular(51.0),
-                      )),
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: const TextSpan(children: <TextSpan>[
-                      TextSpan(
-                          text:
-                              "Calendrier",
-                          style: TextStyle(
-                            color: Color(0XFF303C6C),
-                            fontSize: 24,
-                          )),
-                    ]),
-                  ),
+            DelayAnimation(
+              delay: 500,
+              child: Container(
+                width: double.infinity,
+                alignment: Alignment.center,
+                margin: const EdgeInsets.only(
+                  top: 10,
+                  bottom: 10,
+                  left: 20,
+                  right: 20,
                 ),
+                decoration: const BoxDecoration(
+                    color: Color(0XFFD2FDFF),
+                    // ignore: prefer_const_constructors
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(51.0),
+                      bottomLeft: Radius.circular(51.0),
+                      topLeft: Radius.circular(51.0),
+                      topRight: Radius.circular(51.0),
+                    )),
+                child: Column(children: <Widget>[  
+                  Container(  
+                    margin: EdgeInsets.all(20),  
+                    child: Table(  
+                      children: [  
+                        TableRow( children: [
+                          Column(children:const [Text('Heure', style: TextStyle(fontSize: 20.0))]),  
+                          Column(children:const [Text('Cours', style: TextStyle(fontSize: 20.0))]),  
+                          Column(children:const [Text('Salle', style: TextStyle(fontSize: 20.0))]),  
+                          Column(children:const [Text('Prof.', style: TextStyle(fontSize: 20.0))]),  
+                        ]),  
+                        TableRow( children: [  
+                          Column(children:const [Text('9h')]),  
+                          Column(children:const [Text('E.P.S')]),  
+                          Column(children:const [Text('Gymnase')]),  
+                          Column(children:const [Text('Mr. Sarde')]),  
+                        ]),  
+                        TableRow( children: [  
+                          Column(children:const [Text('12h')]),  
+                          Column(children:const [Text('Repas')]),  
+                          Column(children:const [Text('Cantine')]),  
+                          Column(children:const [Text('Mr. Brun')]),  
+                        ]),  
+                        TableRow( children: [  
+                          Column(children:const [Text('13h')]),  
+                          Column(children:const [Text('S.V.T.')]),  
+                          Column(children:const [Text('Math')]),  
+                          Column(children:const [Text('Mr. Rose')]),  
+                        ]),  
+                      ],  
+                    ),  
+                  ), 
+                ])  
               ),
-
-            
+            ),
           ],
         ),
       ),
