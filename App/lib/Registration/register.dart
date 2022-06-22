@@ -1,10 +1,25 @@
 // ignore_for_file: unnecessary_new
 import 'dart:developer';
+import 'package:flutter_application_1/api.dart';
+
 import 'login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
+  @override
+  Register_state createState() => Register_state();
+}
+
+class Register_state extends State<Register> {
+  final _mailControler = TextEditingController();
+  final _passwControler = TextEditingController();
+  final _schoolControler = TextEditingController();
+
+  String mail = '';
+  String pwd = '';
+  String school = '';
+
   Widget _email() {
     return Container(
       padding: EdgeInsets.only(top: 40.0),
@@ -26,14 +41,15 @@ class Register extends StatelessWidget {
               ],
             ),
             height: 60.0,
-            child: const TextField(
+            child: TextField(
+              controller: _mailControler,
               keyboardType: TextInputType.emailAddress,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0xFFB4DFE5),
                 fontSize: 20.0,
                 fontFamily: 'OpenSans',
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 12, left: 30.0),
                 prefixIcon: Icon(
@@ -77,13 +93,14 @@ class Register extends StatelessWidget {
               ],
             ),
             height: 60.0,
-            child: const TextField(
+            child: TextField(
+              controller: _passwControler,
               obscureText: true,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0xFFB4DFE5),
                 fontFamily: 'OpenSans',
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14.0),
                 prefixIcon: Icon(
@@ -127,13 +144,13 @@ class Register extends StatelessWidget {
               ],
             ),
             height: 60.0,
-            child: const TextField(
-              obscureText: true,
-              style: TextStyle(
+            child: TextField(
+              controller: _schoolControler,
+              style: const TextStyle(
                 color: Color(0xFFB4DFE5),
                 fontFamily: 'OpenSans',
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14.0),
                 prefixIcon: Icon(
@@ -160,7 +177,17 @@ class Register extends StatelessWidget {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => print('Login Button Pressed'),
+        onPressed: () async {
+          setState(() {
+            mail = _mailControler.text;
+            pwd = _passwControler.text;
+            school = _schoolControler.text;
+          });
+          print(mail);
+          print(pwd);
+          print(school);
+          // post_register("https://jsonplaceholder.typicode.com/posts", , pwd, school)
+        },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(51.0),
@@ -183,7 +210,7 @@ class Register extends StatelessWidget {
   Widget _login(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      child: FlatButton(
+      child: MaterialButton(
         onPressed: () {
           Navigator.push(
             context,
@@ -192,7 +219,7 @@ class Register extends StatelessWidget {
             ),
           );
         },
-        // padding: const EdgeInsets.only(top: 0.0),
+        padding: const EdgeInsets.only(top: 0.0),
         child: const Text(
           "Already registered ? Sign-in",
           style: TextStyle(
