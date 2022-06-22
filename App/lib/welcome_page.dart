@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'animation.dart';
 // import 'login.dart';
 import './didactiel/didactiel1.dart';
+import './test/test.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -95,7 +96,14 @@ class WelcomePage extends StatelessWidget {
                         fontSize: 26,
                       ),
                     ),
-                    onPressed: () {}),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Test(),
+                        ),
+                      );
+                    }),
               )),
           DelayAnimation(
               delay: 1800,
