@@ -3,9 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'animation.dart';
 // import 'login.dart';
 import './didactiel/didactiel1.dart';
-import 'dashboard/planning.dart';
 
 class WelcomePage extends StatelessWidget {
+  const WelcomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,14 +97,7 @@ class WelcomePage extends StatelessWidget {
                         fontSize: 26,
                       ),
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Planning(),
-                        ),
-                      );
-                    }),
+                    onPressed: () {}),
               )),
           DelayAnimation(
               delay: 1800,

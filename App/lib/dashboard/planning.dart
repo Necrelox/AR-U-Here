@@ -20,7 +20,6 @@ class _PlanningState extends State<Planning> {
     super.initState();
   }
 
-
   @override
   void dispose() {
     _eventController.dispose();
@@ -141,8 +140,6 @@ class _PlanningState extends State<Planning> {
               ),
             ),
 
-            
-
             DelayAnimation(
                 delay: 500,
                 child: Container(
@@ -191,17 +188,25 @@ class _PlanningState extends State<Planning> {
                       topLeft: Radius.circular(51.0),
                       topRight: Radius.circular(51.0),
                     )),
-                child: Column(children: <Widget>[  
-                  Container(  
-                    margin: EdgeInsets.all(20),  
+                child: Column(children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(20, 20, 20, 5),
                     child: Table(  
-                      children: [  
+                      children: [
                         TableRow( children: [
                           Column(children:const [Text('Heure', style: TextStyle(fontSize: 20.0))]),  
                           Column(children:const [Text('Cours', style: TextStyle(fontSize: 20.0))]),  
                           Column(children:const [Text('Salle', style: TextStyle(fontSize: 20.0))]),  
                           Column(children:const [Text('Prof.', style: TextStyle(fontSize: 20.0))]),  
-                        ]),  
+                        ]),
+                      ],
+                    ),
+                  ),
+
+                  Container(  
+                    padding: const EdgeInsets.all(20),
+                    child: Table(  
+                      children: [ 
                         TableRow( children: [  
                           Column(children:const [Text('9h')]),  
                           Column(children:const [Text('E.P.S')]),  
