@@ -138,7 +138,7 @@ export abstract class AccountUtils extends ControllerUtils {
 
     protected async addNewIpOrUpdate(user: Models.User.IUser, ip: string) {
         const userIP: Models.User.IIP[] = await DBQueries.UserQuery.Ip.select({
-            ip: ip,
+            ip,
             userUuid: user.uuid
         });
         if (!userIP || userIP.length === 0) {

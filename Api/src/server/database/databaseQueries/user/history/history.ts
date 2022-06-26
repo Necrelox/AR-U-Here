@@ -7,8 +7,8 @@ export class History {
     public static select(history: Models.User.IHistory): Promise<Models.User.IHistory[]> {
         return DatabaseKnex.getInstance().select().into(History.TABLE_NAME)
             .where(history)
-            .then((history: Models.User.IHistory[]) => {
-                return history;
+            .then((hist: Models.User.IHistory[]) => {
+                return hist;
             }).catch((err: ErrorDatabase) => {
                 throw {
                     code: err?.code,
