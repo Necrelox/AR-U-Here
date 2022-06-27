@@ -1,10 +1,11 @@
 // ignore_for_file: unnecessary_new
 import 'dart:developer';
-import 'package:flutter_application_1/api.dart';
+import 'package:flutter_application_1/api/api.dart';
 
 import 'login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../api/api.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -184,7 +185,7 @@ class Register_state extends State<Register> {
             school = _schoolControler.text;
           });
           post_register(
-              "https://jsonplaceholder.typicode.com/posts", mail, pwd, school);
+              "http://localhost:3002/account/signup", mail, pwd, school);
         },
         padding: const EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(

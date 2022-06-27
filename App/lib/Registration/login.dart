@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'register.dart';
-import '../api.dart';
+import '../api/api.dart';
 
 class Login extends StatefulWidget {
   @override
