@@ -32,6 +32,13 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+./ios/Flutter/Debug.xcconfig
+./ios/Flutter/Release.xcconfig
+./ios/Podfile
+./ios/Flutter/Flutter-Debug.xcconfig
+./ios/Flutter/Flutter-Release.xconfig
+
+
 
 # Web related
 lib/generated_plugin_registrant.dart
