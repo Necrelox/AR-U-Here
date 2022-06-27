@@ -5,6 +5,8 @@ import 'animation.dart';
 import './didactiel/didactiel1.dart';
 
 class WelcomePage extends StatelessWidget {
+  const WelcomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
