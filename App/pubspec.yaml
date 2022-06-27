@@ -34,6 +34,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  table_calendar: ^3.0.6
   google_fonts: ^2.1.0
   font_awesome_flutter: ^9.1.0
   http: ^0.13.4
@@ -68,6 +69,7 @@ flutter:
     - asset/didactiel3.jpg
     - asset/didac-bar1.png
     - asset/didac-bar2.png
+    - asset/marin.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
