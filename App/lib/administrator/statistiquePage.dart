@@ -62,43 +62,93 @@ return(
 );
 }
 
-Widget _card(BuildContext context) {
+Widget _card1(BuildContext context) {
 return(
   Center(
     child: Padding(
-        padding: EdgeInsets.fromLTRB(0, 50, 0, 50),
+      padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
       child: Container(
-        width: 480,
-        height: 300,
         alignment: Alignment(0.0, -1.0),
         //BoxDecoration Widget
-
         child: Padding(
-          padding: const EdgeInsets.all(25.0),
-         child: IntrinsicHeight(
-        child: new Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Container(
-        width: 200,
-        height: 100,
-          child: Text("Total Sessions", style: TextStyle(fontSize: 15)),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(51),
-          color: Color(0xFF303C6C),
-        ), //BoxDecoration
+          padding: const EdgeInsets.all(0.0),
+          child: IntrinsicHeight(
+          // ignore: unnecessary_new
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                  width: 200,
+                  height: 140,
+                  child: Text("Total Sessions", style: TextStyle(fontSize: 15, color: Color(0xFFD2FDFF), fontWeight: FontWeight.bold)),
+                  padding: const EdgeInsets.all(10.0),
+                  alignment: Alignment(0.0, -1.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(51),
+                    color: Color(0xFF303C6C),
+                  ), //BoxDecoration
+                ),
+                Container(
+                  width: 200,
+                  height: 140,
+                  child: Text("Présences", style: TextStyle(fontSize: 15, color: Color(0xFF303C6C), fontWeight: FontWeight.bold)),
+                  padding: const EdgeInsets.all(10.0),
+                  alignment: Alignment(0.0, -1.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(51),
+                    color: Color(0xFFB4DFE5),
+                  ), //BoxDecoration
+                ),
+              ],
+            )
+          )
         ),
-        Container(
-        width: 200,
-        height: 100,
-          child: Text("Présences", style: TextStyle(fontSize: 15)), 
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(51),
-          color: Color(0xFFB4DFE5),
-        ), //BoxDecoration
-        ),
-      ],
-    ))
+      ),
+    )
+  )
+);
+}
+
+Widget _card2(BuildContext context) {
+return(
+  Center(
+    child: Padding(
+      padding: EdgeInsets.fromLTRB(0, 25, 0, 50),
+      child: Container(
+        alignment: Alignment(0.0, -1.0),
+        //BoxDecoration Widget
+        child: Padding(
+          padding: const EdgeInsets.all(0.0),
+          child: IntrinsicHeight(
+          // ignore: unnecessary_new
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                  width: 200,
+                  height: 140,
+                  child: Text("Absences justifiées", style: TextStyle(fontSize: 15, color: Color(0xFF303C6C), fontWeight: FontWeight.bold)),
+                  padding: const EdgeInsets.all(10.0),
+                  alignment: Alignment(0.0, -1.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(51),
+                    color: Color(0xFFD2FDFF),
+                  ), //BoxDecoration
+                ),
+                Container(
+                  width: 200,
+                  height: 140,
+                  child: Text("Absences", style: TextStyle(fontSize: 15, color: Color(0xFF303C6C), fontWeight: FontWeight.bold)),
+                  padding: const EdgeInsets.all(10.0),
+                  alignment: Alignment(0.0, -1.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(51),
+                    color: Color(0xFFF4976C),
+                  ), //BoxDecoration
+                ),
+              ],
+            )
+          )
         ),
       ),
     )
@@ -184,7 +234,8 @@ class statistiquePage extends StatelessWidget {
                     children: <Widget>[
                       _graph(context),
                       _text(context),
-                      _card(context),
+                      _card1(context),
+                      _card2(context),
                       _absence(context),
                     ],
                   ),
