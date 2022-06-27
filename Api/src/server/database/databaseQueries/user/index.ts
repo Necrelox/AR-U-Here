@@ -6,7 +6,5 @@ export {Macaddress} from './macaddress/macaddress';
 export {Logo} from './logo/logo';
 export {Ip} from './ip/ip';
 export {History} from './history/history';
-export {Friend} from './friend/friend';
-export {FriendRequest} from './friendRequest/friendRequest';
 export {Device} from './device/device';
 export {Action} from './action/action';
