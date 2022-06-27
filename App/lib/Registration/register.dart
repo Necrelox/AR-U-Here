@@ -185,7 +185,7 @@ class Register_state extends State<Register> {
             school = _schoolControler.text;
           });
           post_register(
-              "http://localhost:3002/account/signup", mail, pwd, school);
+              "http://10.0.2.2:3002/account/signup/", mail, pwd, school);
         },
         padding: const EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
@@ -193,7 +193,7 @@ class Register_state extends State<Register> {
         ),
         color: const Color(0XFF303C6C),
         child: const Text(
-          'SIGN IN',
+          'SIGN UP',
           style: TextStyle(
             color: Color(0xFFB4DFE5),
             letterSpacing: 1.5,
