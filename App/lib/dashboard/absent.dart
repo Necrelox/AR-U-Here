@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../animation.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
+import 'package:file_picker/file_picker.dart';
 
 class Absent extends StatefulWidget {
   @override
@@ -9,7 +12,6 @@ class Absent extends StatefulWidget {
 }
 
 class _PlanningState extends State<Absent> {
-  CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
 
@@ -26,14 +28,27 @@ class _PlanningState extends State<Absent> {
     super.dispose();
   }
 
+  List<DropdownMenuItem<String>> get dropdownItems{
+  List<DropdownMenuItem<String>> menuItems = [
+    const DropdownMenuItem(value: "Sélectionner", child: Text("Sélectionner")),
+    const DropdownMenuItem(value: "Maladie", child: Text("Maladie")),
+    const DropdownMenuItem(value: "Motif familial", child: Text("Motif familial")),
+    const DropdownMenuItem(value: "Autres", child: Text("Autres")),
+  ];
+  return menuItems;
+}
+
+  final format = DateFormat("yyyy-MM-dd HH:mm");
+
+  String selectedValue = "Sélectionner";
   @override
   Widget build(BuildContext context) {
-    String dropdownValue = 'One';
     return Scaffold(
       backgroundColor: const Color(0XFFD2FDFF),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -41,6 +56,7 @@ class _PlanningState extends State<Absent> {
                 alignment: Alignment.center,
               ),
             ),
+            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -68,6 +84,7 @@ class _PlanningState extends State<Absent> {
                 )),
               ),
             ),
+
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -96,6 +113,7 @@ class _PlanningState extends State<Absent> {
                 )),
               ),
             ),
+            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -123,6 +141,7 @@ class _PlanningState extends State<Absent> {
                 )),
               ),
             ),
+            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -132,34 +151,28 @@ class _PlanningState extends State<Absent> {
                   left: 50,
                   right: 50,
                 ),
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 decoration: const BoxDecoration(
                     color: Color(0XFFFBE8A6),
                     // ignore: prefer_const_constructors
                     borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Row(
-                  children: [
-                    DropdownButton<String>(
-                      value: dropdownValue,
-                      icon: const Icon(Icons.arrow_downward),
-                      elevation: 16,
-                      style: const TextStyle(color: Colors.grey),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownValue = newValue!;
-                        });
-                      },
-                      items: <String>['One', 'Two', 'Free', 'Four']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ],
+                child: DropdownButton<String>(
+                  value: selectedValue,
+                  icon: const Icon(Icons.arrow_downward),
+                  isExpanded: true,
+                  elevation: 16,
+                  style: const TextStyle(color: Color(0XFF303C6C)),
+                  underline: const SizedBox(),
+                  onChanged: (String? newValue){
+                    setState(() {
+                      selectedValue = newValue!;
+                    });
+                  },
+                  items: dropdownItems,
                 ),
               ),
             ),
+
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -180,16 +193,18 @@ class _PlanningState extends State<Absent> {
                       style: TextStyle(
                         color: Color(0XFF303C6C),
                         fontSize: 13,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 )),
               ),
             ),
+            
             DelayAnimation(
               delay: 500,
               child: Container(
-                padding: const EdgeInsets.only(left: 15, bottom: 5),
+                padding: const EdgeInsets.all(10),
                 margin: const EdgeInsets.only(
                   top: 10,
                   bottom: 10,
@@ -200,17 +215,35 @@ class _PlanningState extends State<Absent> {
                     color: Color(0XFFFBE8A6),
                     // ignore: prefer_const_constructors
                     borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Row(
-                  children: <Widget>[
-                    Row(
-                      children: const <Widget>[
-                        SizedBox(width: 300, child: TextField()),
-                      ],
-                    )
-                  ],
-                ),
+                child: Column(children: <Widget>[
+                  DateTimeField(
+                    format: format,
+                    decoration: const InputDecoration.collapsed(
+                      hintText: "Choisir une date de début",
+                      border: InputBorder.none,
+                    ),
+                    onShowPicker: (context, currentValue) async {
+                      final date = await showDatePicker(
+                          context: context,
+                          firstDate: DateTime(1900),
+                          initialDate: currentValue ?? DateTime.now(),
+                          lastDate: DateTime(2100));
+                      if (date != null) {
+                        final time = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.fromDateTime(
+                              currentValue ?? DateTime.now()),
+                        );
+                        return DateTimeField.combine(date, time);
+                      } else {
+                        return currentValue;
+                      }
+                    },
+                  ),
+                ]),
               ),
             ),
+            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -231,16 +264,18 @@ class _PlanningState extends State<Absent> {
                       style: TextStyle(
                         color: Color(0XFF303C6C),
                         fontSize: 13,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 )),
               ),
             ),
+            
             DelayAnimation(
               delay: 500,
               child: Container(
-                padding: const EdgeInsets.only(left: 15, bottom: 5),
+                padding: const EdgeInsets.all(10),
                 margin: const EdgeInsets.only(
                   top: 10,
                   bottom: 10,
@@ -251,17 +286,35 @@ class _PlanningState extends State<Absent> {
                     color: Color(0XFFFBE8A6),
                     // ignore: prefer_const_constructors
                     borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Row(
-                  children: <Widget>[
-                    Row(
-                      children: const <Widget>[
-                        SizedBox(width: 300, child: TextField()),
-                      ],
-                    )
-                  ],
-                ),
+                child: Column(children: <Widget>[
+                  DateTimeField(
+                    format: format,
+                    decoration: const InputDecoration.collapsed(
+                      hintText: "Choisir une date de fin",
+                      border: InputBorder.none,
+                    ),
+                    onShowPicker: (context, currentValue) async {
+                      final date = await showDatePicker(
+                          context: context,
+                          firstDate: DateTime(1900),
+                          initialDate: currentValue ?? DateTime.now(),
+                          lastDate: DateTime(2100));
+                      if (date != null) {
+                        final time = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.fromDateTime(
+                              currentValue ?? DateTime.now()),
+                        );
+                        return DateTimeField.combine(date, time);
+                      } else {
+                        return currentValue;
+                      }
+                    },
+                  ),
+                ]),
               ),
             ),
+            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -269,7 +322,7 @@ class _PlanningState extends State<Absent> {
                 alignment: Alignment.topLeft,
                 padding: const EdgeInsets.fromLTRB(25, 10, 25, 0),
                 margin: const EdgeInsets.only(
-                  top: 10,
+                  top: 0,
                   bottom: 0,
                   left: 30,
                   right: 20,
@@ -278,7 +331,7 @@ class _PlanningState extends State<Absent> {
                     text: const TextSpan(
                   children: [
                     TextSpan(
-                      text: "Document",
+                      text: "Commentaire",
                       style: TextStyle(
                         color: Color(0XFF303C6C),
                         fontSize: 13,
@@ -289,6 +342,7 @@ class _PlanningState extends State<Absent> {
                 )),
               ),
             ),
+            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -307,13 +361,30 @@ class _PlanningState extends State<Absent> {
                   children: <Widget>[
                     Row(
                       children: const <Widget>[
-                        SizedBox(width: 300, height: 150, child: TextField()),
+                        SizedBox(
+                          width: 300,
+                          height: 150,
+                          child: TextField(
+                            keyboardType: TextInputType.multiline,
+                            textInputAction: TextInputAction.newline,
+                            minLines: 1,
+                            maxLines: 6,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                hintText: "À compléter..."),
+                          ),
+                        ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
+            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -326,71 +397,61 @@ class _PlanningState extends State<Absent> {
                   left: 30,
                   right: 20,
                 ),
-                child: RichText(
-                    text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Ou importer un document",
-                      style: TextStyle(
-                        color: Color(0XFF303C6C),
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                      ),
+                child: InkWell(
+                  onTap: () async {
+                    final result = await FilePicker.platform.pickFiles();
+                  },
+                  child: const Text(
+                    'Importer un document',
+                    style: TextStyle(
+                      color: Color(0XFF303C6C),
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                )),
+                    )
+                ),
               ),
             ),
 
             DelayAnimation(
               delay: 500,
               child: Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                margin: const EdgeInsets.only(top: 20),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(const Color(0XFF303C6C)),
-                    backgroundColor: MaterialStateProperty.all<Color>(const Color(0XFFF4976C)),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: const BorderSide(color: Color.fromARGB(255, 171, 79, 37)),
-                      )
-                    )
-                  ),
-                  onPressed: () => {},
-                  child: const Text(
-                    "Envoyer",
-                    style: TextStyle(fontSize: 16)
-                  )
-                )
-              ),
-            ),
+              margin: const EdgeInsets.only(top: 20),
+              child: Row (
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
 
-            DelayAnimation(
-              delay: 500,
-              child: Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                margin: const EdgeInsets.only(top: 20,),
-                child: ElevatedButton(
+              ElevatedButton(
                   style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(const Color(0XFFF4976C)),
-                    backgroundColor: MaterialStateProperty.all<Color>(const Color(0XFF303C6C)),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                          const Color(0XFF303C6C)),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color(0XFFF4976C)),
+                      shape:
+                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0),
-                        side: const BorderSide(color: Color.fromARGB(255, 171, 79, 37)),
-                      )
-                    )
-                  ),
+                      ))),
                   onPressed: () => {},
-                  child: const Text(
-                    "Annuler",
-                    style: TextStyle(fontSize: 16)
-                  )
-                )
+                  child: const Text("Envoyer",
+                      style: TextStyle(fontSize: 16))),
+
+              ElevatedButton(
+                  style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                          const Color(0XFFF4976C)),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color(0XFF303C6C)),
+                      shape:
+                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ))),
+                  onPressed: () => {},
+                  child: const Text("Annuler",
+                      style: TextStyle(fontSize: 16))),
+              ],
+            ),
               ),
             ),
           ],
