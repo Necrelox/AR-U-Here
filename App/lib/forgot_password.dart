@@ -7,7 +7,7 @@ import 'welcome_page.dart';
 
   Widget _email() {
     return Container(
-      padding: EdgeInsets.only(top: 40.0),
+      padding: EdgeInsets.only(top: 30.0, bottom: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -60,7 +60,6 @@ import 'welcome_page.dart';
       padding: EdgeInsets.only(top: 10.0),
       width: double.infinity,
       child: RaisedButton(
-        elevation: 5.0,
         onPressed: () {
             Navigator.push(
             context,
@@ -90,10 +89,9 @@ import 'welcome_page.dart';
 
   Widget _forgot_passwordBtn(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 350.0),
+      padding: EdgeInsets.only(top: 100.0),
       width: double.infinity,
       child: RaisedButton(
-        elevation: 5.0,
         onPressed: () {
             Navigator.push(
             context,
