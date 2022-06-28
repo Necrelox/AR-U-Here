@@ -13,14 +13,13 @@ class WelcomePage extends StatelessWidget {
       backgroundColor: Color(0xFFF4976C),
       body: SingleChildScrollView(
           child: Container(
-        margin: const EdgeInsets.symmetric(
-          vertical: 60,
-          horizontal: 30,
-        ),
         child: Column(children: [
           DelayAnimation(
               delay: 500,
               child: Container(
+        margin: const EdgeInsets.only(
+          top: 60,
+        ),
                 height: 200,
                 child: Image.asset('asset/logo.png'),
               )),
@@ -28,8 +27,8 @@ class WelcomePage extends StatelessWidget {
               delay: 1000,
               child: Container(
                 margin: const EdgeInsets.only(
-                  top: 60,
-                  bottom: 90,
+                  top: 40,
+                  bottom: 70,
                 ),
                 width: 320,
                 height: 180,
@@ -71,7 +70,7 @@ class WelcomePage extends StatelessWidget {
                                 fontSize: 26,
                               )),
                           TextSpan(
-                              text: 'au quotidient ',
+                              text: 'au quotidien.',
                               style: TextStyle(
                                 color: Color(0XFF303C6C),
                                 fontSize: 26,
@@ -83,6 +82,11 @@ class WelcomePage extends StatelessWidget {
           DelayAnimation(
               delay: 1500,
               child: Container(
+                margin: const EdgeInsets.only(
+                  top: 20,
+                  left: 80,
+                  right: 80
+                  ),
                 width: double.infinity,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -102,7 +106,11 @@ class WelcomePage extends StatelessWidget {
           DelayAnimation(
               delay: 1800,
               child: Container(
-                margin: const EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(
+                  top: 20,
+                  left: 80,
+                  right: 80
+                  ),
                 width: double.infinity,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
