@@ -13,12 +13,13 @@ class Naviguation extends State<NavbarDemo> {
   Widget icon(String name, String asset) {
     return Expanded(
       child: RaisedButton(
-      elevation: 1.0,
-      onPressed: () => print('Login Button Pressed'),
+      onPressed: () => {},
       color: const Color(0XFF303C6C),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Image.asset(asset, width: 60, height: 60),
+          Image.asset(asset, width: 40, height: 40),
           Text(
             name,
             style: GoogleFonts.inter(
@@ -36,7 +37,7 @@ class Naviguation extends State<NavbarDemo> {
   Widget build(BuildContext context) {
     return Container(
         color: const Color(0XFF303C6C),
-        height: 100,
+        height: MediaQuery.of(context).size.height * 0.10,
         child: Row(
             children: <Widget>[
               icon('Accueil', 'asset/home.png'),
@@ -45,25 +46,4 @@ class Naviguation extends State<NavbarDemo> {
               icon('Profile', 'asset/profile.png')
             ]));
   }
-
-  //   @override
-  // Widget build(BuildContext context) {
-  //   return Container(
-  //       // body : Stack (
-  //       // children: <Widget>[
-  //       height: 100,
-  //       width: double.infinity,
-  //       child: RaisedButton(
-  //           elevation: 5.0,
-  //           onPressed: () => print('Login Button Pressed'),
-  //           color: const Color(0XFF303C6C),
-  //           child: Row(
-  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //               children: <Widget>[
-  //                 icon('Accueil', 'asset/home.png'),
-  //                 icon('Statistiques', 'asset/home.png'),
-  //                 icon('Calendrier', 'asset/home.png'),
-  //                 icon('Profile', 'asset/home.png')
-  //               ])));
-  // }
 }
