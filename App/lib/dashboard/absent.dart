@@ -53,18 +53,10 @@ class _PlanningState extends State<Absent> {
               delay: 500,
               child: Container(
                 width: double.infinity,
-                alignment: Alignment.center,
-              ),
-            ),
-            
-            DelayAnimation(
-              delay: 500,
-              child: Container(
-                width: double.infinity,
                 alignment: Alignment.topLeft,
                 padding: const EdgeInsets.fromLTRB(25, 10, 25, 0),
                 margin: const EdgeInsets.only(
-                  top: 70,
+                  top: 60,
                   bottom: 10,
                   left: 20,
                   right: 20,
