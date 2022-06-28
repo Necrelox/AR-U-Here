@@ -80,24 +80,68 @@ return(
                 Container(
                   width: 200,
                   height: 140,
-                  child: Text("Total Sessions", style: TextStyle(fontSize: 15, color: Color(0xFFD2FDFF), fontWeight: FontWeight.bold)),
                   padding: const EdgeInsets.all(10.0),
                   alignment: Alignment(0.0, -1.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(51),
                     color: Color(0xFF303C6C),
-                  ), //BoxDecoration
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: const TextSpan(children: <TextSpan>[
+                          TextSpan(
+                              text: 'Total Sessions\n',
+                              style: TextStyle(
+                                color: Color(0xFFD2FDFF),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              )),
+                          TextSpan(
+                              text: '500 ',
+                              style: TextStyle(
+                                color: Color(0xFFD2FDFF),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              )),
+                        ]),
+                      ),
+                    ]), //BoxDecoration
                 ),
                 Container(
                   width: 200,
                   height: 140,
-                  child: Text("Présences", style: TextStyle(fontSize: 15, color: Color(0xFF303C6C), fontWeight: FontWeight.bold)),
                   padding: const EdgeInsets.all(10.0),
                   alignment: Alignment(0.0, -1.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(51),
                     color: Color(0xFFB4DFE5),
-                  ), //BoxDecoration
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: const TextSpan(children: <TextSpan>[
+                          TextSpan(
+                              text: 'Présences\n',
+                              style: TextStyle(
+                                color: Color(0xFF303C6C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              )),
+                          TextSpan(
+                              text: '45',
+                              style: TextStyle(
+                                color: Color(0xFF303C6C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              )),
+                        ]),
+                      ),
+                    ]), //BoxDecoration
                 ),
               ],
             )
@@ -127,24 +171,68 @@ return(
                 Container(
                   width: 200,
                   height: 140,
-                  child: Text("Absences justifiées", style: TextStyle(fontSize: 15, color: Color(0xFF303C6C), fontWeight: FontWeight.bold)),
                   padding: const EdgeInsets.all(10.0),
                   alignment: Alignment(0.0, -1.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(51),
                     color: Color(0xFFD2FDFF),
-                  ), //BoxDecoration
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: const TextSpan(children: <TextSpan>[
+                          TextSpan(
+                              text: 'Absences justifiées\n',
+                              style: TextStyle(
+                                color: Color(0xFF303C6C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              )),
+                          TextSpan(
+                              text: '2',
+                              style: TextStyle(
+                                color: Color(0xFF303C6C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              )),
+                        ]),
+                      ),
+                    ]), //BoxDecoration
                 ),
                 Container(
                   width: 200,
                   height: 140,
-                  child: Text("Absences", style: TextStyle(fontSize: 15, color: Color(0xFF303C6C), fontWeight: FontWeight.bold)),
                   padding: const EdgeInsets.all(10.0),
                   alignment: Alignment(0.0, -1.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(51),
                     color: Color(0xFFF4976C),
-                  ), //BoxDecoration
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: const TextSpan(children: <TextSpan>[
+                          TextSpan(
+                              text: 'Absences\n',
+                              style: TextStyle(
+                                color: Color(0xFF303C6C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              )),
+                          TextSpan(
+                              text: '5',
+                              style: TextStyle(
+                                color: Color(0xFF303C6C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              )),
+                        ]),
+                      ),
+                    ]), //BoxDecoration
                 ),
               ],
             )
