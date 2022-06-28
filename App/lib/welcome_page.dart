@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'animation.dart';
 import 'Registration/login.dart';
@@ -10,7 +11,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF4976C),
+      backgroundColor: Color(0XFFF4976C),
       body: SingleChildScrollView(
           child: Container(
         margin: const EdgeInsets.symmetric(
@@ -22,7 +23,7 @@ class WelcomePage extends StatelessWidget {
               delay: 500,
               child: Container(
                 height: 200,
-                child: Image.asset('asset/logo.png'),
+                child: Image.asset('./asset/logo.png'),
               )),
           DelayAnimation(
               delay: 1000,
@@ -128,7 +129,7 @@ class WelcomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DidactielOne(),
+                          builder: (context) => Home(),
                         ),
                       );
                     }),

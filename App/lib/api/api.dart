@@ -1,21 +1,18 @@
 import 'package:http/http.dart' as http;
 
-void post_register(String url, String mail, String pwd, String school) async {
-  print("Call A.P.I \n");
-  print("Call mail" + mail + "\n");
-  print("Call passowrd" + pwd + "\n");
-  print("Call username" + school + "\n");
-  var uri = Uri.parse(url);
+var ip = 'http://10.0.2.2:3002';
+
+Future<http.Response> post_register(
+    String url, String mail, String pwd, String school) async {
+  var uri = Uri.parse(ip + url);
   var response = await http
       .post(uri, body: {'username': school, 'email': mail, 'password': pwd});
-  print('Response status: ${response.statusCode}');
-  print('Response body: ${response.body}');
+  return response;
 }
 
-void post_login(String url, String mail, String pwd) async {
-  var uri = Uri.parse(url);
+Future<http.Response> post_login(String url, String mail, String pwd) async {
+  var uri = Uri.parse(ip + url);
   var response =
-      await http.post(uri, body: {'name': 'doodle', 'color': 'blue'});
-  print('Response status: ${response.statusCode}');
-  print('Response body: ${response.body}');
+      await http.post(uri, body: {'username': mail, 'password': pwd});
+  return response;
 }

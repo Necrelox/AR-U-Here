@@ -1,7 +1,11 @@
 // ignore_for_file: unnecessary_new
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'register.dart';
+import '../Home.dart';
 import '../api/api.dart';
 
 class Login extends StatefulWidget {
@@ -14,6 +18,8 @@ class Login_state extends State<Login> {
   final _passwControler = TextEditingController();
   String email = '';
   String pwd = '';
+  bool error = false;
+  var response;
 
   Widget _email() {
     return Container(
@@ -135,9 +141,27 @@ class Login_state extends State<Login> {
     );
   }
 
+  Widget _dispError() {
+    if (error == true) {
+      Map<String, dynamic> temp = json.decode(response.body);
+      return Container(
+        height: 50,
+        child: Text(temp['error']['message'],
+            style: const TextStyle(
+              color: Color(0XFFF49767),
+              fontFamily: 'OpenSans',
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            )),
+      );
+    } else {
+      return Container(height: 30);
+    }
+  }
+
   Widget _loginBtn() {
     return Container(
-      padding: EdgeInsets.only(top: 160.0),
+      padding: EdgeInsets.only(top: 120.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
@@ -146,7 +170,19 @@ class Login_state extends State<Login> {
             email = _mailControler.text;
             pwd = _passwControler.text;
           });
-          post_login("https://jsonplaceholder.typicode.com/posts", email, pwd);
+          response = await post_login("/account/login/", email, pwd);
+          if (response.statusCode == 200) {
+            // ignore: use_build_context_synchronously
+            Navigator.pushReplacement<void, void>(
+              context,
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => const Home(),
+              ),
+            );
+            MaterialPageRoute(builder: (context) => const Home());
+          } else {
+            error = true;
+          }
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
@@ -237,6 +273,7 @@ class Login_state extends State<Login> {
                       _email(),
                       _password(),
                       _forgotPwd(),
+                      _dispError(),
                       _loginBtn(),
                       _register(context),
                     ],

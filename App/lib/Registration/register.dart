@@ -1,10 +1,10 @@
-// ignore_for_file: unnecessary_new
-import 'dart:developer';
+import 'dart:convert';
+
 import 'package:flutter_application_1/api/api.dart';
 
 import 'login.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import '../Home.dart';
 import '../api/api.dart';
 
 class Register extends StatefulWidget {
@@ -15,11 +15,13 @@ class Register extends StatefulWidget {
 class Register_state extends State<Register> {
   final _mailControler = TextEditingController();
   final _passwControler = TextEditingController();
-  final _schoolControler = TextEditingController();
+  final _usernameControler = TextEditingController();
 
   String mail = '';
   String pwd = '';
-  String school = '';
+  String username = '';
+  var response;
+  bool error = false;
 
   Widget _email() {
     return Container(
@@ -123,7 +125,7 @@ class Register_state extends State<Register> {
     );
   }
 
-  Widget _etablissement() {
+  Widget _username() {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       // padding: EdgeInsets.symmetric(vertical: 50.0),
@@ -146,7 +148,7 @@ class Register_state extends State<Register> {
             ),
             height: 60.0,
             child: TextField(
-              controller: _schoolControler,
+              controller: _usernameControler,
               style: const TextStyle(
                 color: Color(0xFFB4DFE5),
                 fontFamily: 'OpenSans',
@@ -174,7 +176,7 @@ class Register_state extends State<Register> {
 
   Widget _signupBtn() {
     return Container(
-      padding: EdgeInsets.only(top: 160.0),
+      padding: EdgeInsets.only(top: 120.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
@@ -182,10 +184,22 @@ class Register_state extends State<Register> {
           setState(() {
             mail = _mailControler.text;
             pwd = _passwControler.text;
-            school = _schoolControler.text;
+            username = _usernameControler.text;
           });
-          post_register(
-              "http://10.0.2.2:3002/account/signup/", mail, pwd, school);
+          response =
+              await post_register("/account/signup/", mail, pwd, username);
+          if (response.statusCode == 200) {
+            // ignore: use_build_context_synchronously
+            Navigator.pushReplacement<void, void>(
+              context,
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => const Home(),
+              ),
+            );
+            MaterialPageRoute(builder: (context) => const Home());
+          } else {
+            error = true;
+          }
         },
         padding: const EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
@@ -229,6 +243,24 @@ class Register_state extends State<Register> {
         ),
       ),
     );
+  }
+
+  Widget _dispError() {
+    if (error == true) {
+      Map<String, dynamic> temp = json.decode(response.body);
+      return Container(
+        height: 50,
+        child: Text(temp['error']['message'],
+            style: const TextStyle(
+              color: Color(0XFFF49767),
+              fontFamily: 'OpenSans',
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            )),
+      );
+    } else {
+      return Container(height: 30);
+    }
   }
 
   @override
@@ -275,7 +307,8 @@ class Register_state extends State<Register> {
                       SizedBox(height: 40),
                       _email(),
                       _password(),
-                      _etablissement(),
+                      _username(),
+                      _dispError(),
                       _signupBtn(),
                       _login(context),
                     ],
