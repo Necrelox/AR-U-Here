@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'animation.dart';
 // import 'login.dart';
 import './didactiel/didactiel1.dart';
+import './administrator/statistiquePage.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -97,7 +98,14 @@ class WelcomePage extends StatelessWidget {
                         fontSize: 26,
                       ),
                     ),
-                    onPressed: () {}),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => statistiquePage(),
+                        ),
+                      );
+                    }),
               )),
           DelayAnimation(
               delay: 1800,

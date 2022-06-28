@@ -12,7 +12,7 @@ return Stack(
           child: Container(
             child: Padding(
               padding: const EdgeInsets.only(
-                  right: 18.0, left: 12.0, top: 24, bottom: 12),
+                 left: 12.0, top: 24, bottom: 12),
               child: LineChart(
                 mainData(),
               ),
@@ -32,19 +32,19 @@ return Stack(
     Widget text;
     switch (value.toInt()) {
       case 1:
-        text = const Text('Lundi', style: style);
+        text = const Text('Lun', style: style);
         break;
       case 3:
-        text = const Text('Mardi', style: style);
+        text = const Text('Mar', style: style);
         break;
       case 5:
-        text = const Text('Mercredi', style: style);
+        text = const Text('Mer', style: style);
         break;
       case 7:
-        text = const Text('Jeudi', style: style);
+        text = const Text('Jeu', style: style);
         break;
       case 9:
-        text = const Text('Vendredi', style: style);
+        text = const Text('Ven', style: style);
         break;
       default:
         text = const Text('', style: style);
@@ -164,8 +164,8 @@ return(
       child: Align(
         alignment: Alignment.topCenter,
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.9,
-          height: MediaQuery.of(context).size.height * 0.3,
+          width: MediaQuery.of(context).size.width * 0.85,
+          height: MediaQuery.of(context).size.height * 0.25,
           alignment: Alignment(0.0, -1.0),
           //BoxDecoration Widget
           decoration: BoxDecoration(
@@ -173,21 +173,23 @@ return(
             color: Color(0xFF303C6C),
           ), //BoxDecoration
           child: Padding(
-            padding: const EdgeInsets.all(25.0),
+            padding: const EdgeInsets.only(top: 20),
             child: Align(
-              alignment: Alignment.topLeft,
+              alignment: Alignment.topCenter,
               child: Stack(
                 children: <Widget>[
-                  const Text(
-                  'Absences du mois',
-                  style: TextStyle(
-                    color: Color(0xFFFBE8A6),
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
+                  const Align(
+                    alignment: Alignment.topCenter,
+                  child: Text(
+                    'Absences du mois',
+                    style: TextStyle(
+                      color: Color(0xFFFBE8A6),
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
-                ),
+                  ),
                   _graph_fl(context),
                 ],
               ),
@@ -227,7 +229,7 @@ Widget _card1(BuildContext context) {
 return(
   Center(
     child: Padding(
-      padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+      padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
       child: Container(
         alignment: Alignment(0.0, -1.0),
         //BoxDecoration Widget
@@ -250,24 +252,28 @@ return(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      RichText(
-                        textAlign: TextAlign.center,
-                        text: const TextSpan(children: <TextSpan>[
-                          TextSpan(
-                              text: 'Total Sessions\n',
-                              style: TextStyle(
-                                color: Color(0xFFD2FDFF),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                              )),
-                          TextSpan(
-                              text: '500 ',
-                              style: TextStyle(
-                                color: Color(0xFFD2FDFF),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              )),
-                        ]),
+                      Align(
+                        alignment: Alignment.center,
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: const TextSpan(children: <TextSpan>[
+                            TextSpan(
+                                text: 'Total Sessions\n',
+                                style: TextStyle(
+                                  color: Color(0xFFD2FDFF),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                )), 
+                            TextSpan(
+                                text: '500 ',
+                                style: TextStyle(
+                                  color: Color(0xFFD2FDFF),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                )),
+                                
+                          ]),
+                        ),
                       ),
                     ]), //BoxDecoration
                 ),
