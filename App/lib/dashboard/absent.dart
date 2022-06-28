@@ -92,8 +92,8 @@ class _PlanningState extends State<Absent> {
                 alignment: Alignment.topLeft,
                 padding: const EdgeInsets.fromLTRB(25, 10, 25, 0),
                 margin: const EdgeInsets.only(
-                  top: 20,
-                  bottom: 10,
+                  top: 15,
+                  bottom: 0,
                   left: 20,
                   right: 20,
                 ),
@@ -105,7 +105,7 @@ class _PlanningState extends State<Absent> {
                           "La demande de justificatif sera envoyé à un administrateur pour validation.",
                       style: TextStyle(
                         color: Color(0XFF303C6C),
-                        fontSize: 15,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -121,7 +121,7 @@ class _PlanningState extends State<Absent> {
                 alignment: Alignment.topLeft,
                 padding: const EdgeInsets.fromLTRB(25, 10, 25, 0),
                 margin: const EdgeInsets.only(
-                  top: 20,
+                  top: 10,
                   bottom: 0,
                   left: 30,
                   right: 20,
@@ -362,7 +362,7 @@ class _PlanningState extends State<Absent> {
                     Row(
                       children: const <Widget>[
                         SizedBox(
-                          width: 300,
+                          width: 250,
                           height: 150,
                           child: TextField(
                             keyboardType: TextInputType.multiline,
