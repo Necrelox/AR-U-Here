@@ -1,8 +1,160 @@
 import 'package:flutter/material.dart';
 import '../animation.dart';
 import '../welcome_page.dart';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fl_chart/fl_chart.dart';
+
+Widget _graph_fl(BuildContext context) {
+return Stack(
+      children: <Widget>[
+        AspectRatio(
+          aspectRatio: 1.70,
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  right: 18.0, left: 12.0, top: 24, bottom: 12),
+              child: LineChart(
+                mainData(),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget bottomTitleWidgets(double value, TitleMeta meta) {
+    const style = TextStyle(
+      color: Color(0xffFBE8A6),
+      fontWeight: FontWeight.bold,
+      fontSize: 16,
+    );
+    Widget text;
+    switch (value.toInt()) {
+      case 1:
+        text = const Text('Lundi', style: style);
+        break;
+      case 3:
+        text = const Text('Mardi', style: style);
+        break;
+      case 5:
+        text = const Text('Mercredi', style: style);
+        break;
+      case 7:
+        text = const Text('Jeudi', style: style);
+        break;
+      case 9:
+        text = const Text('Vendredi', style: style);
+        break;
+      default:
+        text = const Text('', style: style);
+        break;
+    }
+
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      space: 8.0,
+      child: text,
+    );
+  }
+
+  Widget leftTitleWidgets(double value, TitleMeta meta) {
+    const style = TextStyle(
+      color: Color(0xffFBE8A6),
+      fontWeight: FontWeight.bold,
+      fontSize: 15,
+    );
+    String text;
+    switch (value.toInt()) {
+      case 1:
+        text = '1';
+        break;
+      case 3:
+        text = '4';
+        break;
+      case 5:
+        text = '8';
+        break;
+      default:
+        return Container();
+    }
+
+    return Text(text, style: style, textAlign: TextAlign.left);
+  }
+
+  LineChartData mainData() {
+    return LineChartData(
+      gridData: FlGridData(
+        show: true,
+        drawVerticalLine: true,
+        horizontalInterval: 1,
+        verticalInterval: 1,
+        getDrawingHorizontalLine: (value) {
+          return FlLine(
+            color: const Color(0xffB4DFE5),
+            strokeWidth: 1,
+          );
+        },
+        getDrawingVerticalLine: (value) {
+          return FlLine(
+            color: const Color(0xffB4DFE5),
+            strokeWidth: 1,
+          );
+        },
+      ),
+      titlesData: FlTitlesData(
+        show: true,
+        rightTitles: AxisTitles(
+          sideTitles: SideTitles(showTitles: false),
+        ),
+        topTitles: AxisTitles(
+          sideTitles: SideTitles(showTitles: false),
+        ),
+        bottomTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 30,
+            interval: 1,
+            getTitlesWidget: bottomTitleWidgets,
+          ),
+        ),
+        leftTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            interval: 1,
+            getTitlesWidget: leftTitleWidgets,
+            reservedSize: 42,
+          ),
+        ),
+      ),
+      borderData: FlBorderData(
+          show: true,
+          border: Border.all(color: const Color(0xffB4DFE5), width: 1)),
+      minX: 0,
+      maxX: 11,
+      minY: 0,
+      maxY: 6,
+      lineBarsData: [
+        LineChartBarData(
+          spots: const [
+            FlSpot(0, 3),
+            FlSpot(2.6, 2),
+            FlSpot(4.9, 5),
+            FlSpot(6.8, 3.1),
+            FlSpot(8, 4),
+            FlSpot(9.5, 3),
+            FlSpot(11, 4),
+          ],
+          isCurved: true,
+          barWidth: 5,
+          isStrokeCapRound: true,
+          dotData: FlDotData(
+            show: false,
+          ),
+        ),
+      ],
+    );
+  }
 
 Widget _graph(BuildContext context) {
 return(
@@ -12,8 +164,8 @@ return(
       child: Align(
         alignment: Alignment.topCenter,
         child: Container(
-          width: 480,
-          height: 300,
+          width: MediaQuery.of(context).size.width * 0.9,
+          height: MediaQuery.of(context).size.height * 0.3,
           alignment: Alignment(0.0, -1.0),
           //BoxDecoration Widget
           decoration: BoxDecoration(
@@ -24,14 +176,20 @@ return(
             padding: const EdgeInsets.all(25.0),
             child: Align(
               alignment: Alignment.topLeft,
-              child: RichText(
-                textAlign: TextAlign.right,
-                text: const TextSpan(
-                  text: "Absences du mois",
+              child: Stack(
+                children: <Widget>[
+                  const Text(
+                  'Absences du mois',
                   style: TextStyle(
                     color: Color(0xFFFBE8A6),
-                    fontSize: 22,
-                  )),
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                  _graph_fl(context),
+                ],
               ),
             ),
           )
@@ -81,8 +239,8 @@ return(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Container(
-                  width: 200,
-                  height: 140,
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.14,
                   padding: const EdgeInsets.all(10.0),
                   alignment: Alignment(0.0, -1.0),
                   decoration: BoxDecoration(
@@ -114,8 +272,8 @@ return(
                     ]), //BoxDecoration
                 ),
                 Container(
-                  width: 200,
-                  height: 140,
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.14,
                   padding: const EdgeInsets.all(10.0),
                   alignment: Alignment(0.0, -1.0),
                   decoration: BoxDecoration(
@@ -172,8 +330,8 @@ return(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Container(
-                  width: 200,
-                  height: 140,
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.14,
                   padding: const EdgeInsets.all(10.0),
                   alignment: Alignment(0.0, -1.0),
                   decoration: BoxDecoration(
@@ -205,8 +363,8 @@ return(
                     ]), //BoxDecoration
                 ),
                 Container(
-                  width: 200,
-                  height: 140,
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.14,
                   padding: const EdgeInsets.all(10.0),
                   alignment: Alignment(0.0, -1.0),
                   decoration: BoxDecoration(
@@ -302,7 +460,7 @@ class statistiquePage extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(20), // Image border
                 child: SizedBox.fromSize(
-                  size: const Size.fromRadius(28),
+                  size: const Size.fromRadius(23),
                   child: Image.asset(
                     './asset/marin.jpg',
                     fit: BoxFit.cover,
