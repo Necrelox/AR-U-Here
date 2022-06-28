@@ -7,31 +7,34 @@ import 'package:google_fonts/google_fonts.dart';
 Widget _graph(BuildContext context) {
 return(
   Center(
-    child: Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        width: 480,
-        height: 300,
-        alignment: Alignment(0.0, -1.0),
-        //BoxDecoration Widget
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(51),
-          color: Color(0xFF303C6C),
-        ), //BoxDecoration
-        child: Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: RichText(
-              textAlign: TextAlign.right,
-              text: const TextSpan(
-                text: "Absences du mois",
-                style: TextStyle(
-                  color: Color(0xFFFBE8A6),
-                  fontSize: 22,
-                )),
+    child: Padding(
+      padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Container(
+          width: 480,
+          height: 300,
+          alignment: Alignment(0.0, -1.0),
+          //BoxDecoration Widget
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(51),
+            color: Color(0xFF303C6C),
+          ), //BoxDecoration
+          child: Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: RichText(
+                textAlign: TextAlign.right,
+                text: const TextSpan(
+                  text: "Absences du mois",
+                  style: TextStyle(
+                    color: Color(0xFFFBE8A6),
+                    fontSize: 22,
+                  )),
+              ),
             ),
-          ),
+          )
         ),
       ),
     ),
@@ -289,25 +292,34 @@ class statistiquePage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFFBE8A6)),
       home: Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100.0),
-          child: AppBar(
-            elevation: 0,
-            backgroundColor: Color(0xFFFBE8A6),
-            centerTitle: false,
-            actions: [
-              IconButton(
-                icon: Image.asset('asset/logo.png'),
-                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                onPressed: () => const WelcomePage(),
-                iconSize: 55,
-              ),
-            ],
-          title: const Text(
-            'Statistiques',
-            style: TextStyle(color: Color(0xff303C6C), fontWeight: FontWeight.bold, fontSize: 36),
+      appBar: AppBar(
+        centerTitle: false,
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 15, 5),
+            child:
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20), // Image border
+                child: SizedBox.fromSize(
+                  size: const Size.fromRadius(28),
+                  child: Image.asset(
+                    './asset/marin.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ) 
           ),
-        ),
+        ],
+        title: const Text(
+          "Statistiques",
+          style: TextStyle(
+            color: Color(0XFF303C6C),
+            fontSize: 28.0,
+            fontWeight: FontWeight.bold),
+          ),
+        backgroundColor: const Color(0xFFFBE8A6),
+        automaticallyImplyLeading: false,
       ),
       body: Stack(
         children: <Widget>[
