@@ -31,15 +31,16 @@ class _PlanningState extends State<Planning> {
     return Scaffold(
       backgroundColor: const Color(0XFFF4976C),
       appBar: AppBar(
+        elevation: 0,
         centerTitle: false,
         actions: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 15, 5),
+            padding: const EdgeInsets.fromLTRB(0, 0, 15, 5),
             child:
               ClipRRect(
                 borderRadius: BorderRadius.circular(20), // Image border
                 child: SizedBox.fromSize(
-                  size: Size.fromRadius(28),
+                  size: const Size.fromRadius(23),
                   child: Image.asset(
                     './asset/marin.jpg',
                     fit: BoxFit.cover,
@@ -48,14 +49,14 @@ class _PlanningState extends State<Planning> {
               ) 
           ),
         ],
-        title: Text(
+        title: const Text(
           "Planning",
           style: TextStyle(
             color: Color(0XFFFBE8A6),
             fontSize: 28.0,
             fontWeight: FontWeight.bold),
           ),
-        backgroundColor: Color(0XFFF4976C),
+        backgroundColor: const Color(0XFFF4976C),
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
@@ -147,8 +148,8 @@ class _PlanningState extends State<Planning> {
                   alignment: Alignment.center,
                   padding: const EdgeInsets.fromLTRB(25,10,25,0),
                   margin: const EdgeInsets.only(
-                    top: 20,
-                    bottom: 10,
+                    top: 0,
+                    bottom: 0,
                     left: 20,
                     right: 20,
                   ),
