@@ -10,7 +10,7 @@ class Test extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 218, 144, 33),
-        bottomNavigationBar: NavBar(),
+        bottomNavigationBar: NavbarDemo(),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[],

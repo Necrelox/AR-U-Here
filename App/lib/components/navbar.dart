@@ -1,92 +1,69 @@
+// ignore_for_file: unnecessary_new, deprecated_member_use
 import 'package:flutter/material.dart';
-import '../myapp.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-void main() => runApp(const NavBar());
-
-class NavBar extends StatelessWidget {
-  const NavBar({Key? key}) : super(key: key);
+class NavbarDemo extends StatefulWidget {
+  const NavbarDemo({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyStatefulWidget(),
-    );
-  }
+  Naviguation createState() => Naviguation();
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
-
-  @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Accueil',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Statistiques',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Calendrier',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Profile',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: const ImageIcon(
-              AssetImage('asset/home.png')
+class Naviguation extends State<NavbarDemo> {
+  Widget icon(String name, String asset) {
+    return Expanded(
+      child: RaisedButton(
+      elevation: 1.0,
+      onPressed: () => print('Login Button Pressed'),
+      color: const Color(0XFF303C6C),
+      child: Column(
+        children: <Widget>[
+          Image.asset(asset, width: 60, height: 60),
+          Text(
+            name,
+            style: GoogleFonts.inter(
+              color: const Color(0XFFFBE8A6),
+              fontSize: 10,
+              fontWeight: FontWeight.w400,
             ),
-            label: 'Accueil',
-            backgroundColor: MyApp.primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: const ImageIcon(
-              AssetImage('asset/stats.png')
-            ),
-            label: 'Statistiques',
-            backgroundColor: MyApp.secondaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: const ImageIcon(
-              AssetImage('asset/calendar.png')
-            ),
-            label: 'Calendrier',
-            backgroundColor: MyApp.tertiaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: const ImageIcon(
-              AssetImage('asset/profile.png')
-            ),
-            label: 'Settings',
-            backgroundColor: MyApp.quaternaryColor,
-          ),
+          )
         ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
       ),
-    );
+    ));
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        color: const Color(0XFF303C6C),
+        height: 100,
+        child: Row(
+            children: <Widget>[
+              icon('Accueil', 'asset/home.png'),
+              icon('Statistiques', 'asset/stats.png'),
+              icon('Calendrier', 'asset/calendar.png'),
+              icon('Profile', 'asset/profile.png')
+            ]));
+  }
+
+  //   @override
+  // Widget build(BuildContext context) {
+  //   return Container(
+  //       // body : Stack (
+  //       // children: <Widget>[
+  //       height: 100,
+  //       width: double.infinity,
+  //       child: RaisedButton(
+  //           elevation: 5.0,
+  //           onPressed: () => print('Login Button Pressed'),
+  //           color: const Color(0XFF303C6C),
+  //           child: Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: <Widget>[
+  //                 icon('Accueil', 'asset/home.png'),
+  //                 icon('Statistiques', 'asset/home.png'),
+  //                 icon('Calendrier', 'asset/home.png'),
+  //                 icon('Profile', 'asset/home.png')
+  //               ])));
+  // }
 }

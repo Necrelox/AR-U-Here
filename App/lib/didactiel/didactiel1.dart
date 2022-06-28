@@ -119,6 +119,6 @@ class DidactielOne extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar: NavBar());
+);
   }
 }
