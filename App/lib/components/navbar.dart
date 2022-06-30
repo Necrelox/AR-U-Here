@@ -25,7 +25,7 @@ class Naviguation extends State<NavbarDemo> {
             style: GoogleFonts.inter(
               color: const Color(0XFFFBE8A6),
               fontSize: 10,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w500,
             ),
           )
         ],
