@@ -1,7 +1,6 @@
 export {User} from './user';
 export {Token} from './token/token';
 export {Report} from './report/report';
-export {Message} from './message/message';
 export {Macaddress} from './macaddress/macaddress';
 export {Logo} from './logo/logo';
 export {Ip} from './ip/ip';
