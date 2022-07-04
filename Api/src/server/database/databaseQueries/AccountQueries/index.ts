@@ -14,7 +14,7 @@ enum MessageError {
 
 export class AccountQueries {
 
-    /** Sample Queries */
+    /** Simple Queries */
     public static async getToken(tokenReflect: User.IToken): Promise<User.IToken[]> {
         return DatabaseKnex.getInstance().select().from('USER_TOKEN')
             .where(tokenReflect)
@@ -146,9 +146,6 @@ export class AccountQueries {
                     message: MessageError.GET_USER_BY_REFLECT
                 };
             }
-
-            // await AccountQueries.deleteTokenTransaction({userUuid: user[0]!.uuid}, trx);
-
             await AccountQueries.addTokenTransaction({
                 token: Tools.Token.generateToken(user[0]!.uuid!),
                 userUuid: user[0]!.uuid,
@@ -202,27 +199,27 @@ export class AccountQueries {
         });
     }
 
-    public static async loginUserAndGetTokenTransaction(user: User.IUser): Promise<User.IToken> {
+    public static async loginUserAndGetTokenTransaction(userUuid: Buffer): Promise<User.IToken> {
         const knex = await DatabaseKnex.getInstance();
         return knex.transaction(async (trx: Transaction) => {
             await AccountQueries.updateUserTransaction({
                 isConnected: true,
             }, {
-                uuid: user.uuid,
+                uuid: userUuid,
             }, trx);
 
             await AccountQueries.deleteTokenTransaction({
-                userUuid: user.uuid
+                userUuid: userUuid
             }, trx);
 
             await AccountQueries.addTokenTransaction({
-                token: Tools.Token.generateToken(user.uuid!),
-                userUuid: user.uuid,
+                token: Tools.Token.generateToken(userUuid!),
+                userUuid: userUuid,
                 expireAt: new Date(Date.now() + (1000 * 60 * 60))
             }, trx);
 
             const token: User.IToken[] = await AccountQueries.getTokenTransaction({
-                userUuid: user.uuid
+                userUuid: userUuid
             }, trx);
             if (!token || token.length === 0) {
                 throw {
@@ -243,46 +240,46 @@ export class AccountQueries {
         });
     }
 
-    public static async loginCLIUserAndGetTokenTransaction(user: User.IUser, ip: string, macAddress: string, device: string): Promise<User.IToken> {
+    public static async loginCLIUserAndGetTokenTransaction(userUuid: Buffer, ip: string, macAddress: string, device: string): Promise<User.IToken> {
         const knex = await DatabaseKnex.getInstance();
         return knex.transaction(async (trx: Transaction) => {
 
             await AccountQueries.updateUserTransaction({
                 isConnected: true,
             }, {
-                uuid: user.uuid,
+                uuid: userUuid,
             }, trx);
 
             await AccountQueries.deleteTokenTransaction({
-                userUuid: user.uuid
+                userUuid: userUuid
             }, trx);
 
             await AccountQueries.addTokenTransaction({
-                token: Tools.Token.generateToken(user?.uuid!),
-                userUuid: user?.uuid,
+                token: Tools.Token.generateToken(userUuid),
+                userUuid: userUuid,
                 expireAt: new Date(Date.now() + (1000 * 60 * 60))
             }, trx);
 
             await AccountQueries.addOrUpdateIpTransaction({
                 active: true,
                 ip,
-                userUuid: user?.uuid,
+                userUuid: userUuid,
             }, trx);
             await AccountQueries.addMacAddressOrUpdateTransaction({
                 active: true,
                 macAddress,
-                userUuid: user?.uuid,
+                userUuid: userUuid,
             }, trx);
             await AccountQueries.addDeviceOrUpdateTransaction({
                 active: true,
                 device,
-                userUuid: user?.uuid,
+                userUuid: userUuid,
             }, trx);
 
 
 
             const token: User.IToken[] = await AccountQueries.getTokenTransaction({
-                userUuid: user.uuid
+                userUuid: userUuid
             }, trx);
             if (!token || token.length === 0) {
                 throw {

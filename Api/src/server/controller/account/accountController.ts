@@ -85,7 +85,7 @@ export class AccountController extends AccountUtils {
             await super.checkPostContainMailORUsernameANDPassword(req.body);
             const userReflect: Models.User.IUser = await super.transformPostBodyToUserReflect(req.body);
             const user: Models.User.IUser = await super.verifyUserPasswordAndVerifiedAndBlacklistedAndReturnUser(userReflect, req.body.password);
-            const token = await DBQueries.AccountQueries.loginUserAndGetTokenTransaction(user);
+            const token = await DBQueries.AccountQueries.loginUserAndGetTokenTransaction(user.uuid!);
 
             res.status(200).send({
                 code: 'OK',
@@ -106,7 +106,7 @@ export class AccountController extends AccountUtils {
             await super.checkPostContainIpANDMacAddressANDDeviceType(req.body);
             const userReflect: Models.User.IUser = await super.transformPostBodyToUserReflect(req.body);
             const user: Models.User.IUser = await super.verifyUserPasswordAndVerifiedAndBlacklistedAndReturnUser(userReflect, req.body.password);
-            const token = await DBQueries.AccountQueries.loginCLIUserAndGetTokenTransaction(user, req.body.ip, req.body.macAddress, req.body.deviceType);
+            const token = await DBQueries.AccountQueries.loginCLIUserAndGetTokenTransaction(user.uuid!, req.body.ip, req.body.macAddress, req.body.deviceType);
 
             res.status(200).send({
                 code: 'OK',

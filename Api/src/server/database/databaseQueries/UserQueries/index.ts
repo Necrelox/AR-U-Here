@@ -9,10 +9,8 @@ enum MessageError {
     NO_USER_FOUND_BY_TOKEN = 'No user found by token.',
 }
 
-
 export class UserQueries {
-    /** Sample Queries */
-
+    /** Simple Queries */
     public static async getUserByFKToken(token: User.IToken): Promise<User.ITokenFKUser[]> {
         return DatabaseKnex.getInstance().select().into('USER_TOKEN')
             .where(token)

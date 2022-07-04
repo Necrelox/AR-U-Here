@@ -27,7 +27,7 @@ export class Server {
         this.app.use(helmet());
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: false }));
-        this.app.set('title', 'Skillzbox - API');
+        this.app.set('title', 'Ar-U-Here - API');
         this.initializeRoutes();
         DatabaseKnex.initializeDatabasePool();
     }
