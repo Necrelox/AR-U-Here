@@ -1,1 +1,0 @@
-export {ICategorie} from './ICategorie';
