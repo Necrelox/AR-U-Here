@@ -59,7 +59,7 @@ class Register_state extends State<Register> {
                   Icons.email,
                   color: Color(0xFFB4DFE5),
                 ),
-                hintText: 'Enter your Email',
+                hintText: 'Email',
                 hintStyle: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
@@ -110,7 +110,7 @@ class Register_state extends State<Register> {
                   Icons.lock,
                   color: Color(0xFFB4DFE5),
                 ),
-                hintText: 'Enter your Password',
+                hintText: 'Mot de passe',
                 hintStyle: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
@@ -235,7 +235,7 @@ class Register_state extends State<Register> {
         },
         padding: const EdgeInsets.only(top: 0.0),
         child: const Text(
-          "Already registered ? Sign-in",
+          "Déjà un compte ? Connection",
           style: TextStyle(
             color: Color(0XFF303C6C),
             fontWeight: FontWeight.bold,
