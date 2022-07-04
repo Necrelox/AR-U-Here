@@ -208,7 +208,7 @@ class Register_state extends State<Register> {
         ),
         color: const Color(0XFF303C6C),
         child: const Text(
-          'SIGN UP',
+          "S'INSCRIRE",
           style: TextStyle(
             color: Color(0xFFB4DFE5),
             letterSpacing: 1.5,
@@ -282,7 +282,7 @@ class Register_state extends State<Register> {
                 children: <Widget>[
                   const Align(
                     alignment: Alignment.topLeft,
-                    child: Text("Welcome to ",
+                    child: Text("Bienvenue sur ",
                         style: TextStyle(
                           color: Color(0XFF303C6C),
                           fontFamily: 'OpenSans',

@@ -190,7 +190,7 @@ class Login_state extends State<Login> {
         ),
         color: Color(0XFFFBE8A6),
         child: const Text(
-          'SIGN IN',
+          'CONNECTION',
           style: TextStyle(
             color: Color(0XFF303C6C),
             letterSpacing: 1.5,
@@ -246,7 +246,7 @@ class Login_state extends State<Login> {
                 children: <Widget>[
                   const Align(
                     alignment: Alignment.topLeft,
-                    child: Text("Let's sign you in !",
+                    child: Text("Connectez-vous !",
                         style: TextStyle(
                           color: Color(0XFFFBE8A6),
                           fontFamily: 'OpenSans',
@@ -258,11 +258,12 @@ class Login_state extends State<Login> {
                     alignment: Alignment.topLeft,
                     child: Padding(
                       padding: EdgeInsets.only(top: 15),
-                      child: Text("Welcome back.\nWe've missed you!",
+                      child: Text(
+                          "Bon retour parmis nous.\nVous nous avez manqué !",
                           style: TextStyle(
                             color: Color(0XFFD2FDFF),
                             fontFamily: 'OpenSans',
-                            fontSize: 30.0,
+                            fontSize: 26.0,
                           )),
                     ),
                   ),
