@@ -127,7 +127,7 @@ class Login_state extends State<Login> {
     return Container(
       alignment: Alignment.centerRight,
       child: FlatButton(
-        onPressed: () => print('Forgot Password Button Pressed'),
+        onPressed: () => print('Mot de passe oublié'),
         padding: EdgeInsets.only(right: 0.0),
         child: const Text(
           'Forgot Password ?',
@@ -217,7 +217,7 @@ class Login_state extends State<Login> {
         },
         // padding: const EdgeInsets.only(top: 0.0),
         child: const Text(
-          "Don't have account ? Register",
+          "Pas de compte ? Inscrivez-vous",
           style: TextStyle(
             color: Color(0XFFFBE8A6),
             fontWeight: FontWeight.bold,
