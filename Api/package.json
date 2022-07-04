@@ -8,7 +8,8 @@
     "start": "tsc && node prod/app.js",
     "test": "jest -c jest.config.json",
     "test:watch": "jest --watch -c jest.config.json",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "fix-lint": "eslint --fix . --ext .ts"
   },
   "keywords": [],
   "author": "Ruby",
