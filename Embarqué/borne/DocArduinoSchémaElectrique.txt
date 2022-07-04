@@ -1,0 +1,15 @@
+Relay:
+https://arduinogetstarted.com/tutorials/arduino-relay
+https://randomnerdtutorials.com/guide-for-relay-module-with-arduino/
+
+Camera HuskyLens:
+https://wiki.dfrobot.com/HUSKYLENS_V1.0_SKU_SEN0305_SEN0336
+
+Humidity and temperature sensor:
+https://create.arduino.cc/projecthub/sachendra003/arduino-humidity-sensor-288146
+
+fan, motor:
+Eleego starter kit lesson 29
+
+IR remote: 
+Eleego starter kit lesson 14
