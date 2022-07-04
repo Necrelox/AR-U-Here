@@ -130,7 +130,7 @@ class Login_state extends State<Login> {
         onPressed: () => print('Mot de passe oublié'),
         padding: EdgeInsets.only(right: 0.0),
         child: const Text(
-          'Forgot Password ?',
+          'Mot de passe oublié ?',
           style: TextStyle(
             color: Color(0XFFFBE8A6),
             fontWeight: FontWeight.bold,
