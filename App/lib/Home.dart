@@ -9,6 +9,23 @@ class Home extends StatefulWidget {
 }
 
 class Home_state extends State<Home> {
+  late Color c;
+  Color getColor(String presence) {
+    switch (presence) {
+      //add more color as your wish
+      case "present":
+        return Colors.green;
+      case "absent":
+        return Colors.red;
+      case "retard":
+        return Colors.yellow;
+      case "exclus":
+        return Colors.black;
+      default:
+    }
+    return Colors.blue;
+  }
+
   Widget navBar() {
     return AppBar(
       centerTitle: false,
@@ -17,7 +34,7 @@ class Home_state extends State<Home> {
         Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 15, 5),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(20), // Image border
+              borderRadius: BorderRadius.circular(20),
               child: SizedBox.fromSize(
                 size: const Size.fromRadius(23),
                 child: Image.asset(
@@ -53,15 +70,15 @@ class Home_state extends State<Home> {
                 fontWeight: FontWeight.bold,
               )),
           Divider(color: Colors.black),
-          activity("Pré-Msc", "B201", "Absent", "03/05/2022", "14h", "17h"),
+          activity("Pré-Msc", "B201", "absent", "03/05/2022", "14h", "17h"),
           Padding(
               padding: const EdgeInsets.only(top: 15),
               child: activity(
-                  "Pré-Msc", "B201", "Absent", "03/05/2022", "14h", "17h")),
+                  "Pré-Msc", "B201", "present", "03/05/2022", "14h", "17h")),
           Padding(
               padding: const EdgeInsets.only(top: 15),
               child: activity(
-                  "Pré-Msc", "B201", "Absent", "03/05/2022", "14h", "17h")),
+                  "Pré-Msc", "B201", "exclus", "03/05/2022", "14h", "17h")),
         ],
       ),
     );
@@ -70,6 +87,8 @@ class Home_state extends State<Home> {
   Widget activity(classe, salle, presence, date, heureD, heureF) {
     String str = classe + ' -- ' + salle;
     String heure = heureD + ' - ' + heureF;
+    Color coulor = getColor(presence);
+
     return Container(
       child: Column(children: [
         Row(
@@ -80,15 +99,13 @@ class Home_state extends State<Home> {
                   str,
                   style: const TextStyle(fontSize: 14),
                 ))),
-            Spacer(), // <-- SEE HERE
+            const Spacer(),
             Container(
                 margin: const EdgeInsets.only(right: 20, top: 10),
                 child: (Text(
                   presence,
-                  style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 14, color: coulor, fontWeight: FontWeight.bold),
                 )))
           ],
         ),
@@ -112,32 +129,43 @@ class Home_state extends State<Home> {
     );
   }
 
-  Widget box(number, presence) {
+  Widget box(number, presence, couleur) {
+    c = Color(couleur);
     return Container(
         margin: EdgeInsets.only(
             left: MediaQuery.of(context).size.width / 29,
             right: MediaQuery.of(context).size.width / 20),
         height: MediaQuery.of(context).size.height * 0.15,
-        width: MediaQuery.of(context).size.height * 0.15,
+        width: MediaQuery.of(context).size.height * 0.20,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Color(0XFFFBE8A6),
+          color: c,
         ),
         child: Column(children: <Widget>[
-          Text(number,
-              style: const TextStyle(
-                color: Color(0XFF303C6C),
-                fontFamily: 'OpenSans',
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              )),
-          Text(presence,
-              style: const TextStyle(
-                color: Color(0XFF303C6C),
-                fontFamily: 'OpenSans',
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              )),
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: Column(
+              children: <Widget>[
+                Text(number,
+                    style: const TextStyle(
+                      color: Color(0XFF303C6C),
+                      fontFamily: 'OpenSans',
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    )),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: Text(presence,
+                style: const TextStyle(
+                  color: Color(0XFF303C6C),
+                  fontFamily: 'OpenSans',
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                )),
+          ),
         ]));
   }
 
@@ -147,41 +175,47 @@ class Home_state extends State<Home> {
         Padding(
           padding: EdgeInsets.only(
               top: MediaQuery.of(context).size.width * 1.15, left: 8),
-          child: Row(children: [
-            box("10", "Absence(s)"),
-            Spacer(),
-            box("48", "Présence(s)")
-          ]),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                box("10", "Absence(s)", 0XFFFBE8A6),
+                box("48", "Présence(s)", 0XFFF4976C)
+              ]),
         ),
         Container(
           margin: EdgeInsets.only(
               top: MediaQuery.of(context).size.width * 1.5,
-              left: MediaQuery.of(context).size.width / 2.8,
+              left: MediaQuery.of(context).size.width / 3.1,
               right: MediaQuery.of(context).size.width / 17),
           height: MediaQuery.of(context).size.height * 0.15,
-          width: MediaQuery.of(context).size.height * 0.15,
+          width: MediaQuery.of(context).size.height * 0.20,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Color(0XFFFBE8A6),
+            color: Color(0XFFB4DFE5),
           ),
-          child: Column(
-            children: const <Widget>[
-              Text("101",
-                  style: TextStyle(
-                    color: Color(0XFF303C6C),
-                    fontFamily: 'OpenSans',
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  )),
-              Text("Session(s)",
-                  style: TextStyle(
-                    color: Color(0XFF303C6C),
-                    fontFamily: 'OpenSans',
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  )),
-            ],
-          ),
+          child: Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Column(
+                children: const <Widget>[
+                  Text("101",
+                      style: TextStyle(
+                        color: Color(0XFF303C6C),
+                        fontFamily: 'OpenSans',
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Text("Session(s)",
+                        style: TextStyle(
+                          color: Color(0XFF303C6C),
+                          fontFamily: 'OpenSans',
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ),
+                ],
+              )),
         ),
       ],
     );
@@ -190,7 +224,7 @@ class Home_state extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0XFF303C6C),
+        backgroundColor: Color(0XFF303C6C).withOpacity(1),
         body: Stack(
           children: <Widget>[
             navBar(),
