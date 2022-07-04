@@ -1,1 +1,2 @@
-export * as UserQuery from './databaseQueries/user';
+export {AccountQueries} from './databaseQueries/AccountQueries';
+export {UserQueries} from './databaseQueries/UserQueries';

@@ -1,7 +1,8 @@
-import {Router, IRouter, Request, Response, NextFunction} from "express";
-import {UserUtils} from "./utils/userUtils";
-import {BearerToken} from "../../middleware/bearerToken/bearerToken";
-import * as Models from "../../model";
+import {Router, IRouter, Request, Response, NextFunction} from 'express';
+import {UserUtils} from './utils/userUtils';
+import {BearerToken} from '../../middleware/bearerToken/bearerToken';
+import * as Models from '../../model';
+import * as DBQueries from '../../database';
 
 export class UserController extends UserUtils {
     private _router: IRouter = Router();
@@ -105,9 +106,9 @@ export class UserController extends UserUtils {
     /** LOGO */
     private async getMethodMeLogo(_req: Request, res: Response) {
         try {
-            // todo revoir le systeme de logo
+            // todo ne peux pas être fais sans la la librairie
             res.status(200).send({
-                code: "OK",
+                code: 'OK',
             });
         } catch (error: any) {
             res.status(500).send({error});
@@ -116,9 +117,9 @@ export class UserController extends UserUtils {
 
     private async postMethodMeLogo(_req: Request, res: Response) {
         try {
-            // todo revoir le systeme de logo
+            // todo à faire
             res.status(200).send({
-                code: "OK",
+                code: 'OK',
             });
         } catch (error: any) {
             res.status(500).send({error});

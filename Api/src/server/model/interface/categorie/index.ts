@@ -1,0 +1,1 @@
+export {ICategorie} from './ICategorie';

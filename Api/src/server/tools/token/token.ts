@@ -1,4 +1,4 @@
-import {createHmac, randomUUID} from "crypto";
+import {createHmac, randomUUID} from 'crypto';
 
 export class Token {
     public static readonly algo = 'sha256';
