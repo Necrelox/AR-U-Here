@@ -157,9 +157,10 @@ class Register_state extends State<Register> {
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 14.0),
                 prefixIcon: Icon(
-                    color: Color(0xFFB4DFE5),
-                    IconData(0xe040, fontFamily: 'MaterialIcons')),
-                hintText: 'Etablissement',
+                  color: Color(0xFFB4DFE5),
+                  IconData(0xe042, fontFamily: 'MaterialIcons'),
+                ),
+                hintText: 'Identifiant',
                 hintStyle: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
@@ -306,8 +307,8 @@ class Register_state extends State<Register> {
                     children: <Widget>[
                       SizedBox(height: 40),
                       _email(),
-                      _password(),
                       _username(),
+                      _password(),
                       _dispError(),
                       _signupBtn(),
                       _login(context),

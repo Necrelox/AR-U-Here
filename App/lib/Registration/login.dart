@@ -54,10 +54,10 @@ class Login_state extends State<Login> {
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(top: 12, left: 30.0),
                 prefixIcon: Icon(
-                  Icons.email,
+                  IconData(0xe042, fontFamily: 'MaterialIcons'),
                   color: Color(0XFF303C6C),
                 ),
-                hintText: 'Enter your Email',
+                hintText: 'Identifiant',
                 hintStyle: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
@@ -108,7 +108,7 @@ class Login_state extends State<Login> {
                   Icons.lock,
                   color: Color(0XFF303C6C),
                 ),
-                hintText: 'Enter your Password',
+                hintText: 'Mot de passe',
                 hintStyle: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
