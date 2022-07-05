@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../dashboard/Home.dart';
+import '../dashboard/profile.dart';
 import '../dashboard/planning.dart';
 
 class NavbarDemo extends StatefulWidget {
@@ -51,7 +52,7 @@ class Naviguation extends State<NavbarDemo> {
           icon_bar('Accueil', 'asset/home.png', const Home()),
           icon_bar('Statistiques', 'asset/stats.png', const Home()),
           icon_bar('Calendrier', 'asset/calendar.png', const Planning()),
-          icon_bar('Profile', 'asset/profile.png', const Planning())
+          icon_bar('Profile', 'asset/profile.png', const Profile())
         ]));
   }
 }
