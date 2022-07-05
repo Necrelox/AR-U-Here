@@ -1,4 +1,7 @@
-import {knex} from 'knex';
+import {Knex, knex} from 'knex';
+import Transaction = Knex.Transaction;
+
+export type {Transaction};
 
 export interface ErrorDatabase extends Error {
     code?: string;
@@ -26,7 +29,7 @@ export class DatabaseKnex {
                 max: 10,
             },
             acquireConnectionTimeout: 10000,
-        })
+        });
     }
 
     public static createBetterSqlMessageError(sqlCode: string, sqlMessage: string) {

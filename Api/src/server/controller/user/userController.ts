@@ -1,7 +1,8 @@
-import {Router, IRouter, Request, Response, NextFunction} from "express";
-import {UserUtils} from "./utils/userUtils";
-import {BearerToken} from "../../middleware/bearerToken/bearerToken";
-import * as Models from "../../model";
+import {Router, IRouter, Request, Response, NextFunction} from 'express';
+import {UserUtils} from './utils/userUtils';
+import {BearerToken} from '../../middleware/bearerToken/bearerToken';
+import * as Models from '../../model';
+import * as DBQueries from '../../database';
 
 export class UserController extends UserUtils {
     private _router: IRouter = Router();
@@ -12,7 +13,7 @@ export class UserController extends UserUtils {
     }
 
     private initializeAccountController() {
-        this._router.use("/me", async (req: Request, res: Response, next: NextFunction) => {
+        this._router.use('/me', async (req: Request, res: Response, next: NextFunction) => {
             await BearerToken.checkToken(req, res, next);
         });
         this._router.get('/me', async (req: Request, res: Response) => {
@@ -22,16 +23,16 @@ export class UserController extends UserUtils {
             await this.putMethodMe(req, res);
         });
 
-        this._router.use("/me/logo", async (req: Request, res: Response, next: NextFunction) => {
+        this._router.use('/me/logo', async (req: Request, res: Response, next: NextFunction) => {
             await BearerToken.checkToken(req, res, next);
         });
-        this._router.get("/me/logo", async (req: Request, res: Response) => {
+        this._router.get('/me/logo', async (req: Request, res: Response) => {
             await this.getMethodMeLogo(req, res);
         });
-        this._router.post("/me/logo", async (req: Request, res: Response) => {
+        this._router.post('/me/logo', async (req: Request, res: Response) => {
             await this.postMethodMeLogo(req, res);
         });
-        this._router.delete("/me/logo", async (req: Request, res: Response) => {
+        this._router.delete('/me/logo', async (req: Request, res: Response) => {
             await this.deleteMethodMeLogo(req, res);
         });
     }
@@ -39,15 +40,17 @@ export class UserController extends UserUtils {
     /** ME */
     private async getMethodMe(req: Request, res: Response) {
         try {
-            const tokenFKUser: Models.User.ITokenFKUser = await super.getUserByFKTokenByBearerToken((req.headers.authorization)?.split(" ")[1]!);
+            const tokenFKUser: Models.User.ITokenFKUser[] = await DBQueries.UserQueries.getUserByFKToken({
+                token: (req.headers.authorization)?.split(' ')[1]!
+            });
             res.status(200).send({
                 code: 'OK',
                 user: {
-                    username: tokenFKUser.username,
-                    email: tokenFKUser.email,
-                    activityMessage: tokenFKUser.activityMessage,
-                    isConnected: tokenFKUser.isConnected,
-                    createdAt: tokenFKUser.createdAt,
+                    username: tokenFKUser[0]!.username,
+                    email: tokenFKUser[0]!.email,
+                    activityMessage: tokenFKUser[0]!.activityMessage,
+                    isConnected: tokenFKUser[0]!.isConnected,
+                    createdAt: tokenFKUser[0]!.createdAt,
                 }
             });
         } catch (error: any) {
@@ -57,20 +60,20 @@ export class UserController extends UserUtils {
 
     private async putMethodMe(req: Request, res: Response) {
         try {
-            const reflectUser: Models.User.IUser = req.body;
-            if (Object.keys(reflectUser).length > 0) {
-                await super.checkUserReflectForModify(reflectUser);
-                const tokenFKUser: Models.User.ITokenFKUser = await super.getUserByFKTokenByBearerToken((req.headers.authorization)?.split(" ")[1]!);
-                await super.updateUserByReflect({uuid: tokenFKUser.uuid!}, reflectUser);
+            if (Object.keys(req.body).length > 0) {
+                const userReflect = await super.transformBodyToUserForUpdate(req.body);
+                await DBQueries.UserQueries.updateUserByTokenTransaction(userReflect, {
+                    token: (req.headers.authorization)?.split(' ')[1]!
+                });
             } else {
                 res.status(200).send({
-                    code: "OK",
-                    message: "No data to update."
+                    code: 'OK',
+                    message: 'No data to update.'
                 });
             }
             res.status(200).send({
-                code: "OK",
-                message: "User updated."
+                code: 'OK',
+                message: 'User updated.'
             });
         } catch (error: any) {
             res.status(500).send({error});
@@ -80,9 +83,9 @@ export class UserController extends UserUtils {
     /** LOGO */
     private async getMethodMeLogo(_req: Request, res: Response) {
         try {
-            // todo revoir le systeme de logo
+            // todo ne peux pas être fais sans la la librairie
             res.status(200).send({
-                code: "OK",
+                code: 'OK',
             });
         } catch (error: any) {
             res.status(500).send({error});
@@ -91,9 +94,9 @@ export class UserController extends UserUtils {
 
     private async postMethodMeLogo(_req: Request, res: Response) {
         try {
-            // todo revoir le systeme de logo
+            // todo à faire
             res.status(200).send({
-                code: "OK",
+                code: 'OK',
             });
         } catch (error: any) {
             res.status(500).send({error});
@@ -102,15 +105,16 @@ export class UserController extends UserUtils {
 
     private async deleteMethodMeLogo(_req: Request, res: Response) {
         try {
-            // todo revoir le systeme de logo
+            // todo à faire
             res.status(200).send({
-                code: "OK",
+                code: 'OK',
 
             });
         } catch (error: any) {
             res.status(500).send({error});
         }
     }
+
 
     public getRouter(): IRouter {
         return this._router;

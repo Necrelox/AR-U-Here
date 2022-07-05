@@ -1,6 +1,8 @@
 // ignore_for_file: unnecessary_new, deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../dashboard/Home.dart';
+import '../dashboard/planning.dart';
 
 class NavbarDemo extends StatefulWidget {
   const NavbarDemo({Key? key}) : super(key: key);
@@ -10,10 +12,17 @@ class NavbarDemo extends StatefulWidget {
 }
 
 class Naviguation extends State<NavbarDemo> {
-  Widget icon(String name, String asset) {
+  Widget icon_bar(String name, String asset, Widget redirect) {
     return Expanded(
         child: RaisedButton(
-      onPressed: () => {},
+      onPressed: () => {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => redirect,
+          ),
+        )
+      },
       color: const Color(0XFF303C6C),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -39,10 +48,10 @@ class Naviguation extends State<NavbarDemo> {
         color: const Color(0XFF303C6C),
         height: MediaQuery.of(context).size.height * 0.10,
         child: Row(children: <Widget>[
-          icon('Accueil', 'asset/home.png'),
-          icon('Statistiques', 'asset/stats.png'),
-          icon('Calendrier', 'asset/calendar.png'),
-          icon('Profile', 'asset/profile.png')
+          icon_bar('Accueil', 'asset/home.png', const Home()),
+          icon_bar('Statistiques', 'asset/stats.png', const Home()),
+          icon_bar('Calendrier', 'asset/calendar.png', const Planning()),
+          icon_bar('Profile', 'asset/profile.png', const Planning())
         ]));
   }
 }

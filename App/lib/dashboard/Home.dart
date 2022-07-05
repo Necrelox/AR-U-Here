@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../animation.dart';
 import '../api/api.dart';
 import '../components/appbar.dart';
 import '../components/navbar.dart';
@@ -213,40 +214,46 @@ class Home_state extends State<Home> {
         body: Stack(
           children: <Widget>[
             Stack(children: const <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top: 12.0, left: 50),
-                child: Text("Hello Marin !",
-                    style: TextStyle(
-                      color: Color(0XFFFBE8A6),
-                      fontFamily: 'OpenSans',
-                      fontSize: 36.0,
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 51, left: 50),
-                child: Text("Nouvelles Notifications",
-                    style: TextStyle(
-                      color: Color(0XFFFBE8A6),
-                      fontFamily: 'OpenSans',
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
-            ]),
-            recap(),
-            Padding(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.width * 0.9, left: 50),
-              child: const Text("Résumé du mois",
-                  style: TextStyle(
-                    color: Color(0XFFFBE8A6),
-                    fontFamily: 'OpenSans',
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
+              DelayAnimation(
+                  delay: 200,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 12.0, left: 50),
+                    child: Text("Hello Marin !",
+                        style: TextStyle(
+                          color: Color(0XFFFBE8A6),
+                          fontFamily: 'OpenSans',
+                          fontSize: 36.0,
+                          fontWeight: FontWeight.bold,
+                        )),
                   )),
-            ),
-            totalSession(),
+              DelayAnimation(
+                  delay: 500,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 51, left: 50),
+                    child: Text("Nouvelles Notifications",
+                        style: TextStyle(
+                          color: Color(0XFFFBE8A6),
+                          fontFamily: 'OpenSans',
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold,
+                        )),
+                  )),
+            ]),
+            DelayAnimation(delay: 500, child: recap()),
+            DelayAnimation(
+                delay: 800,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.width * 0.9, left: 50),
+                  child: const Text("Résumé du mois",
+                      style: TextStyle(
+                        color: Color(0XFFFBE8A6),
+                        fontFamily: 'OpenSans',
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                      )),
+                )),
+            DelayAnimation(delay: 1000, child: totalSession()),
           ],
         ));
   }

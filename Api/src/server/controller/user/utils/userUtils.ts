@@ -1,60 +1,41 @@
-import * as Models from "../../../model";
-import * as Tools from "../../../tools";
-import {CodeError} from "../enum/codeError";
-import {MessageError} from "../enum/messageError";
-import {ControllerUtils} from "../../utils/controllerUtils";
+import * as Models from '../../../model';
+import * as Tools from '../../../tools';
+import {ControllerUtils} from '../../utils/controllerUtils';
+
+interface ReqBody {
+    password: string;
+    email: string;
+    username: string;
+    activityMessage: string;
+}
+
+export enum CodeError {
+}
+export enum MessageError {
+}
+
 
 export abstract class UserUtils extends ControllerUtils {
-
-    /** USER */
-
-    protected async checkSyntaxUsername(username: string) {
-        const regex: RegExp = /^\w+$/;
-        if (!regex.test(username))
-            throw {
-                code: CodeError.CHECK_SYNTAX_USERNAME,
-                message: MessageError.CHECK_SYNTAX_USERNAME
-            }
-    }
-
-    protected async checkLengthUsername(username: string) {
-        if (username.length < 4 || username.length > 20)
-            throw {
-                code: CodeError.CHECK_LENGTH_USERNAME,
-                message: MessageError.CHECK_LENGTH_USERNAME
-            };
-    }
-
-    protected async checkLengthPassword(password: string) {
-        if (password.length < 6 || password.length > 20)
-            throw {
-                code: CodeError.CHECK_LENGTH_PASSWORD,
-                message: MessageError.CHECK_LENGTH_PASSWORD
-            };
-    }
-
-    protected async checkSyntaxPassword(password: string) {
-        const regex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
-        if (!regex.test(password))
-            throw {
-                code: CodeError.CHECK_SYNTAX_PASSWORD,
-                message: MessageError.CHECK_SYNTAX_PASSWORD
-            }
-    }
-
-    protected async checkUserReflectForModify(userReflect: Models.User.IUser) {
-        if ('email' in userReflect) {
-            Tools.Mailer.checkEmailHasBadSyntax(userReflect.email!);
-            Tools.Mailer.checkEmailIsTemporary(userReflect.email!);
+    protected async transformBodyToUserForUpdate(body: ReqBody) : Promise<Models.User.IUser> {
+        const user: Models.User.IUser = {};
+        if ('email' in body) {
+            await Tools.Mailer.checkEmailHasBadSyntax(body.email!);
+            await Tools.Mailer.checkEmailIsTemporary(body.email!);
+            user.email = body.email;
         }
-        if ('username' in userReflect) {
-            await this.checkSyntaxUsername(userReflect.username!);
-            await this.checkLengthUsername(userReflect.username!);
+        if ('username' in body) {
+            await this.checkSyntaxUsername(body.username!);
+            await this.checkLengthUsername(body.username!);
+            user.username = body.username;
         }
-        if ('password' in userReflect) {
-            const password: string = userReflect.password!.toString();
-            await this.checkLengthPassword(password);
-            await this.checkSyntaxPassword(password);
+        if ('password' in body) {
+            await this.checkLengthPassword(body.password);
+            await this.checkSyntaxPassword(body.password);
+            user.password = Tools.PasswordEncrypt.encrypt(body.password);
         }
+        if ('activityMessage' in body) {
+            user.activityMessage = body.activityMessage;
+        }
+        return user;
     }
 }
