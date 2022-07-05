@@ -1,27 +1,35 @@
-import * as emailTempo from "./emailTempo.json";
 import * as nodemailer from 'nodemailer';
-import {MessageError} from "./enum/messageError";
-import {CodeError} from "./enum/codeError";
-import SMTPTransport from "nodemailer/lib/smtp-transport";
-import {Transporter} from "nodemailer";
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
+import {Transporter} from 'nodemailer';
+
+export enum CodeError {
+    CHECK_EMAIL_HAS_BAD_SYNTAX = 'Mailer::checkEmailHasBadSyntax',
+    CHECK_EMAIL_IS_TEMPORARY = 'Mailer::checkEmailIsTemporary',
+}
+
+export enum MessageError {
+    EMAIL_BAD_SYNTAX = 'Email has bad syntax.',
+    EMAIL_IS_TEMPORARY = 'Email is temporary mail.',
+}
 
 export class Mailer {
 
-    public static checkEmailHasBadSyntax(email: string) {
+    public static async checkEmailHasBadSyntax(email: string) {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!re.test(email))
             throw {
-            code: CodeError.CHECK_EMAIL_HAS_BAD_SYNTAX,
-            message: MessageError.EMAIL_BAD_SYNTAX
-        };
+                code: CodeError.CHECK_EMAIL_HAS_BAD_SYNTAX,
+                message: MessageError.EMAIL_BAD_SYNTAX
+            };
     }
 
-    public static checkEmailIsTemporary(email: string) {
-        if ((emailTempo['default']).includes(email.split("@")[1]))
+    public static async checkEmailIsTemporary(email: string) {
+        const emailTempo: string[] = require('./emailTempo.json');
+        if ((emailTempo).includes(email.split('@')[1]!))
             throw {
-            code: CodeError.CHECK_EMAIL_IS_TEMPORARY,
-            message: MessageError.EMAIL_IS_TEMPORARY
-        };
+                code: CodeError.CHECK_EMAIL_IS_TEMPORARY,
+                message: MessageError.EMAIL_IS_TEMPORARY
+            };
     }
 
     public static sendMail(mailOptions: nodemailer.SendMailOptions): Promise<SMTPTransport.SentMessageInfo> {

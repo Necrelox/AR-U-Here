@@ -4,11 +4,12 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
-    "build": "npx tsc",
-    "start": "tsc && node prod/app.js",
+    "build": "npx tsc && cp ./src/server/tools/mail/emailTempo.json ./prod/server/tools/mail/emailTempo.json",
+    "start": "tsc && cp ./src/server/tools/mail/emailTempo.json ./prod/server/tools/mail/emailTempo.json && node prod/app.js",
     "test": "jest -c jest.config.json",
     "test:watch": "jest --watch -c jest.config.json",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "fix-lint": "eslint --fix . --ext .ts"
   },
   "keywords": [],
   "author": "Ruby",

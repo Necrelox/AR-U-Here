@@ -1,9 +1,30 @@
 import * as Models from '../../../model';
 import * as DBQueries from '../../../database';
 import * as Tools from '../../../tools';
-import {CodeError} from '../enum/codeError';
-import {MessageError} from "../enum/messageError";
-import {ControllerUtils} from "../../utils/controllerUtils";
+import {ControllerUtils} from '../../utils/controllerUtils';
+
+enum MessageError {
+    CHECK_POST_CONTAIN_MAIL_OR_USERNAME_AND_PASSWORD = 'Missing parameter.',
+    CHECK_POST_CONTAIN_MAIL_AND_USERNAME_AND_PASSWORD = 'Missing parameter.',
+    CHECK_POST_CONTAIN_IP_AND_MACADDRESS_AND_DEVICE_TYPE = 'Missing parameter.',
+    CHECK_USER_PASSWORD = 'Invalid password.',
+    CHECK_USER_IS_BLACKLISTED = 'User is blacklisted.',
+    CHECK_USER_IS_VERIFIED = 'User not verified.',
+    VERIFY_TOKEN_EXPIRATION_AND_SEND_MAIL = 'Token expired, new token generated.',
+    TOKEN_INVALID_SIGNATURE = 'Token invalid signature.',
+}
+
+enum CodeError {
+    CHECK_POST_CONTAIN_MAIL_OR_USERNAME_AND_PASSWORD = 'AccountUtils::checkPostContainMailORUsernameANDPassword',
+    CHECK_POST_CONTAIN_MAIL_AND_USERNAME_AND_PASSWORD = 'AccountUtils:checkPostContainMailANDUserANDPassword',
+    CHECK_POST_CONTAIN_IP_AND_MACADDRESS_AND_DEVICE_TYPE = 'AccountUtils::checkPostContainIpANDMacAddressANDDeviceType',
+    CHECK_USER_PASSWORD = 'AccountUtilsError:checkUserPassword',
+    CHECK_USER_IS_BLACKLISTED = 'AccountUtils:checkUserIsBlacklisted',
+    CHECK_USER_IS_VERIFIED = 'AccountUtils:checkUserIsVerified',
+    VERIFY_LOGIN_AND_RETURN_USER = 'AccountUtilsError:verifyLoginAndReturnUser',
+    VERIFY_TOKEN_EXPIRATION_AND_SEND_MAIL = 'AccountUtils::verifyTokenExpirationAndSendMail',
+    VERIFY_TOKEN_SIGNATURE = 'AccountUtils::verifyTokenSignature',
+}
 
 export abstract class AccountUtils extends ControllerUtils {
 
@@ -21,7 +42,7 @@ export abstract class AccountUtils extends ControllerUtils {
         if ((!postData.email && !postData.username) || !postData.password)
             throw {
                 code: CodeError.CHECK_POST_CONTAIN_MAIL_OR_USERNAME_AND_PASSWORD,
-                message: MessageError.MISSING_PARAMETER + (postData.email ? '' : ' email') + (postData.username ? '' : ' username') + (postData.password ? '' : ' password') + '.'
+                message: MessageError.CHECK_POST_CONTAIN_MAIL_OR_USERNAME_AND_PASSWORD + (postData.email ? '' : ' email') + (postData.username ? '' : ' username') + (postData.password ? '' : ' password') + '.'
             };
     }
 
@@ -29,7 +50,7 @@ export abstract class AccountUtils extends ControllerUtils {
         if (!postData.email || !postData.username || !postData.password)
             throw {
                 code: CodeError.CHECK_POST_CONTAIN_MAIL_AND_USERNAME_AND_PASSWORD,
-                message: MessageError.MISSING_PARAMETER + (postData.email ? '' : " email") + (postData.username ? '' : ' username') + (postData.password ? '' : ' password') + '.'
+                message: MessageError.CHECK_POST_CONTAIN_MAIL_AND_USERNAME_AND_PASSWORD + (postData.email ? '' : ' email') + (postData.username ? '' : ' username') + (postData.password ? '' : ' password') + '.'
             };
     }
 
@@ -37,64 +58,17 @@ export abstract class AccountUtils extends ControllerUtils {
         if (!postData.ip || !postData.macAddress || !postData.deviceType)
             throw {
                 code: CodeError.CHECK_POST_CONTAIN_IP_AND_MACADDRESS_AND_DEVICE_TYPE,
-                message: MessageError.MISSING_PARAMETER + (postData.ip ? '' : ' ip') + (postData.macAddress ? '' : ' macAddress') + (postData.deviceType ? '' : ' deviceType') + '.'
-            }
+                message: MessageError.CHECK_POST_CONTAIN_IP_AND_MACADDRESS_AND_DEVICE_TYPE + (postData.ip ? '' : ' ip') + (postData.macAddress ? '' : ' macAddress') + (postData.deviceType ? '' : ' deviceType') + '.'
+            };
     }
 
     /** ----- ACCOUNT ------ */
-
-    protected async setVerifyUser(token: Models.User.IToken) {
-        const user: Models.User.IUser = await this.getUserByReflect({uuid: token?.userUuid});
-        if (user!.isVerified)
-            throw {
-                code: CodeError.SET_VERIFY_USER,
-                message: MessageError.USER_ALREADY_VERIFIED
-            };
-        else {
-            await DBQueries.UserQuery.User.update({uuid: user.uuid}, {isVerified: true});
-            await DBQueries.UserQuery.Token.delete({uuid: token?.uuid});
-        }
-    }
-
-    protected async checkSyntaxUsername(username: string) {
-        const regex: RegExp = /^\w+$/;
-        if (!regex.test(username))
-            throw {
-                code: CodeError.CHECK_SYNTAXE_USERNAME,
-                message: MessageError.USERNAME_BAD_SYNTAX
-            }
-    }
-
-    protected async checkLengthUsername(username: string) {
-        if (username.length < 4 || username.length > 20)
-            throw {
-                code: CodeError.CHECK_LENGTH_USERNAME,
-                message: MessageError.USERNAME_LENGTH_BAD
-            };
-    }
-
-    protected async checkLengthPassword(password: string) {
-        if (password.length < 6 || password.length > 20)
-            throw {
-                code: CodeError.CHECK_LENGTH_PASSWORD,
-                message: MessageError.PASSWORD_LENGTH_BAD
-            };
-    }
-
-    protected async checkSyntaxPassword(password: string) {
-        const regex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
-        if (!regex.test(password))
-            throw {
-                code: CodeError.CHECK_SYNTAXE_PASSWORD,
-                message: MessageError.PASSWORD_BAD_SYNTAX
-            }
-    }
 
     protected async checkUserPassword(passwordToCheck: string, passwordOfUser: Buffer) {
         if (!Tools.PasswordEncrypt.compare(passwordToCheck, passwordOfUser))
             throw {
                 code: CodeError.CHECK_USER_PASSWORD,
-                message: MessageError.INVALID_PASSWORD
+                message: MessageError.CHECK_USER_PASSWORD
             };
     }
 
@@ -102,7 +76,7 @@ export abstract class AccountUtils extends ControllerUtils {
         if (user!.isBlackListed)
             throw {
                 code: CodeError.CHECK_USER_IS_BLACKLISTED,
-                message: MessageError.USER_IS_BLACKLISTED
+                message: MessageError.CHECK_USER_IS_BLACKLISTED
             };
     }
 
@@ -110,87 +84,24 @@ export abstract class AccountUtils extends ControllerUtils {
         if (!user.isVerified)
             throw {
                 code: CodeError.CHECK_USER_IS_VERIFIED,
-                message: MessageError.USER_NOT_VERIFIED
+                message: MessageError.CHECK_USER_IS_VERIFIED
             };
     }
 
-    protected async verifyLoginAndReturnUser(searchUser: Models.User.IUser, password: string): Promise<Models.User.IUser> {
-        const user: Models.User.IUser[] = await DBQueries.UserQuery.User.select(searchUser);
+    protected async verifyUserPasswordAndVerifiedAndBlacklistedAndReturnUser(searchUser: Models.User.IUser, password: string): Promise<Models.User.IUser> {
+        const user: Models.User.IUser[] = await DBQueries.AccountQueries.getUser(searchUser);
         if (!user || user.length === 0)
             throw {
                 code: CodeError.VERIFY_LOGIN_AND_RETURN_USER,
-                message: searchUser?.username ? "Invalid username" : "Invalid email"
+                message: searchUser?.username ? 'Invalid username' : 'Invalid email'
             };
 
-        await this.checkUserPassword(password, user[0]!.password!);
-        await this.checkUserIsVerified(user[0]!);
-        await this.checkUserIsBlacklisted(user[0]!);
+        await Promise.all([
+            this.checkUserPassword(password, user[0]!.password!),
+            this.checkUserIsVerified(user[0]!),
+            this.checkUserIsBlacklisted(user[0]!)
+        ]);
         return user[0]!;
-    }
-
-    protected async createUser(user: Models.User.IUser) {
-        await DBQueries.UserQuery.User.insert({
-                username: user.username,
-                email: user.email,
-                password: user.password!,
-            });
-    }
-
-    protected async addNewIpOrUpdate(user: Models.User.IUser, ip: string) {
-        const userIP: Models.User.IIP[] = await DBQueries.UserQuery.Ip.select({
-            ip,
-            userUuid: user.uuid
-        });
-        if (!userIP || userIP.length === 0) {
-            await DBQueries.UserQuery.Ip.insert({
-                ip,
-                userUuid: user?.uuid,
-                active: true
-            });
-        } else {
-            await DBQueries.UserQuery.Ip.update({
-                ip,
-                userUuid: user?.uuid,
-            }, {active: true});
-        }
-    }
-
-    protected async addNewMacAddressOrUpdate(user: Models.User.IUser, macAddress: string) {
-        const userMacAddress: Models.User.IUser[] = await DBQueries.UserQuery.Macaddress.select({
-            macAddress,
-            userUuid: user!.uuid
-        });
-        if (!userMacAddress || userMacAddress.length === 0) {
-            await DBQueries.UserQuery.Macaddress.insert({
-                macAddress,
-                userUuid: user.uuid,
-                active: true
-            });
-        } else {
-            await DBQueries.UserQuery.Macaddress.update({
-                macAddress,
-                userUuid: user.uuid,
-            }, {active: true});
-        }
-    }
-
-    protected async addNewDeviceOrUpdate(user: Models.User.IUser, device: string) {
-        const userDevice: Models.User.IDevice[] = await DBQueries.UserQuery.Device.select({
-            device,
-            userUuid: user.uuid
-        });
-        if (!userDevice || userDevice.length === 0) {
-            await DBQueries.UserQuery.Device.insert({
-                device,
-                userUuid: user.uuid,
-                active: true
-            });
-        } else {
-            await DBQueries.UserQuery.Device.update({
-                device,
-                userUuid: user.uuid,
-            }, {active: true});
-        }
     }
 
     /** ------- EMAIL -------- */
@@ -198,11 +109,10 @@ export abstract class AccountUtils extends ControllerUtils {
         await Tools.Mailer.sendMail({
             from: process.env.EMAIL_AUTH_USER,
             to: user?.email!,
-            subject: "Confirmation de votre compte",
-            text: "Veuillez confirmer votre compte en cliquant sur le lien suivant : $$$$$ " + token?.token
+            subject: 'Confirmation de votre compte',
+            text: 'Veuillez confirmer votre compte en cliquant sur le lien suivant : $$$$$ ' + token?.token
         });
     }
-
 
     /** ------- TOKEN -------- */
     protected async verifyTokenExpirationAndSendMail(token: Models.User.IToken) {
@@ -214,7 +124,7 @@ export abstract class AccountUtils extends ControllerUtils {
 
             throw {
                 code: CodeError.VERIFY_TOKEN_EXPIRATION_AND_SEND_MAIL,
-                message: MessageError.TOKEN_EXPIRED
+                message: MessageError.VERIFY_TOKEN_EXPIRATION_AND_SEND_MAIL
             };
         }
     }
@@ -228,8 +138,8 @@ export abstract class AccountUtils extends ControllerUtils {
     }
 
     protected async createToken(user: Models.User.IUser) {
-        await DBQueries.UserQuery.Token.delete({userUuid: user?.uuid});
-        await DBQueries.UserQuery.Token.insert({
+        await DBQueries.UserQueries.deleteToken({userUuid: user?.uuid});
+        await DBQueries.UserQueries.addToken({
             token: Tools.Token.generateToken(user?.uuid!),
             userUuid: user?.uuid,
             expireAt: new Date(Date.now() + (1000 * 60 * 60))
