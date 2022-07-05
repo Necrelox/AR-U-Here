@@ -36,9 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.1.0
   font_awesome_flutter: ^9.1.0
-  table_calendar: ^3.0.6
+  http: ^0.13.4
   datetime_picker_formfield: ^2.0.0
   file_picker: ^3.0.4
+  table_calendar: ^3.0.6
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,10 @@ flutter:
     - asset/didac-bar1.png
     - asset/didac-bar2.png
     - asset/marin.jpg
+    - asset/stats.png
+    - asset/calendar.png
+    - asset/profile.png
+    - asset/home.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

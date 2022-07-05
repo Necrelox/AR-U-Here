@@ -38,15 +38,14 @@ class _PlanningState extends State<Planning> {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(50),
         child: ApplicationBar(
-          color:  Color(0XFFF4976C),
+          color: Color(0XFFF4976C),
           asset: 'asset/marin.jpg',
+          title: 'Planning',
         ),
       ),
-      
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -54,9 +53,8 @@ class _PlanningState extends State<Planning> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                 decoration: BoxDecoration(
-                  color: const Color(0XFFFBE8A6),
-                    borderRadius: BorderRadius.circular(51.0)
-                  ),
+                    color: const Color(0XFFFBE8A6),
+                    borderRadius: BorderRadius.circular(51.0)),
                 margin: const EdgeInsets.only(
                   top: 20,
                   bottom: 10,
@@ -116,7 +114,6 @@ class _PlanningState extends State<Planning> {
                 ),
               ),
             ),
-
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -143,7 +140,6 @@ class _PlanningState extends State<Planning> {
                 ),
               ),
             ),
-
             DelayAnimation(
               delay: 500,
               child: Container(
