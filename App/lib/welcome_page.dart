@@ -4,6 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'animation.dart';
 import 'Registration/login.dart';
 import './didactiel/didactiel1.dart';
+import './dashboard/profile.dart';
+import './dashboard/planning.dart';
+import './dashboard/absent.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -102,7 +105,7 @@ class WelcomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Login(),
+                          builder: (context) => Profile(),
                         ),
                       );
                     }),
