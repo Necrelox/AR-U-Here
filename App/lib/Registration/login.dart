@@ -190,7 +190,7 @@ class Login_state extends State<Login> {
         ),
         color: Color(0XFFFBE8A6),
         child: const Text(
-          'CONNECTION',
+          'CONNEXION',
           style: TextStyle(
             color: Color(0XFF303C6C),
             letterSpacing: 1.5,

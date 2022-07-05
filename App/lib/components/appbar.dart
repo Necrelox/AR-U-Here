@@ -28,7 +28,7 @@ class ApplicationBar extends StatelessWidget {
             )),
       ],
       title: const Text(
-        "Planning",
+        "",
         style: TextStyle(
             color: Color(0XFFFBE8A6),
             fontSize: 28.0,

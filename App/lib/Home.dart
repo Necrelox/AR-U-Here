@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'api/api.dart';
+import 'components/appbar.dart';
+import 'components/navbar.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -26,39 +28,17 @@ class Home_state extends State<Home> {
     return Colors.blue;
   }
 
-  Widget navBar() {
-    return AppBar(
-      centerTitle: false,
-      elevation: 0,
-      actions: [
-        Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 15, 5),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: SizedBox.fromSize(
-                size: const Size.fromRadius(23),
-                child: Image.asset(
-                  './asset/marin.jpg',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            )),
-      ],
-      automaticallyImplyLeading: false,
-    );
-  }
-
   Widget recap() {
     return Container(
       margin: EdgeInsets.only(
-          top: MediaQuery.of(context).size.width / 2.5,
+          top: MediaQuery.of(context).size.width / 3.8,
           left: MediaQuery.of(context).size.width / 17,
           right: MediaQuery.of(context).size.width / 17),
       height: MediaQuery.of(context).size.height * 0.3,
       width: MediaQuery.of(context).size.height * 0.6,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Color(0XFFFBE8A6),
+        color: Color(0XFFB4DFE5),
       ),
       child: Column(
         children: <Widget>[
@@ -135,7 +115,7 @@ class Home_state extends State<Home> {
         margin: EdgeInsets.only(
             left: MediaQuery.of(context).size.width / 29,
             right: MediaQuery.of(context).size.width / 20),
-        height: MediaQuery.of(context).size.height * 0.15,
+        height: MediaQuery.of(context).size.height * 0.12,
         width: MediaQuery.of(context).size.height * 0.20,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
@@ -157,7 +137,7 @@ class Home_state extends State<Home> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 20),
+            padding: EdgeInsets.only(top: 0),
             child: Text(presence,
                 style: const TextStyle(
                   color: Color(0XFF303C6C),
@@ -174,7 +154,7 @@ class Home_state extends State<Home> {
       children: <Widget>[
         Padding(
           padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.width * 1.15, left: 8),
+              top: MediaQuery.of(context).size.width * 1.05, left: 8),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -184,7 +164,7 @@ class Home_state extends State<Home> {
         ),
         Container(
           margin: EdgeInsets.only(
-              top: MediaQuery.of(context).size.width * 1.5,
+              top: MediaQuery.of(context).size.width * 1.31,
               left: MediaQuery.of(context).size.width / 3.1,
               right: MediaQuery.of(context).size.width / 17),
           height: MediaQuery.of(context).size.height * 0.15,
@@ -205,7 +185,7 @@ class Home_state extends State<Home> {
                         fontWeight: FontWeight.bold,
                       )),
                   Padding(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.only(top: 0),
                     child: Text("Session(s)",
                         style: TextStyle(
                           color: Color(0XFF303C6C),
@@ -224,13 +204,17 @@ class Home_state extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0XFF303C6C).withOpacity(1),
+        backgroundColor: Color(0XFF303C6C),
+        appBar: const PreferredSize(
+            preferredSize: Size.fromHeight(50),
+            child: ApplicationBar(
+                asset: "asset/marin.jpg", color: Color(0XFF303C6C))),
+        bottomNavigationBar: NavbarDemo(),
         body: Stack(
           children: <Widget>[
-            navBar(),
             Stack(children: const <Widget>[
               Padding(
-                padding: EdgeInsets.only(top: 80.0, left: 50),
+                padding: EdgeInsets.only(top: 12.0, left: 50),
                 child: Text("Hello Marin !",
                     style: TextStyle(
                       color: Color(0XFFFBE8A6),
@@ -240,7 +224,7 @@ class Home_state extends State<Home> {
                     )),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 120, left: 50),
+                padding: EdgeInsets.only(top: 51, left: 50),
                 child: Text("Nouvelles Notifications",
                     style: TextStyle(
                       color: Color(0XFFFBE8A6),
@@ -253,7 +237,7 @@ class Home_state extends State<Home> {
             recap(),
             Padding(
               padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.width * 1.05, left: 50),
+                  top: MediaQuery.of(context).size.width * 0.9, left: 50),
               child: const Text("Résumé du mois",
                   style: TextStyle(
                     color: Color(0XFFFBE8A6),

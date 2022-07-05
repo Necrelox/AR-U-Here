@@ -235,7 +235,7 @@ class Register_state extends State<Register> {
         },
         padding: const EdgeInsets.only(top: 0.0),
         child: const Text(
-          "Déjà un compte ? Connection",
+          "Déjà un compte ? Connexion",
           style: TextStyle(
             color: Color(0XFF303C6C),
             fontWeight: FontWeight.bold,
