@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'register.dart';
-import '../Home.dart';
+import '../dashboard/Home.dart';
 import '../api/api.dart';
 
 class Login extends StatefulWidget {

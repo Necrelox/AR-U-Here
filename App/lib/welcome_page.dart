@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Home.dart';
+import 'package:flutter_application_1/dashboard/Home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'animation.dart';
 import 'Registration/login.dart';
@@ -18,9 +18,9 @@ class WelcomePage extends StatelessWidget {
           DelayAnimation(
               delay: 500,
               child: Container(
-        margin: const EdgeInsets.only(
-          top: 60,
-        ),
+                margin: const EdgeInsets.only(
+                  top: 60,
+                ),
                 height: 200,
                 child: Image.asset('./asset/logo.png'),
               )),
@@ -83,11 +83,7 @@ class WelcomePage extends StatelessWidget {
           DelayAnimation(
               delay: 1500,
               child: Container(
-                margin: const EdgeInsets.only(
-                  top: 20,
-                  left: 80,
-                  right: 80
-                  ),
+                margin: const EdgeInsets.only(top: 20, left: 80, right: 80),
                 width: double.infinity,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -114,11 +110,7 @@ class WelcomePage extends StatelessWidget {
           DelayAnimation(
               delay: 1800,
               child: Container(
-                margin: const EdgeInsets.only(
-                  top: 20,
-                  left: 80,
-                  right: 80
-                  ),
+                margin: const EdgeInsets.only(top: 20, left: 80, right: 80),
                 width: double.infinity,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(

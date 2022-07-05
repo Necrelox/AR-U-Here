@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'api/api.dart';
-import 'components/appbar.dart';
-import 'components/navbar.dart';
+import '../api/api.dart';
+import '../components/appbar.dart';
+import '../components/navbar.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -208,7 +208,7 @@ class Home_state extends State<Home> {
         appBar: const PreferredSize(
             preferredSize: Size.fromHeight(50),
             child: ApplicationBar(
-                asset: "asset/marin.jpg", color: Color(0XFF303C6C))),
+                asset: "asset/marin.jpg", color: Color(0XFF303C6C), title: '')),
         bottomNavigationBar: NavbarDemo(),
         body: Stack(
           children: <Widget>[
