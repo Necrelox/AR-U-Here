@@ -80,7 +80,7 @@ class DidactielThree extends StatelessWidget {
                     textAlign: TextAlign.center,
                     text: const TextSpan(children: <TextSpan>[
                       TextSpan(
-                          text: "La solution au probème de signature sur ",
+                          text: "La solution au problème de signature sur ",
                           style: TextStyle(
                             color: Color(0XFF303C6C),
                             fontSize: 26,
@@ -99,7 +99,7 @@ class DidactielThree extends StatelessWidget {
                             fontSize: 26,
                           )),
                       TextSpan(
-                          text: 'carte étudiant ',
+                          text: 'carte étudiante ',
                           style: TextStyle(
                             color: Color(0xFFF4976C),
                             fontWeight: FontWeight.bold,

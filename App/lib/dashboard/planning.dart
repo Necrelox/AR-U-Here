@@ -40,7 +40,6 @@ class _PlanningState extends State<Planning> {
         child: ApplicationBar(
           color:  Color(0XFFF4976C),
           asset: 'asset/marin.jpg',
-          title: 'Planning'
         ),
       ),
       
@@ -59,7 +58,7 @@ class _PlanningState extends State<Planning> {
                     borderRadius: BorderRadius.circular(51.0)
                   ),
                 margin: const EdgeInsets.only(
-                  top: 10,
+                  top: 20,
                   bottom: 10,
                   left: 20,
                   right: 20,
@@ -123,7 +122,7 @@ class _PlanningState extends State<Planning> {
               child: Container(
                 width: double.infinity,
                 alignment: Alignment.center,
-                padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                padding: const EdgeInsets.fromLTRB(25, 10, 25, 0),
                 margin: const EdgeInsets.only(
                   top: 0,
                   bottom: 0,

@@ -12,7 +12,7 @@ class NavbarDemo extends StatefulWidget {
 class Naviguation extends State<NavbarDemo> {
   Widget icon(String name, String asset) {
     return Expanded(
-      child: RaisedButton(
+        child: RaisedButton(
       onPressed: () => {},
       color: const Color(0XFF303C6C),
       child: Column(
@@ -38,12 +38,11 @@ class Naviguation extends State<NavbarDemo> {
     return Container(
         color: const Color(0XFF303C6C),
         height: MediaQuery.of(context).size.height * 0.10,
-        child: Row(
-            children: <Widget>[
-              icon('Accueil', 'asset/home.png'),
-              icon('Statistiques', 'asset/stats.png'),
-              icon('Calendrier', 'asset/calendar.png'),
-              icon('Profile', 'asset/profile.png')
-            ]));
+        child: Row(children: <Widget>[
+          icon('Accueil', 'asset/home.png'),
+          icon('Statistiques', 'asset/stats.png'),
+          icon('Calendrier', 'asset/calendar.png'),
+          icon('Profile', 'asset/profile.png')
+        ]));
   }
 }
