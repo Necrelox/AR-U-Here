@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 
 class ApplicationBar extends StatelessWidget {
   final String asset;
+  final String title;
   final Color color;
 
-  const ApplicationBar({Key? key, required this.color, required this.asset})
-      : super(key: key);
+  const ApplicationBar({
+    Key? key,
+    required this.asset,
+    required this.title,
+    required this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +32,9 @@ class ApplicationBar extends StatelessWidget {
               ),
             )),
       ],
-      title: const Text(
-        "",
-        style: TextStyle(
+      title: Text(
+        title,
+        style: const TextStyle(
             color: Color(0XFFFBE8A6),
             fontSize: 28.0,
             fontWeight: FontWeight.bold),
