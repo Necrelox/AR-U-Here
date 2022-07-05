@@ -4,7 +4,7 @@ import 'package:flutter_application_1/api/api.dart';
 
 import 'login.dart';
 import 'package:flutter/material.dart';
-import '../Home.dart';
+import '../dashboard/Home.dart';
 import '../api/api.dart';
 
 class Register extends StatefulWidget {
