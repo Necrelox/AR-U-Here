@@ -279,7 +279,7 @@ export class AccountQueries {
 
 
             const token: User.IToken[] = await AccountQueries.getTokenTransaction({
-                userUuid: userUuid
+                userUuid
             }, trx);
             if (!token || token.length === 0) {
                 throw {
