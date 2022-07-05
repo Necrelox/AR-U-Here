@@ -209,17 +209,17 @@ export class AccountQueries {
             }, trx);
 
             await AccountQueries.deleteTokenTransaction({
-                userUuid: userUuid
+                userUuid
             }, trx);
 
             await AccountQueries.addTokenTransaction({
                 token: Tools.Token.generateToken(userUuid!),
-                userUuid: userUuid,
+                userUuid,
                 expireAt: new Date(Date.now() + (1000 * 60 * 60))
             }, trx);
 
             const token: User.IToken[] = await AccountQueries.getTokenTransaction({
-                userUuid: userUuid
+                userUuid
             }, trx);
             if (!token || token.length === 0) {
                 throw {
@@ -251,29 +251,29 @@ export class AccountQueries {
             }, trx);
 
             await AccountQueries.deleteTokenTransaction({
-                userUuid: userUuid
+                userUuid
             }, trx);
 
             await AccountQueries.addTokenTransaction({
                 token: Tools.Token.generateToken(userUuid),
-                userUuid: userUuid,
+                userUuid,
                 expireAt: new Date(Date.now() + (1000 * 60 * 60))
             }, trx);
 
             await AccountQueries.addOrUpdateIpTransaction({
                 active: true,
                 ip,
-                userUuid: userUuid,
+                userUuid,
             }, trx);
             await AccountQueries.addMacAddressOrUpdateTransaction({
                 active: true,
                 macAddress,
-                userUuid: userUuid,
+                userUuid,
             }, trx);
             await AccountQueries.addDeviceOrUpdateTransaction({
                 active: true,
                 device,
-                userUuid: userUuid,
+                userUuid,
             }, trx);
 
 
