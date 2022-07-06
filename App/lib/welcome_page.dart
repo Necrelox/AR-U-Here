@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'animation.dart';
 import 'Registration/login.dart';
 import './didactiel/didactiel1.dart';
+import './dashboard/profile.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);

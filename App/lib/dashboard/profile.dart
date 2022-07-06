@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../animation.dart';
 import '../components/navbar.dart';
 import '../animation.dart';
+import '../api/api.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ Widget label(String textLabel) {
     child: Text(textLabel,
         textAlign: TextAlign.left,
         style: const TextStyle(
-          fontSize: 20,
+          fontSize: 17,
           color: Color(0XFF303C6C),
           fontWeight: FontWeight.w700,
         )),
@@ -29,8 +30,6 @@ Widget label(String textLabel) {
 Widget input(String textInput) {
   return Container(
     width: double.infinity,
-    margin: const EdgeInsets.only(bottom: 5),
-    padding: const EdgeInsets.only(bottom: 5),
     decoration: const BoxDecoration(
         border: Border(
       bottom: BorderSide(
@@ -38,13 +37,17 @@ Widget input(String textInput) {
         width: 2,
       ),
     )),
-    child: Text(textInput,
-        textAlign: TextAlign.left,
-        style: const TextStyle(
-          fontSize: 15,
-          color: Color(0XFF303C6C),
-          fontWeight: FontWeight.w400,
-        )),
+    child: const TextField(
+      keyboardType: TextInputType.multiline,
+      textInputAction: TextInputAction.newline,
+      decoration: InputDecoration(
+          border: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
+          hintText: "À compléter..."),
+    ),
   );
 }
 
@@ -59,7 +62,7 @@ class _ProfileState extends State<Profile> {
           children: <Widget>[
             Container(
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.35,
+                height: MediaQuery.of(context).size.height * 0.30,
                 color: const Color(0XFF303C6C),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20), // Image border
@@ -69,6 +72,7 @@ class _ProfileState extends State<Profile> {
                       DelayAnimation(
                         delay: 500,
                         child: Container(
+                            padding: const EdgeInsets.only(top: 20),
                             width: double.infinity,
                             alignment: Alignment.center,
                             child: ClipRRect(
@@ -161,7 +165,7 @@ class _ProfileState extends State<Profile> {
                   textAlign: TextAlign.center,
                   text: TextSpan(children: <TextSpan>[
                     TextSpan(
-                        text: "Account Information",
+                        text: "Votre compte",
                         style: GoogleFonts.inter(
                           shadows: <Shadow>[
                             const Shadow(
@@ -182,15 +186,15 @@ class _ProfileState extends State<Profile> {
               delay: 500,
               child: Container(
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.35,
+                height: MediaQuery.of(context).size.height * 0.40,
                 margin: const EdgeInsets.fromLTRB(80, 0, 150, 0),
                 alignment: Alignment.center,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    label('Name'),
+                    label('Nom'),
                     input('Marin'),
-                    label('Mobile'),
+                    label('Téléphone'),
                     input('+33 6 71 94 23 15'),
                     label('Email'),
                     input('marin.pavel@epitech.eu'),
@@ -216,8 +220,11 @@ class _ProfileState extends State<Profile> {
                                 RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
                         ))),
-                    onPressed: () => {},
-                    child: const Text("Logout",
+                    onPressed: () async {
+                      var response = await get_user();
+                      print(response);
+                    },
+                    child: const Text("Sauvegarder",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
