@@ -7,8 +7,11 @@ import 'package:http/http.dart' as http;
 import 'register.dart';
 import '../dashboard/Home.dart';
 import '../api/api.dart';
+import '../myapp.dart';
 
 class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
   @override
   Login_state createState() => Login_state();
 }
@@ -23,7 +26,7 @@ class Login_state extends State<Login> {
 
   Widget _email() {
     return Container(
-      padding: EdgeInsets.only(top: 40.0),
+      padding: const EdgeInsets.only(top: 40.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -31,7 +34,7 @@ class Login_state extends State<Login> {
           Container(
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(
-              color: const Color(0xFFB4DFE5),
+              color: MyApp.quaternaryColor,
               borderRadius: BorderRadius.circular(51.0),
               boxShadow: const [
                 BoxShadow(
@@ -45,23 +48,23 @@ class Login_state extends State<Login> {
             child: TextField(
               controller: _mailControler,
               keyboardType: TextInputType.emailAddress,
-              style: const TextStyle(
-                color: Color(0XFF303C6C),
+              style: TextStyle(
+                color: MyApp.primaryColor,
                 fontSize: 20.0,
                 fontFamily: 'OpenSans',
               ),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 12, left: 30.0),
+                contentPadding: const EdgeInsets.only(top: 12, left: 30.0),
                 prefixIcon: Icon(
-                  IconData(0xe042, fontFamily: 'MaterialIcons'),
-                  color: Color(0XFF303C6C),
+                  const IconData(0xe042, fontFamily: 'MaterialIcons'),
+                  color: MyApp.primaryColor,
                 ),
                 hintText: 'Identifiant',
                 hintStyle: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
-                  color: Color(0XFF303C6C),
+                  color: MyApp.primaryColor,
                   fontFamily: 'OpenSans',
                 ),
               ),
@@ -83,13 +86,13 @@ class Login_state extends State<Login> {
           Container(
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(
-              color: Color(0xFFB4DFE5),
+              color: MyApp.quaternaryColor,
               borderRadius: BorderRadius.circular(51.0),
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                  color: Color(0XFF303C6C),
+                  color: MyApp.primaryColor,
                   blurRadius: 6.0,
-                  offset: Offset(0, 2),
+                  offset: const Offset(0, 2),
                 ),
               ],
             ),
@@ -97,22 +100,22 @@ class Login_state extends State<Login> {
             child: TextField(
               controller: _passwControler,
               obscureText: true,
-              style: const TextStyle(
-                color: Color(0XFF303C6C),
+              style: TextStyle(
+                color: MyApp.primaryColor,
                 fontFamily: 'OpenSans',
               ),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 14.0),
+                contentPadding: const EdgeInsets.only(top: 14.0),
                 prefixIcon: Icon(
                   Icons.lock,
-                  color: Color(0XFF303C6C),
+                  color: MyApp.primaryColor,
                 ),
                 hintText: 'Mot de passe',
                 hintStyle: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
-                  color: Color(0XFF303C6C),
+                  color: MyApp.primaryColor,
                   fontFamily: 'OpenSans',
                 ),
               ),
@@ -128,11 +131,11 @@ class Login_state extends State<Login> {
       alignment: Alignment.centerRight,
       child: FlatButton(
         onPressed: () => print('Mot de passe oublié'),
-        padding: EdgeInsets.only(right: 0.0),
-        child: const Text(
+        padding: const EdgeInsets.only(right: 0.0),
+        child: Text(
           'Mot de passe oublié ?',
           style: TextStyle(
-            color: Color(0XFFFBE8A6),
+            color: MyApp.tertiaryColor,
             fontWeight: FontWeight.bold,
             fontFamily: 'OpenSans',
           ),
@@ -144,7 +147,7 @@ class Login_state extends State<Login> {
   Widget _dispError() {
     if (error == true) {
       Map<String, dynamic> temp = json.decode(response.body);
-      return Container(
+      return SizedBox(
         height: 50,
         child: Text(temp['error']['message'],
             style: const TextStyle(
@@ -161,7 +164,7 @@ class Login_state extends State<Login> {
 
   Widget _loginBtn() {
     return Container(
-      padding: EdgeInsets.only(top: 120.0),
+      padding: const EdgeInsets.only(top: 120.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
@@ -184,15 +187,15 @@ class Login_state extends State<Login> {
             error = true;
           }
         },
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(51.0),
         ),
-        color: Color(0XFFFBE8A6),
-        child: const Text(
+        color: MyApp.tertiaryColor,
+        child: Text(
           'CONNEXION',
           style: TextStyle(
-            color: Color(0XFF303C6C),
+            color: MyApp.primaryColor,
             letterSpacing: 1.5,
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
@@ -211,15 +214,15 @@ class Login_state extends State<Login> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Register(),
+              builder: (context) => const Register(),
             ),
           );
         },
         // padding: const EdgeInsets.only(top: 0.0),
-        child: const Text(
+        child: Text(
           "Pas de compte ? Inscrivez-vous",
           style: TextStyle(
-            color: Color(0XFFFBE8A6),
+            color: MyApp.tertiaryColor,
             fontWeight: FontWeight.bold,
             fontFamily: 'OpenSans',
           ),
@@ -231,10 +234,10 @@ class Login_state extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF303C6C),
+      backgroundColor: MyApp.primaryColor,
       body: Stack(
         children: <Widget>[
-          Container(
+          SizedBox(
             height: double.infinity,
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
@@ -244,24 +247,24 @@ class Login_state extends State<Login> {
               ),
               child: Column(
                 children: <Widget>[
-                  const Align(
+                  Align(
                     alignment: Alignment.topLeft,
                     child: Text("Connectez-vous !",
                         style: TextStyle(
-                          color: Color(0XFFFBE8A6),
+                          color: MyApp.tertiaryColor,
                           fontFamily: 'OpenSans',
                           fontSize: 30.0,
                           fontWeight: FontWeight.bold,
                         )),
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       child: Text(
                           "Bon retour parmis nous.\nVous nous avez manqué !",
                           style: TextStyle(
-                            color: Color(0XFFD2FDFF),
+                            color: MyApp.quinaryColor,
                             fontFamily: 'OpenSans',
                             fontSize: 26.0,
                           )),
@@ -270,7 +273,7 @@ class Login_state extends State<Login> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(height: 40),
+                      const SizedBox(height: 40),
                       _email(),
                       _password(),
                       _forgotPwd(),

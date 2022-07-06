@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_new, deprecated_member_use
 import 'package:flutter/material.dart';
+import '../myapp.dart';
 
 class ApplicationBar extends StatelessWidget {
   final String asset;
@@ -34,8 +35,8 @@ class ApplicationBar extends StatelessWidget {
       ],
       title: Text(
         title,
-        style: const TextStyle(
-            color: Color(0XFFFBE8A6),
+        style: TextStyle(
+            color: MyApp.tertiaryColor,
             fontSize: 28.0,
             fontWeight: FontWeight.bold),
       ),
