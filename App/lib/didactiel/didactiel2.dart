@@ -2,19 +2,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../animation.dart';
 import '../welcome_page.dart';
 import 'didactiel3.dart';
+import '../myapp.dart';
 
 class DidactielTwoo extends StatelessWidget {
+  const DidactielTwoo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0XFFB4DFE5),
+        backgroundColor: MyApp.quaternaryColor,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Color(0XFFB4DFE5),
+          backgroundColor: MyApp.quaternaryColor,
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back,
@@ -25,7 +27,7 @@ class DidactielTwoo extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => WelcomePage(),
+                  builder: (context) => const WelcomePage(),
                 ),
               );
             },
@@ -67,7 +69,7 @@ class DidactielTwoo extends StatelessWidget {
                     top: 80,
                     bottom: 20,
                   ),
-                  padding: EdgeInsets.only(left: 25, right: 25),
+                  padding: const EdgeInsets.only(left: 25, right: 25),
                   child: Image.asset('asset/epitech-logo.png'),
                 ),
               ),
@@ -79,9 +81,9 @@ class DidactielTwoo extends StatelessWidget {
                     top: 80,
                     bottom: 50,
                   ),
-                  padding: EdgeInsets.only(top: 25, bottom: 25),
+                  padding: const EdgeInsets.only(top: 25, bottom: 25),
                   decoration: BoxDecoration(
-                      color: Color(0XFF303C6C),
+                      color: MyApp.primaryColor,
                       // ignore: prefer_const_constructors
                       borderRadius: new BorderRadius.only(
                         bottomLeft: const Radius.circular(51.0),
@@ -89,30 +91,30 @@ class DidactielTwoo extends StatelessWidget {
                       )),
                   child: RichText(
                     textAlign: TextAlign.center,
-                    text: const TextSpan(children: <TextSpan>[
+                    text: TextSpan(children: <TextSpan>[
                       TextSpan(
                           text: "Obtenez la meilleure application ",
                           style: TextStyle(
-                            color: Color(0xFFF4976C),
+                            color: MyApp.secondaryColor,
                             fontSize: 26,
                           )),
                       TextSpan(
                           text: "d'identification ",
                           style: TextStyle(
-                            color: Color(0XFFD2FDFF),
+                            color: MyApp.quinaryColor,
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
                           )),
                       TextSpan(
                           text: 'jamais créée par des ',
                           style: TextStyle(
-                            color: Color(0xFFF4976C),
+                            color: MyApp.secondaryColor,
                             fontSize: 26,
                           )),
                       TextSpan(
                           text: 'étudiants Epitech ',
                           style: TextStyle(
-                            color: Color(0XFFD2FDFF),
+                            color: MyApp.quinaryColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 26,
                           )),
@@ -128,14 +130,14 @@ class DidactielTwoo extends StatelessWidget {
                   ),
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0XFF303C6C),
-                        shape: StadiumBorder(),
-                        padding: EdgeInsets.all(14),
+                        primary: MyApp.primaryColor,
+                        shape: const StadiumBorder(),
+                        padding: const EdgeInsets.all(14),
                       ),
                       child: Text(
                         "Suivant",
                         style: GoogleFonts.poppins(
-                          color: Color(0XFFD2FDFF),
+                          color: MyApp.quinaryColor,
                           fontWeight: FontWeight.w600,
                           fontSize: 26,
                         ),
@@ -144,7 +146,7 @@ class DidactielTwoo extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DidactielThree(),
+                            builder: (context) => const DidactielThree(),
                           ),
                         );
                       }),
