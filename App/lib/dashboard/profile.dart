@@ -138,12 +138,12 @@ class _ProfileState extends State<Profile> {
             ),
             Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.07,
+              height: MediaQuery.of(context).size.height * 0.05,
               padding: const EdgeInsets.fromLTRB(100, 0, 100, 0),
               decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.transparent,
-                    width: 5,
+                    width: 0,
                   ),
                   gradient: const LinearGradient(
                       begin: Alignment.topCenter,
