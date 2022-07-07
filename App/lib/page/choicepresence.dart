@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../animation.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
-import 'package:file_picker/file_picker.dart';
 
 class ChoicePresence extends StatefulWidget {
+  const ChoicePresence({Key? key}) : super(key: key);
+
   @override
   // ignore: library_private_types_in_public_api
   _ChoicePresenceState createState() => _ChoicePresenceState();
@@ -32,7 +32,7 @@ class _ChoicePresenceState extends State<ChoicePresence> {
               ))),
           onPressed: () => {},
           child: Text(text,
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700))),
+              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700))),
     );
   }
 
@@ -67,7 +67,7 @@ class _ChoicePresenceState extends State<ChoicePresence> {
           ),
           DelayAnimation(
             delay: 500,
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.3,
               width: MediaQuery.of(context).size.width * 0.7,
               child: Column(
@@ -83,7 +83,7 @@ class _ChoicePresenceState extends State<ChoicePresence> {
           ),
           DelayAnimation(
             delay: 500,
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.7,
               height: MediaQuery.of(context).size.height * 0.3,
               child: Column(
