@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../dashboard/Home.dart';
 import '../dashboard/planning.dart';
+import '../myapp.dart';
 
 class NavbarDemo extends StatefulWidget {
   const NavbarDemo({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class Naviguation extends State<NavbarDemo> {
           ),
         )
       },
-      color: const Color(0XFF303C6C),
+      color: MyApp.primaryColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -32,7 +33,7 @@ class Naviguation extends State<NavbarDemo> {
           Text(
             name,
             style: GoogleFonts.inter(
-              color: const Color(0XFFFBE8A6),
+              color: MyApp.tertiaryColor,
               fontSize: 10,
               fontWeight: FontWeight.w500,
             ),
@@ -45,7 +46,7 @@ class Naviguation extends State<NavbarDemo> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: const Color(0XFF303C6C),
+        color: MyApp.primaryColor,
         height: MediaQuery.of(context).size.height * 0.10,
         child: Row(children: <Widget>[
           icon_bar('Accueil', 'asset/home.png', const Home()),

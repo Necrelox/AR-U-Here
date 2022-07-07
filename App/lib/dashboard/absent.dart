@@ -3,6 +3,7 @@ import '../animation.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
+import '../myapp.dart';
 
 class Absent extends StatefulWidget {
   @override
@@ -43,7 +44,7 @@ class _PlanningState extends State<Absent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0XFFD2FDFF),
+      backgroundColor: MyApp.quinaryColor,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -61,12 +62,12 @@ class _PlanningState extends State<Absent> {
                   right: 20,
                 ),
                 child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                   children: [
                     TextSpan(
                       text: "Justifier une absence",
                       style: TextStyle(
-                        color: Color(0XFF303C6C),
+                        color: MyApp.primaryColor,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
@@ -89,13 +90,13 @@ class _PlanningState extends State<Absent> {
                   right: 20,
                 ),
                 child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                   children: [
                     TextSpan(
                       text:
                           "La demande de justificatif sera envoyé à un administrateur pour validation.",
                       style: TextStyle(
-                        color: Color(0XFF303C6C),
+                        color: MyApp.primaryColor,
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
@@ -118,12 +119,12 @@ class _PlanningState extends State<Absent> {
                   right: 20,
                 ),
                 child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                   children: [
                     TextSpan(
                       text: "Justification",
                       style: TextStyle(
-                        color: Color(0XFF303C6C),
+                        color: MyApp.primaryColor,
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
                       ),
@@ -143,8 +144,8 @@ class _PlanningState extends State<Absent> {
                   right: 50,
                 ),
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                decoration: const BoxDecoration(
-                    color: Color(0XFFFBE8A6),
+                decoration: BoxDecoration(
+                    color: MyApp.tertiaryColor,
                     // ignore: prefer_const_constructors
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: DropdownButton<String>(
@@ -152,7 +153,7 @@ class _PlanningState extends State<Absent> {
                   icon: const Icon(Icons.arrow_downward),
                   isExpanded: true,
                   elevation: 16,
-                  style: const TextStyle(color: Color(0XFF303C6C)),
+                  style: TextStyle(color: MyApp.primaryColor),
                   underline: const SizedBox(),
                   onChanged: (String? newValue){
                     setState(() {
@@ -177,12 +178,12 @@ class _PlanningState extends State<Absent> {
                   right: 20,
                 ),
                 child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                   children: [
                     TextSpan(
                       text: "Date de début",
                       style: TextStyle(
-                        color: Color(0XFF303C6C),
+                        color: MyApp.primaryColor,
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
                       ),
@@ -202,8 +203,8 @@ class _PlanningState extends State<Absent> {
                   left: 50,
                   right: 50,
                 ),
-                decoration: const BoxDecoration(
-                    color: Color(0XFFFBE8A6),
+                decoration: BoxDecoration(
+                    color: MyApp.tertiaryColor,
                     // ignore: prefer_const_constructors
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Column(children: <Widget>[
@@ -248,12 +249,12 @@ class _PlanningState extends State<Absent> {
                   right: 20,
                 ),
                 child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                   children: [
                     TextSpan(
                       text: "Date de fin",
                       style: TextStyle(
-                        color: Color(0XFF303C6C),
+                        color: MyApp.primaryColor,
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
                       ),
@@ -273,8 +274,8 @@ class _PlanningState extends State<Absent> {
                   left: 50,
                   right: 50,
                 ),
-                decoration: const BoxDecoration(
-                    color: Color(0XFFFBE8A6),
+                decoration: BoxDecoration(
+                    color: MyApp.tertiaryColor,
                     // ignore: prefer_const_constructors
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Column(children: <Widget>[
@@ -319,12 +320,12 @@ class _PlanningState extends State<Absent> {
                   right: 20,
                 ),
                 child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                   children: [
                     TextSpan(
                       text: "Commentaire",
                       style: TextStyle(
-                        color: Color(0XFF303C6C),
+                        color: MyApp.primaryColor,
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
                       ),
@@ -344,8 +345,8 @@ class _PlanningState extends State<Absent> {
                   left: 50,
                   right: 50,
                 ),
-                decoration: const BoxDecoration(
-                    color: Color(0XFFFBE8A6),
+                decoration: BoxDecoration(
+                    color: MyApp.tertiaryColor,
                     // ignore: prefer_const_constructors
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Row(
@@ -392,10 +393,10 @@ class _PlanningState extends State<Absent> {
                   onTap: () async {
                     final result = await FilePicker.platform.pickFiles();
                   },
-                  child: const Text(
+                  child: Text(
                     'Importer un document',
                     style: TextStyle(
-                      color: Color(0XFF303C6C),
+                      color: MyApp.primaryColor,
                       fontSize: 11,
                       fontWeight: FontWeight.bold,
                     ),
@@ -415,9 +416,9 @@ class _PlanningState extends State<Absent> {
               ElevatedButton(
                   style: ButtonStyle(
                       foregroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0XFF303C6C)),
+                          MyApp.primaryColor),
                       backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0XFFF4976C)),
+                          MyApp.secondaryColor),
                       shape:
                           MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
@@ -430,9 +431,9 @@ class _PlanningState extends State<Absent> {
               ElevatedButton(
                   style: ButtonStyle(
                       foregroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0XFFF4976C)),
+                          MyApp.secondaryColor),
                       backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0XFF303C6C)),
+                          MyApp.primaryColor),
                       shape:
                           MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
