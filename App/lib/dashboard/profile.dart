@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/myapp.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../animation.dart';
 import '../components/navbar.dart';
@@ -13,6 +15,9 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
+bool error = false;
+var response;
+
 Widget label(String textLabel) {
   return Container(
     margin: const EdgeInsets.only(top: 10),
@@ -25,6 +30,24 @@ Widget label(String textLabel) {
           fontWeight: FontWeight.w700,
         )),
   );
+}
+
+Widget _dispError() {
+  if (error == true) {
+    Map<String, dynamic> temp = json.decode(response.body);
+    return Container(
+      height: 50,
+      child: Text(temp['error']['message'],
+          style: const TextStyle(
+            color: Color(0XFFF49767),
+            fontFamily: 'OpenSans',
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          )),
+    );
+  } else {
+    return Container(height: 30);
+  }
 }
 
 Widget input(String textInput) {
@@ -57,16 +80,23 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: const Color(0XFFD2FDFF),
       bottomNavigationBar: const NavbarDemo(),
+      floatingActionButton: FloatingActionButton(
+      onPressed: () {
+        // Logout
+      },
+      backgroundColor: MyApp.secondaryColor,
+      child: Icon(Icons.logout_rounded, color: MyApp.primaryColor),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.30,
-                color: const Color(0XFF303C6C),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20), // Image border
-                  child: Column(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.30,
+              color: const Color(0XFF303C6C),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20), // Image border
+                child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       DelayAnimation(
@@ -104,9 +134,8 @@ class _ProfileState extends State<Profile> {
                             ),
                           )),
                     ]),
-                ),
               ),
-
+            ),
             Container(
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.07,
@@ -117,19 +146,18 @@ class _ProfileState extends State<Profile> {
                     width: 5,
                   ),
                   gradient: const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: [0.5, 0.5],
-                    colors: [Color(0XFF303C6C), Color(0XFFD2FDFF)])),
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [0.5, 0.5],
+                      colors: [Color(0XFF303C6C), Color(0XFFD2FDFF)])),
               child: ElevatedButton(
                 style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all<Color>(
                         const Color(0XFF303C6C)),
                     backgroundColor: MaterialStateProperty.all<Color>(
                         const Color(0XFFFBE8A6)),
-                    shape:
-                        MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(51.0),
                     ))),
                 onPressed: () => {},
@@ -143,7 +171,7 @@ class _ProfileState extends State<Profile> {
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                         )),
-                        TextSpan(
+                    TextSpan(
                         text: "Pre Msc",
                         style: GoogleFonts.inter(
                           color: const Color(0XFF303C6C),
@@ -154,7 +182,6 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -191,7 +218,7 @@ class _ProfileState extends State<Profile> {
                 alignment: Alignment.center,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+                  children: <Widget> [
                     label('Nom'),
                     input('Marin'),
                     label('Téléphone'),
@@ -221,8 +248,14 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(18.0),
                         ))),
                     onPressed: () async {
-                      var response = await get_user();
-                      print(response);
+                      response = await get_user();
+                      if (response.statusCode == 200) {
+                        // ignore: use_build_context_synchronously
+                        Map<String, dynamic> temp = json.decode(response.body);
+                        print(temp['user']['username']);
+                      } else {
+                        error = true;
+                      }
                     },
                     child: const Text("Sauvegarder",
                         style: TextStyle(
