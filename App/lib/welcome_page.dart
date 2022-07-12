@@ -128,7 +128,7 @@ class WelcomePage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => camTools(),
+                        builder: (context) => DidactielOne(),
                       ),
                     );
                   }),
