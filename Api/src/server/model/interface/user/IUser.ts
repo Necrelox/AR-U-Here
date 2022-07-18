@@ -3,8 +3,10 @@ export interface IUser {
     username?: string;
     password?: Buffer;
     activityMessage?: string;
-    isVerified?: boolean;
+    address?: string;
+    phone?: string;
     role?: string;
+    isVerified?: boolean;
     isConnected?: boolean;
     isBlackListed?: boolean;
     createdAt?: Date;
