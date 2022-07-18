@@ -35,6 +35,7 @@ export class Server {
     private initializeRoutes() {
         this.app.use('/account', new Controller.AccountController().getRouter());
         this.app.use('/user', new Controller.UserController().getRouter());
+        this.app.use('/biometric', new Controller.BiometricController().getRouter());
 
     }
 
