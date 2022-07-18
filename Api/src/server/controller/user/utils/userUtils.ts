@@ -41,7 +41,7 @@ export abstract class UserUtils extends ControllerUtils {
             user.activityMessage = body.activityMessage;
         }
         if ('address' in body) {
-            user.activityMessage = body.address;
+            user.address = body.address;
         }
         if ('phone' in body) {
             const regex = /^\d{3}\.\d{3}\.\d{3}\.\d{3}$/;
@@ -52,7 +52,7 @@ export abstract class UserUtils extends ControllerUtils {
                 };
             }
 
-            user.activityMessage = body.phone;
+            user.phone = body.phone;
         }
 
         return user;
