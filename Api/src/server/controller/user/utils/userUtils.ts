@@ -7,11 +7,15 @@ interface ReqBody {
     email: string;
     username: string;
     activityMessage: string;
+    address: string;
+    phone: string;
 }
 
 export enum CodeError {
+    PHONE_NUMBER_INVALID = "UserUtils::transformBodyToUserForUpdate"
 }
 export enum MessageError {
+    PHONE_NUMBER_INVALID = 'PHONE_NUMBER_INVALID',
 }
 
 
@@ -36,6 +40,21 @@ export abstract class UserUtils extends ControllerUtils {
         if ('activityMessage' in body) {
             user.activityMessage = body.activityMessage;
         }
+        if ('address' in body) {
+            user.address = body.address;
+        }
+        if ('phone' in body) {
+            const regex = /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
+            if (!regex.test(body.phone)) {
+                throw {
+                    code: CodeError.PHONE_NUMBER_INVALID,
+                    message: MessageError.PHONE_NUMBER_INVALID
+                };
+            }
+
+            user.phone = body.phone;
+        }
+
         return user;
     }
 }
