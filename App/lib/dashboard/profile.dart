@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/myapp.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,6 +7,7 @@ import '../animation.dart';
 import '../components/navbar.dart';
 import '../animation.dart';
 import '../api/api.dart';
+import '../class/User.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -50,42 +52,28 @@ Widget _dispError() {
   }
 }
 
-Widget input(String textInput) {
-  return Container(
-    width: double.infinity,
-    decoration: const BoxDecoration(
-        border: Border(
-      bottom: BorderSide(
-        color: Color(0XFFFBE8A6),
-        width: 2,
-      ),
-    )),
-    child: const TextField(
-      keyboardType: TextInputType.multiline,
-      textInputAction: TextInputAction.newline,
-      decoration: InputDecoration(
-          border: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
-          hintText: "À compléter..."),
-    ),
-  );
-}
-
 class _ProfileState extends State<Profile> {
+  late Future<User> futureUser;
+  final TextEditingController _controllerName = TextEditingController();
+  final TextEditingController _controllerEmail = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+      futureUser = fetchUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0XFFD2FDFF),
       bottomNavigationBar: const NavbarDemo(),
       floatingActionButton: FloatingActionButton(
-      onPressed: () {
-        // Logout
-      },
-      backgroundColor: MyApp.secondaryColor,
-      child: Icon(Icons.logout_rounded, color: MyApp.primaryColor),
+        onPressed: () {
+          // Logout
+        },
+        backgroundColor: MyApp.secondaryColor,
+        child: Icon(Icons.logout_rounded, color: MyApp.primaryColor),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -120,19 +108,29 @@ class _ProfileState extends State<Profile> {
                       DelayAnimation(
                           delay: 500,
                           child: Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.only(top: 20),
-                            alignment: Alignment.center,
-                            child: Text(
-                              '@relog#123',
-                              style: GoogleFonts.inter(
-                                fontSize: 25,
-                                fontWeight: FontWeight.w900,
-                                fontStyle: FontStyle.italic,
-                                color: const Color(0XFFFBE8A6),
-                              ),
-                            ),
-                          )),
+                              width: double.infinity,
+                              padding: const EdgeInsets.only(top: 20),
+                              alignment: Alignment.center,
+                              child: FutureBuilder<User>(
+                                future: futureUser,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Text(
+                                      '@${snapshot.data!.username}',
+                                      style: const TextStyle(
+                                        color: Color(0XFFFBE8A6),
+                                        fontFamily: 'OpenSans',
+                                        fontSize: 24.0,
+                                        fontWeight: FontWeight.w900,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    return Text("${snapshot.error}");
+                                  }
+                                  return const CircularProgressIndicator();
+                                },
+                              ))),
                     ]),
               ),
             ),
@@ -185,9 +183,9 @@ class _ProfileState extends State<Profile> {
             DelayAnimation(
               delay: 500,
               child: Container(
-                width: double.infinity,
-                alignment: Alignment.bottomLeft,
-                padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
+                width: MediaQuery.of(context).size.width * 0.8,
+                alignment: Alignment.centerLeft,
+                height: MediaQuery.of(context).size.height * 0.05,
                 child: RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(children: <TextSpan>[
@@ -212,57 +210,137 @@ class _ProfileState extends State<Profile> {
             DelayAnimation(
               delay: 500,
               child: Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.40,
-                margin: const EdgeInsets.fromLTRB(80, 0, 150, 0),
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget> [
-                    label('Nom'),
-                    input('Marin'),
-                    label('Téléphone'),
-                    input('+33 6 71 94 23 15'),
-                    label('Email'),
-                    input('marin.pavel@epitech.eu'),
-                    label('Adresse'),
-                    input('Nice'),
-                  ],
-                ),
-              ),
-            ),
-            DelayAnimation(
-              delay: 500,
-              child: Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                    style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                            const Color(0XFF303C6C)),
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color(0XFFF4976C)),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ))),
-                    onPressed: () async {
-                      response = await get_user();
-                      if (response.statusCode == 200) {
-                        // ignore: use_build_context_synchronously
-                        Map<String, dynamic> temp = json.decode(response.body);
-                        print(temp['user']['username']);
-                      } else {
-                        error = true;
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.45,
+                  alignment: Alignment.center,
+                  child: FutureBuilder<User>(
+                    future: futureUser,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            label('Nom'),
+                            Container(
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                bottom: BorderSide(
+                                  color: Color(0XFFFBE8A6),
+                                  width: 2,
+                                ),
+                              )),
+                              child: TextField(
+                                controller: _controllerName,
+                                keyboardType: TextInputType.multiline,
+                                textInputAction: TextInputAction.newline,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    hintText: snapshot.data!.username),
+                              ),
+                            ),
+                            label('Téléphone'),
+                            Container(
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                bottom: BorderSide(
+                                  color: Color(0XFFFBE8A6),
+                                  width: 2,
+                                ),
+                              )),
+                              child: const TextField(
+                                keyboardType: TextInputType.multiline,
+                                textInputAction: TextInputAction.newline,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    hintText: "067836396309"),
+                              ),
+                            ),
+                            label('Email'),
+                            Container(
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                bottom: BorderSide(
+                                  color: Color(0XFFFBE8A6),
+                                  width: 2,
+                                ),
+                              )),
+                              child: TextField(
+                                controller: _controllerEmail,
+                                keyboardType: TextInputType.multiline,
+                                textInputAction: TextInputAction.newline,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    hintText: snapshot.data!.email),
+                              ),
+                            ),
+                            label('Adresse'),
+                            Container(
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                bottom: BorderSide(
+                                  color: Color(0XFFFBE8A6),
+                                  width: 2,
+                                ),
+                              )),
+                              child: const TextField(
+                                keyboardType: TextInputType.multiline,
+                                textInputAction: TextInputAction.newline,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    hintText: 'Nice'),
+                              ),
+                            ),
+                            ElevatedButton(
+                                style: ButtonStyle(
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            const Color(0XFF303C6C)),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            const Color(0XFFF4976C)),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                    ))),
+                                onPressed: () async {
+                                  setState(() {
+                                    futureUser = updateUser(_controllerName.text, _controllerEmail.text);
+                                  });
+                                },
+                                child: const Text("Sauvegarder",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                    ))),
+                          ],
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}");
                       }
+                      return const CircularProgressIndicator();
                     },
-                    child: const Text("Sauvegarder",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                        ))),
-              ),
+                  )),
             ),
           ],
         ),
