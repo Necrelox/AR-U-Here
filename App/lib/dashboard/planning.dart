@@ -3,6 +3,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../animation.dart';
 import '../components/navbar.dart';
 import '../components/appbar.dart';
+import '../myapp.dart';
 
 class Planning extends StatefulWidget {
   const Planning({Key? key}) : super(key: key);
@@ -33,12 +34,12 @@ class _PlanningState extends State<Planning> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0XFFF4976C),
+      backgroundColor: MyApp.secondaryColor,
       bottomNavigationBar: const NavbarDemo(),
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(50),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
         child: ApplicationBar(
-          color: Color(0XFFF4976C),
+          color: MyApp.secondaryColor,
           asset: 'asset/marin.jpg',
           title: 'Planning',
         ),
@@ -53,7 +54,7 @@ class _PlanningState extends State<Planning> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                 decoration: BoxDecoration(
-                    color: const Color(0XFFFBE8A6),
+                    color: MyApp.tertiaryColor,
                     borderRadius: BorderRadius.circular(51.0)),
                 margin: const EdgeInsets.only(
                   top: 20,
@@ -86,13 +87,13 @@ class _PlanningState extends State<Planning> {
                   calendarStyle: CalendarStyle(
                     isTodayHighlighted: true,
                     selectedDecoration: BoxDecoration(
-                      color: const Color(0XFFD2FDFF),
+                      color: MyApp.quinaryColor,
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     selectedTextStyle: const TextStyle(color: Colors.black),
                     todayDecoration: BoxDecoration(
-                      color: const Color(0XFFB4DFE5),
+                      color: MyApp.quaternaryColor,
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -128,11 +129,11 @@ class _PlanningState extends State<Planning> {
                 ),
                 child: RichText(
                   textAlign: TextAlign.center,
-                  text: const TextSpan(children: <TextSpan>[
+                  text: TextSpan(children: <TextSpan>[
                     TextSpan(
                         text: "Aujourd'hui",
                         style: TextStyle(
-                          color: Color(0XFF303C6C),
+                          color: MyApp.primaryColor,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         )),
@@ -151,14 +152,14 @@ class _PlanningState extends State<Planning> {
                     left: 20,
                     right: 20,
                   ),
-                  decoration: const BoxDecoration(
-                      color: Color(0XFFD2FDFF),
+                  decoration: BoxDecoration(
+                      color: MyApp.quinaryColor,
                       // ignore: prefer_const_constructors
                       borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(51.0),
-                        bottomLeft: Radius.circular(51.0),
-                        topLeft: Radius.circular(51.0),
-                        topRight: Radius.circular(51.0),
+                        bottomRight: const Radius.circular(51.0),
+                        bottomLeft: const Radius.circular(51.0),
+                        topLeft: const Radius.circular(51.0),
+                        topRight: const Radius.circular(51.0),
                       )),
                   child: Column(children: <Widget>[
                     Container(

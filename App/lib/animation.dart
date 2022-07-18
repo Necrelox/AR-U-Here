@@ -20,7 +20,7 @@ class _DelayAnimationState extends State<DelayAnimation>
     //Donner une valeur à notre controller
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
 
     // AJouter un effet de fondu
@@ -30,7 +30,7 @@ class _DelayAnimationState extends State<DelayAnimation>
     // Changer les valeurs pour faire arriver de bas en haut ou haut en bas
     // Fonction qui gère le comportement de l'animation
     _animOffset = Tween<Offset>(
-      begin: Offset(0.0, -0.5),
+      begin: const Offset(0.0, -0.5),
       end: Offset.zero,
     ).animate(curve);
 
@@ -40,6 +40,7 @@ class _DelayAnimationState extends State<DelayAnimation>
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return FadeTransition(
       opacity: _controller,
