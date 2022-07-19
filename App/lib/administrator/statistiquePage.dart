@@ -181,7 +181,7 @@ return(
                   const Align(
                     alignment: Alignment.topCenter,
                   child: Text(
-                    'Absences du mois',
+                    'Absence(s) du mois',
                     style: TextStyle(
                       color: Color(0xFFFBE8A6),
                       fontSize: 12,
@@ -258,7 +258,7 @@ return(
                           textAlign: TextAlign.center,
                           text: const TextSpan(children: <TextSpan>[
                             TextSpan(
-                                text: 'Total Sessions\n',
+                                text: 'Total Session(s)\n',
                                 style: TextStyle(
                                   color: Color(0xFFD2FDFF),
                                   fontWeight: FontWeight.bold,
@@ -293,7 +293,7 @@ return(
                         textAlign: TextAlign.center,
                         text: const TextSpan(children: <TextSpan>[
                           TextSpan(
-                              text: 'Présences\n',
+                              text: 'Présence(s)\n',
                               style: TextStyle(
                                 color: Color(0xFF303C6C),
                                 fontWeight: FontWeight.bold,
@@ -351,7 +351,7 @@ return(
                         textAlign: TextAlign.center,
                         text: const TextSpan(children: <TextSpan>[
                           TextSpan(
-                              text: 'Absences justifiées\n',
+                              text: 'Absences justifiée(s)\n',
                               style: TextStyle(
                                 color: Color(0xFF303C6C),
                                 fontWeight: FontWeight.bold,
@@ -384,7 +384,7 @@ return(
                         textAlign: TextAlign.center,
                         text: const TextSpan(children: <TextSpan>[
                           TextSpan(
-                              text: 'Absences\n',
+                              text: 'Absence(s)\n',
                               style: TextStyle(
                                 color: Color(0xFF303C6C),
                                 fontWeight: FontWeight.bold,
