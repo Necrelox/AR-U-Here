@@ -45,7 +45,7 @@ export class AccountController extends AccountUtils {
                 password: Tools.PasswordEncrypt.encrypt(req.body.password)
             });
 
-            const token: Models.User.IToken = await super.getTokenByReflect({userUuid: user[0]!.uuid});
+            const token: Models.User.IToken = await super.getTokenByReflect({userUuid: user!.uuid});
             // await super.sendEmailVerification(user!, token!);
 
             res.status(200).send({
