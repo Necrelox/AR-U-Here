@@ -103,7 +103,7 @@ class WelcomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Login(),
+                          builder: (context) => const Login(),
                         ),
                       );
                     }),
@@ -130,7 +130,7 @@ class WelcomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DidactielOne(),
+                          builder: (context) => const DidactielOne(),
                         ),
                       );
                     }),
