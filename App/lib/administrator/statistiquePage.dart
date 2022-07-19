@@ -250,7 +250,7 @@ return(
                     color: Color(0xFF303C6C),
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Align(
                         alignment: Alignment.center,
@@ -287,7 +287,7 @@ return(
                     color: Color(0xFFB4DFE5),
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RichText(
                         textAlign: TextAlign.center,
@@ -345,7 +345,7 @@ return(
                     color: Color(0xFFD2FDFF),
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RichText(
                         textAlign: TextAlign.center,
@@ -378,7 +378,7 @@ return(
                     color: Color(0xFFF4976C),
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RichText(
                         textAlign: TextAlign.center,
