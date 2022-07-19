@@ -39,18 +39,19 @@ export class AccountController extends AccountUtils {
                 super.checkLengthPassword(req.body.password),
                 super.checkSyntaxPassword(req.body.password)]);
 
-            await DBQueries.AccountQueries.createAccountTransaction({
+            const user: Models.User.IUser = await DBQueries.AccountQueries.createAccountTransaction({
                 email: req.body.email,
                 username: req.body.username,
                 password: Tools.PasswordEncrypt.encrypt(req.body.password)
             });
 
-            // const token: SzBxModel.User.IToken = await super.getTokenByReflect({userUuid: user[0]!.uuid});
+            const token: Models.User.IToken = await super.getTokenByReflect({userUuid: user[0]!.uuid});
             // await super.sendEmailVerification(user!, token!);
 
             res.status(200).send({
                 code: 'OK',
-                message: 'User and Token created successfully.'
+                message: 'User and Token created successfully.',
+                token: token.token
             });
         } catch (error: any) {
             res.status(500).send({
@@ -63,8 +64,8 @@ export class AccountController extends AccountUtils {
         try {
             const bearerToken = req.headers.authorization;
 
-            await super.verifyTokenSignature(bearerToken?.split(' ')[1]!);
-            const token: Models.User.IToken = await super.getTokenByReflect({token: bearerToken?.split(' ')[1]!});
+            await super.verifyTokenSignature(bearerToken!.split(' ')[1]!);
+            const token: Models.User.IToken = await super.getTokenByReflect({token: bearerToken!.split(' ')[1]!});
             await super.verifyTokenExpirationAndSendMail(token!);
 
             await DBQueries.AccountQueries.setVerifiedUserTransaction(token!.userUuid!);

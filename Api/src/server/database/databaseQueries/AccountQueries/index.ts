@@ -23,7 +23,7 @@ export class AccountQueries {
             }).catch((err: ErrorDatabase) => {
                 throw {
                     code: err?.code,
-                    message: DatabaseKnex.createBetterSqlMessageError(err?.code!, err?.sqlMessage!),
+                    message: DatabaseKnex.createBetterSqlMessageError(err.code!, err.sqlMessage!),
                     sql: err?.sql,
                 };
             });
@@ -37,7 +37,7 @@ export class AccountQueries {
             }).catch((err: ErrorDatabase) => {
                 throw {
                     code: err?.code,
-                    message: DatabaseKnex.createBetterSqlMessageError(err?.code!, err?.sqlMessage!),
+                    message: DatabaseKnex.createBetterSqlMessageError(err.code!, err.sqlMessage!),
                     sql: err?.sql,
                 };
             });
@@ -151,8 +151,9 @@ export class AccountQueries {
                 userUuid: user[0]!.uuid,
                 expireAt: new Date(Date.now() + (1000 * 60 * 60))
             }, trx);
+            return user[0];
         }).catch((err: ErrorDatabase) => {
-            const message = DatabaseKnex.createBetterSqlMessageError(err?.code!, err?.sqlMessage!) ?? err?.message;
+            const message = DatabaseKnex.createBetterSqlMessageError(err.code!, err.sqlMessage!) ?? err?.message;
             throw {
                 code: err?.code,
                 message,
@@ -190,7 +191,7 @@ export class AccountQueries {
         }).then((trx: Transaction) => {
             return trx;
         }).catch((err: ErrorDatabase) => {
-            const message = DatabaseKnex.createBetterSqlMessageError(err?.code!, err?.sqlMessage!) ?? err?.message;
+            const message = DatabaseKnex.createBetterSqlMessageError(err.code!, err.sqlMessage!) ?? err?.message;
             throw {
                 code: err?.code,
                 message,
@@ -231,7 +232,7 @@ export class AccountQueries {
         }).then((token: User.IToken) => {
             return token;
         }).catch((err: ErrorDatabase) => {
-            const message = DatabaseKnex.createBetterSqlMessageError(err?.code!, err?.sqlMessage!) ?? err?.message;
+            const message = DatabaseKnex.createBetterSqlMessageError(err.code!, err.sqlMessage!) ?? err?.message;
             throw {
                 code: err?.code,
                 message,
@@ -292,7 +293,7 @@ export class AccountQueries {
             then((token: User.IToken) => {
                 return token;
             }).catch((err: ErrorDatabase) => {
-                const message = DatabaseKnex.createBetterSqlMessageError(err?.code!, err?.sqlMessage!) ?? err?.message;
+                const message = DatabaseKnex.createBetterSqlMessageError(err.code!, err.sqlMessage!) ?? err?.message;
                 throw {
                     code: err?.code,
                     message,
