@@ -5,14 +5,20 @@
 ** Login   <necrelox@gmail.com>
 **
 ** Started on  Mon Jun 20 22:42:35 2022 Ruby
-** Last update Wed Jun 21 12:01:50 2022 Ruby
+** Last update Tue Jul 18 14:35:49 2022 Ruby
 */
 
+#include "brigadier.hpp"
 #include <Arduino.h>
 
-void setup() {
+Brigadier brigadier;
+ 
+void setup()
+{
+    brigadier.setup();
 }
 
-void loop() {
-
+void loop()
+{
+    brigadier.run();
 }
