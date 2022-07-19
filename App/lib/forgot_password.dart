@@ -40,7 +40,7 @@ import 'welcome_page.dart';
                   Icons.email,
                   color: Color(0XFF303C6C),
                 ),
-                hintText: 'Entrer votre email',
+                hintText: 'Entrer votre e-mail',
                 hintStyle: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
@@ -106,7 +106,7 @@ import 'welcome_page.dart';
         ),
         color: Color(0XFFFBE8A6),
         child: const Text(
-          'Recevoir un mail',
+          'Recevoir un e-mail',
           style: TextStyle(
             color: Color(0XFF303C6C),
             letterSpacing: 1.5,
@@ -138,7 +138,7 @@ class forgot_password extends StatelessWidget {
                 children: <Widget>[
                   const Align(
                     alignment: Alignment.topLeft,
-                    child: Text("Mot de passe oubié ?",
+                    child: Text("Mot de passe oublié ?",
                         style: TextStyle(
                           color: Color(0XFFFBE8A6),
                           fontFamily: 'OpenSans',
@@ -150,7 +150,7 @@ class forgot_password extends StatelessWidget {
                     alignment: Alignment.topLeft,
                     child: Padding(
                       padding: EdgeInsets.only(top: 15),
-                      child: Text("Laisse nous t’aider ! 😉 renseigne ton mail si dessous !",
+                      child: Text("Laisse nous t’aider ! 😉 renseigne ton e-mail ci-dessous !",
                           style: TextStyle(
                             color: Color(0XFFD2FDFF),
                             fontFamily: 'OpenSans',
