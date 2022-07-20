@@ -341,26 +341,6 @@ class _ProfileState extends State<Profile> {
                                             BorderRadius.circular(18.0),
                                       ))),
                                   onPressed: () async {
-                                    setState(() {
-                                      if (_controllerName.text.isEmpty) {
-                                        _controllerName.text =
-                                            snapshot.data!.username!;
-                                      }
-                                      if (_controllerPhone.text.isEmpty &&
-                                          snapshot.hasData != null) {
-                                        _controllerPhone.text =
-                                            snapshot.data!.phone!;
-                                      }
-                                      if (_controllerEmail.text.isEmpty) {
-                                        _controllerEmail.text =
-                                            snapshot.data!.email!;
-                                      }
-                                      if (_controllerAddress.text.isEmpty &&
-                                          snapshot.hasData != null) {
-                                        _controllerAddress.text =
-                                            snapshot.data!.address!;
-                                      }
-                                    });
                                     futureUser = updateUser(
                                         _controllerName.text,
                                         _controllerEmail.text,
