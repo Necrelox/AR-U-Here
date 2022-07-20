@@ -82,7 +82,7 @@ class _ProfileState extends State<Profile> {
           children: <Widget>[
             Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.30,
+              height: MediaQuery.of(context).size.height * 0.25,
               color: const Color(0XFF303C6C),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20), // Image border
@@ -99,7 +99,7 @@ class _ProfileState extends State<Profile> {
                               borderRadius:
                                   BorderRadius.circular(50), // Image border
                               child: SizedBox.fromSize(
-                                size: const Size.fromRadius(70),
+                                size: const Size.fromRadius(60),
                                 child: Image.asset(
                                   'asset/marin.jpg',
                                   fit: BoxFit.cover,
@@ -111,7 +111,7 @@ class _ProfileState extends State<Profile> {
                           delay: 500,
                           child: Container(
                               width: double.infinity,
-                              padding: const EdgeInsets.only(top: 20),
+                              padding: const EdgeInsets.only(top: 10),
                               alignment: Alignment.center,
                               child: FutureBuilder<User>(
                                 future: futureUser,
@@ -213,7 +213,7 @@ class _ProfileState extends State<Profile> {
               delay: 500,
               child: Container(
                   width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.45,
+                  height: MediaQuery.of(context).size.height * 0.5,
                   alignment: Alignment.center,
                   child: FutureBuilder<User>(
                     future: futureUser,
@@ -232,10 +232,16 @@ class _ProfileState extends State<Profile> {
                                   width: 2,
                                 ),
                               )),
-                              child: TextField(
+                              child: TextFormField(
                                 controller: _controllerName,
                                 keyboardType: TextInputType.multiline,
                                 textInputAction: TextInputAction.newline,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   focusedBorder: InputBorder.none,
@@ -318,49 +324,55 @@ class _ProfileState extends State<Profile> {
                                 ),
                               ),
                             ),
-                            ElevatedButton(
-                                style: ButtonStyle(
-                                    foregroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            const Color(0XFF303C6C)),
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            const Color(0XFFF4976C)),
-                                    shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                    ))),
-                                onPressed: () async {
-                                  setState(() {
-                                    if (_controllerName.text.isEmpty) {
-                                      _controllerName.text =
-                                          snapshot.data!.username!;
-                                    }
-                                    if (_controllerPhone.text.isEmpty) {
-                                      _controllerPhone.text =
-                                          snapshot.data!.phone!;
-                                    }
-                                    if (_controllerEmail.text.isEmpty) {
-                                      _controllerEmail.text =
-                                          snapshot.data!.email!;
-                                    }
-                                    if (_controllerAddress.text.isEmpty) {
-                                      _controllerAddress.text =
-                                          snapshot.data!.address!;
-                                    }
-                                  });
-                                  futureUser = updateUser(
-                                      _controllerName.text,
-                                      _controllerEmail.text,
-                                      _controllerPhone.text,
-                                      _controllerAddress.text);
-                                },
-                                child: const Text("Sauvegarder",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                    ))),
+                            Container(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: ElevatedButton(
+                                  style: ButtonStyle(
+                                      foregroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              const Color(0XFF303C6C)),
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              const Color(0XFFF4976C)),
+                                      shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                      ))),
+                                  onPressed: () async {
+                                    setState(() {
+                                      if (_controllerName.text.isEmpty) {
+                                        _controllerName.text =
+                                            snapshot.data!.username!;
+                                      }
+                                      if (_controllerPhone.text.isEmpty &&
+                                          snapshot.hasData != null) {
+                                        _controllerPhone.text =
+                                            snapshot.data!.phone!;
+                                      }
+                                      if (_controllerEmail.text.isEmpty) {
+                                        _controllerEmail.text =
+                                            snapshot.data!.email!;
+                                      }
+                                      if (_controllerAddress.text.isEmpty &&
+                                          snapshot.hasData != null) {
+                                        _controllerAddress.text =
+                                            snapshot.data!.address!;
+                                      }
+                                    });
+                                    futureUser = updateUser(
+                                        _controllerName.text,
+                                        _controllerEmail.text,
+                                        _controllerPhone.text,
+                                        _controllerAddress.text);
+                                  },
+                                  child: const Text("Sauvegarder",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                      ))),
+                            )
                           ],
                         );
                       } else if (snapshot.hasError) {
