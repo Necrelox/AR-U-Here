@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../animation.dart';
+import '../components/appbar.dart';
+import '../components/navbar.dart';
 import '../welcome_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -451,39 +453,15 @@ class statistiquePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Statistique',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFFBE8A6)),
-      home: Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        elevation: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 15, 5),
-            child:
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20), // Image border
-                child: SizedBox.fromSize(
-                  size: const Size.fromRadius(23),
-                  child: Image.asset(
-                    './asset/marin.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ) 
-          ),
-        ],
-        title: const Text(
-          "Statistiques",
-          style: TextStyle(
-            color: Color(0XFF303C6C),
-            fontSize: 28.0,
-            fontWeight: FontWeight.bold),
-          ),
-        backgroundColor: const Color(0xFFFBE8A6),
-        automaticallyImplyLeading: false,
+    return Scaffold(
+      backgroundColor: Color(0XFFFBE8A6),
+      bottomNavigationBar: const NavbarDemo(),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(50),
+        child: ApplicationBar(
+          color:  Color(0XFFFBE8A6),
+          asset: 'asset/marin.jpg',
+        ),
       ),
       body: Stack(
         children: <Widget>[
@@ -509,6 +487,6 @@ class statistiquePage extends StatelessWidget {
           ),
         ],
       ),
-    ));
+    );
   }
 }
