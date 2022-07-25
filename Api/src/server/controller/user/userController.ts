@@ -41,7 +41,7 @@ export class UserController extends UserUtils {
     private async getMethodMe(req: Request, res: Response) {
         try {
             const tokenFKUser: Models.User.ITokenFKUser[] = await DBQueries.UserQueries.getUserByFKToken({
-                token: (req.headers.authorization)?.split(' ')[1]!
+                token: (req.headers.authorization)!.split(' ')[1]!
             });
             res.status(200).send({
                 code: 'OK',
@@ -65,7 +65,7 @@ export class UserController extends UserUtils {
             if (Object.keys(req.body).length > 0) {
                 const userReflect = await super.transformBodyToUserForUpdate(req.body);
                 await DBQueries.UserQueries.updateUserByTokenTransaction(userReflect, {
-                    token: (req.headers.authorization)?.split(' ')[1]!
+                    token: (req.headers.authorization)!.split(' ')[1]!
                 });
             } else {
                 res.status(200).send({
