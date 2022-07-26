@@ -44,7 +44,7 @@ export abstract class UserUtils extends ControllerUtils {
             user.address = body.address;
         }
         if ('phone' in body) {
-            const regex = /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
+            const regex = /^\d{3}\.\d{3}\.\d{3}\.\d{3}$/;
             if (!regex.test(body.phone)) {
                 throw {
                     code: CodeError.PHONE_NUMBER_INVALID,

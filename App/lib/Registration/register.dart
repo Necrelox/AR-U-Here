@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../dashboard/Home.dart';
 import '../api/api.dart';
 import '../myapp.dart';
+import 'mail.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -16,13 +17,13 @@ class Register extends StatefulWidget {
 }
 
 class Register_state extends State<Register> {
+  String mail = '';
+  String pwd = '';
+  String username = '';
   final _mailControler = TextEditingController();
   final _passwControler = TextEditingController();
   final _usernameControler = TextEditingController();
 
-  String mail = '';
-  String pwd = '';
-  String username = '';
   var response;
   bool error = false;
 
@@ -80,7 +81,6 @@ class Register_state extends State<Register> {
   Widget _password() {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
-      // padding: EdgeInsets.symmetric(vertical: 50.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -193,11 +193,12 @@ class Register_state extends State<Register> {
           response =
               await post_register("/account/signup/", mail, pwd, username);
           if (response.statusCode == 200) {
-            // ignore: use_build_context_synchronously
+            Map<String, dynamic> rep = json.decode(response.body);
+            verify_token('/account/verify/', rep['token']);
             Navigator.pushReplacement<void, void>(
               context,
               MaterialPageRoute<void>(
-                builder: (BuildContext context) => const Home(),
+                builder: (BuildContext context) => VerifMail(mail: mail),
               ),
             );
             MaterialPageRoute(builder: (context) => const Home());
