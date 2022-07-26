@@ -398,7 +398,7 @@ Widget _card2(BuildContext context) {
 
 Widget _absence(BuildContext context) {
   return (DelayAnimation(
-      delay: 1500,
+      delay: 500,
       child: Align(
           alignment: Alignment.bottomCenter,
           child: Container(
