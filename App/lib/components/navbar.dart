@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../dashboard/Home.dart';
 import '../dashboard/planning.dart';
+import '../dashboard/statistique.dart';
 import '../myapp.dart';
 
 class NavbarDemo extends StatefulWidget {
@@ -50,7 +51,7 @@ class Naviguation extends State<NavbarDemo> {
         height: MediaQuery.of(context).size.height * 0.10,
         child: Row(children: <Widget>[
           icon_bar('Accueil', 'asset/home.png', const Home()),
-          icon_bar('Statistiques', 'asset/stats.png', const Home()),
+          icon_bar('Statistiques', 'asset/stats.png', Statistique()),
           icon_bar('Calendrier', 'asset/calendar.png', const Planning()),
           icon_bar('Profile', 'asset/profile.png', const Planning())
         ]));
