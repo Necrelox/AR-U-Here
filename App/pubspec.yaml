@@ -84,6 +84,10 @@ flutter:
     - asset/logo.png
     - asset/didactiel1.png
     - asset/epitech-logo.png
+    - asset/stats.png
+    - asset/profile.png
+    - asset/calendar.png
+    - asset/home.png
     - asset/didactiel3.jpg
     - asset/didac-bar1.png
     - asset/didac-bar2.png
