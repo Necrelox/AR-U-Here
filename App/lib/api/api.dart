@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import '../class/User.dart';
 
-var ip = 'http://10.121.12.101:3002';
+var ip = 'http://10.0.2.2:3002';
 var token = '';
 
 get_token(response) {
