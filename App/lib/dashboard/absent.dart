@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/dashboard/statistique.dart';
 import '../animation.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
@@ -28,15 +29,17 @@ class _PlanningState extends State<Absent> {
     super.dispose();
   }
 
-  List<DropdownMenuItem<String>> get dropdownItems{
-  List<DropdownMenuItem<String>> menuItems = [
-    const DropdownMenuItem(value: "Sélectionner", child: Text("Sélectionner")),
-    const DropdownMenuItem(value: "Maladie", child: Text("Maladie")),
-    const DropdownMenuItem(value: "Motif familial", child: Text("Motif familial")),
-    const DropdownMenuItem(value: "Autres", child: Text("Autres")),
-  ];
-  return menuItems;
-}
+  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      const DropdownMenuItem(
+          value: "Sélectionner", child: Text("Sélectionner")),
+      const DropdownMenuItem(value: "Maladie", child: Text("Maladie")),
+      const DropdownMenuItem(
+          value: "Motif familial", child: Text("Motif familial")),
+      const DropdownMenuItem(value: "Autres", child: Text("Autres")),
+    ];
+    return menuItems;
+  }
 
   final format = DateFormat("yyyy-MM-dd HH:mm");
 
@@ -48,7 +51,6 @@ class _PlanningState extends State<Absent> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -76,7 +78,6 @@ class _PlanningState extends State<Absent> {
                 )),
               ),
             ),
-
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -105,7 +106,6 @@ class _PlanningState extends State<Absent> {
                 )),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -133,7 +133,6 @@ class _PlanningState extends State<Absent> {
                 )),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -155,7 +154,7 @@ class _PlanningState extends State<Absent> {
                   elevation: 16,
                   style: TextStyle(color: MyApp.primaryColor),
                   underline: const SizedBox(),
-                  onChanged: (String? newValue){
+                  onChanged: (String? newValue) {
                     setState(() {
                       selectedValue = newValue!;
                     });
@@ -164,7 +163,6 @@ class _PlanningState extends State<Absent> {
                 ),
               ),
             ),
-
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -192,7 +190,6 @@ class _PlanningState extends State<Absent> {
                 )),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -235,7 +232,6 @@ class _PlanningState extends State<Absent> {
                 ]),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -263,7 +259,6 @@ class _PlanningState extends State<Absent> {
                 )),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -306,7 +301,6 @@ class _PlanningState extends State<Absent> {
                 ]),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -334,7 +328,6 @@ class _PlanningState extends State<Absent> {
                 )),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -376,7 +369,6 @@ class _PlanningState extends State<Absent> {
                 ),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -390,60 +382,68 @@ class _PlanningState extends State<Absent> {
                   right: 20,
                 ),
                 child: InkWell(
-                  onTap: () async {
-                    final result = await FilePicker.platform.pickFiles();
-                  },
-                  child: Text(
-                    'Importer un document',
-                    style: TextStyle(
-                      color: MyApp.primaryColor,
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    )
-                ),
+                    onTap: () async {
+                      final result = await FilePicker.platform.pickFiles();
+                    },
+                    child: Text(
+                      'Importer un document',
+                      style: TextStyle(
+                        color: MyApp.primaryColor,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )),
               ),
             ),
-
             DelayAnimation(
               delay: 500,
               child: Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: Row (
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-
-              ElevatedButton(
-                  style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                          MyApp.primaryColor),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          MyApp.secondaryColor),
-                      shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ))),
-                  onPressed: () => {},
-                  child: const Text("Envoyer",
-                      style: TextStyle(fontSize: 16))),
-
-              ElevatedButton(
-                  style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                          MyApp.secondaryColor),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          MyApp.primaryColor),
-                      shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ))),
-                  onPressed: () => {},
-                  child: const Text("Annuler",
-                      style: TextStyle(fontSize: 16))),
-              ],
-            ),
+                margin: const EdgeInsets.only(top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    ElevatedButton(
+                        style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                                MyApp.primaryColor),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                MyApp.secondaryColor),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ))),
+                        onPressed: () => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Statistique(),
+                                ),
+                              )
+                            },
+                        child: const Text("Envoyer",
+                            style: TextStyle(fontSize: 16))),
+                    ElevatedButton(
+                        style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                                MyApp.secondaryColor),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                MyApp.primaryColor),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ))),
+                        onPressed: () => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Statistique(),
+                                ),
+                              )
+                            },
+                        child: const Text("Annuler",
+                            style: TextStyle(fontSize: 16))),
+                  ],
+                ),
               ),
             ),
           ],

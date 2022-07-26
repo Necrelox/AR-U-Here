@@ -42,6 +42,7 @@ class _PlanningState extends State<Planning> {
           color: MyApp.secondaryColor,
           asset: 'asset/marin.jpg',
           title: 'Planning',
+          titleColor: MyApp.tertiaryColor
         ),
       ),
       body: SingleChildScrollView(
