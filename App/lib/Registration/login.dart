@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import '../forgot_password.dart';
 import 'register.dart';
 import '../dashboard/Home.dart';
 import '../api/api.dart';
@@ -130,7 +131,14 @@ class Login_state extends State<Login> {
     return Container(
       alignment: Alignment.centerRight,
       child: FlatButton(
-        onPressed: () => print('Mot de passe oublié'),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => forgot_password(),
+            ),
+          );
+        },
         padding: const EdgeInsets.only(right: 0.0),
         child: Text(
           'Mot de passe oublié ?',
