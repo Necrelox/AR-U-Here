@@ -194,9 +194,7 @@ class Register_state extends State<Register> {
               await post_register("/account/signup/", mail, pwd, username);
           if (response.statusCode == 200) {
             Map<String, dynamic> rep = json.decode(response.body);
-            // print(rep['token']);
             verify_token('/account/verify/', rep['token']);
-            // ignore: use_build_context_synchronously
             Navigator.pushReplacement<void, void>(
               context,
               MaterialPageRoute<void>(
