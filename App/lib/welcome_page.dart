@@ -6,6 +6,7 @@ import 'Registration/login.dart';
 import './didactiel/didactiel1.dart';
 import './dashboard/profile.dart';
 import 'components/camera.dart';
+import 'myapp.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);

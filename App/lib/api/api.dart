@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import '../class/User.dart';
 
-var ip = 'http://127.0.0.1:3002';
+var ip = 'http://10.121.12.101:3002';
 var token = '';
 
 get_token(response) {
@@ -25,6 +25,14 @@ Future<http.Response> post_login(String url, String mail, String pwd) async {
   var response =
       await http.post(uri, body: {'username': mail, 'password': pwd});
   get_token(response);
+  return response;
+}
+
+Future<http.Response> verify_token(String url, String token) async {
+  var uri = Uri.parse(ip + url);
+  var response = await http.post(uri, headers: <String, String>{
+    'Authorization': 'Bearer $token',
+  });
   return response;
 }
 
