@@ -313,7 +313,7 @@ Widget _card1(BuildContext context) {
 Widget _card2(BuildContext context) {
   return (Center(
       child: Padding(
-    padding: const EdgeInsets.fromLTRB(0, 25, 0, 50),
+    padding: const EdgeInsets.fromLTRB(0, 25, 0, 25),
     child: Container(
       alignment: const Alignment(0.0, -1.0),
       //BoxDecoration Widget
