@@ -22,14 +22,14 @@ export enum MessageError {
 export abstract class ControllerUtils {
 
     /** USER */
-    protected async getUserByReflect(userReflect: Models.User.IUser): Promise<Models.User.IUser> {
+    protected async getUserByReflect(userReflect: Partial<Models.User.IUser>): Promise<Models.User.IUser> {
         const user: Models.User.IUser[] = await DBQueries.AccountQueries.getUser(userReflect);
         if (!user || user.length === 0)
             throw {
                 code: CodeError.GET_USER_BY_REFLECT,
                 message: MessageError.GET_USER_BY_REFLECT
             };
-        return user[0]!;
+        return user[0] as Models.User.IUser;
     }
 
     protected async checkSyntaxUsername(username: string) {
@@ -68,14 +68,14 @@ export abstract class ControllerUtils {
 
     /** TOKEN */
 
-    protected async getTokenByReflect(tokenReflect: Models.User.IToken): Promise<Models.User.IToken> {
+    protected async getTokenByReflect(tokenReflect: Partial<Models.User.IToken>): Promise<Models.User.IToken> {
         const token: Models.User.IToken[] = await DBQueries.AccountQueries.getToken(tokenReflect);
         if (!token || token.length === 0)
             throw {
                 code: CodeError.GET_TOKEN_BY_REFLECT,
                 message: MessageError.GET_TOKEN_BY_REFLECT
             };
-        return token[0]!;
+        return token[0] as Models.User.IToken;
     }
 
 }
