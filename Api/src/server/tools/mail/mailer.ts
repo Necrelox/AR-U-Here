@@ -15,7 +15,7 @@ export enum MessageError {
 export class Mailer {
 
     public static async checkEmailHasBadSyntax(email: string) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!re.test(email))
             throw {
                 code: CodeError.CHECK_EMAIL_HAS_BAD_SYNTAX,
@@ -25,7 +25,7 @@ export class Mailer {
 
     public static async checkEmailIsTemporary(email: string) {
         const emailTempo: string[] = require('./emailTempo.json');
-        if ((emailTempo).includes(email.split('@')[1]!))
+        if ((emailTempo).includes(email.split('@')[1] as string))
             throw {
                 code: CodeError.CHECK_EMAIL_IS_TEMPORARY,
                 message: MessageError.EMAIL_IS_TEMPORARY

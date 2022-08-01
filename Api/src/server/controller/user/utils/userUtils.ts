@@ -20,16 +20,18 @@ export enum MessageError {
 
 
 export abstract class UserUtils extends ControllerUtils {
-    protected async transformBodyToUserForUpdate(body: ReqBody) : Promise<Models.User.IUser> {
-        const user: Models.User.IUser = {};
+
+    /** USER */
+    protected async transformBodyToUserForUpdate(body: ReqBody) : Promise<Partial<Models.User.IUser>> {
+        const user: Partial<Models.User.IUser> = {};
         if ('email' in body) {
-            await Tools.Mailer.checkEmailHasBadSyntax(body.email!);
-            await Tools.Mailer.checkEmailIsTemporary(body.email!);
+            await Tools.Mailer.checkEmailHasBadSyntax(body.email);
+            await Tools.Mailer.checkEmailIsTemporary(body.email);
             user.email = body.email;
         }
         if ('username' in body) {
-            await this.checkSyntaxUsername(body.username!);
-            await this.checkLengthUsername(body.username!);
+            await this.checkSyntaxUsername(body.username);
+            await this.checkLengthUsername(body.username);
             user.username = body.username;
         }
         if ('password' in body) {
@@ -54,7 +56,6 @@ export abstract class UserUtils extends ControllerUtils {
 
             user.phone = body.phone;
         }
-
         return user;
     }
 }
