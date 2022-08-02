@@ -1,10 +1,10 @@
 // ignore_for_file: unnecessary_new, deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../dashboard/Home.dart';
-import '../dashboard/profile.dart';
+import '../admin/Home_admin.dart';
+import '../admin/profile_admin.dart';
 import '../admin/planning_admin.dart';
-import '../dashboard/statistique.dart';
+import '../admin/statistique_admin.dart';
 import '../myapp.dart';
 
 class NavbarDemo extends StatefulWidget {
