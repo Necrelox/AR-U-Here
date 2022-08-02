@@ -15,16 +15,14 @@ class Planning extends StatefulWidget {
 }
 
 tablePlanning(String hour, String cours, String room, String present) {
-  return TableRow(
-    children: [
-    Column(
-      children: [
-        Text(hour,
-            style: GoogleFonts.inter(
-              color: MyApp.primaryColor,
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-            )),
+  return TableRow(children: [
+    Column(children: [
+      Text(hour,
+          style: GoogleFonts.inter(
+            color: MyApp.primaryColor,
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+          )),
     ]),
     Column(
       children: [
@@ -144,16 +142,28 @@ class _PlanningState extends State<Planning> {
                         children: [
                           TableRow(children: [
                             Column(children: [
-                              Text('Heure', style: TextStyle(fontSize: 18.0, color: MyApp.primaryColor))
+                              Text('Heure',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      color: MyApp.primaryColor))
                             ]),
                             Column(children: [
-                              Text('Cours', style: TextStyle(fontSize: 18.0, color: MyApp.primaryColor))
+                              Text('Cours',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      color: MyApp.primaryColor))
                             ]),
                             Column(children: [
-                              Text('Salle', style: TextStyle(fontSize: 18.0, color: MyApp.primaryColor))
+                              Text('Salle',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      color: MyApp.primaryColor))
                             ]),
                             Column(children: [
-                              Text('Présence', style: TextStyle(fontSize: 18.0, color: MyApp.primaryColor))
+                              Text('Présence',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      color: MyApp.primaryColor))
                             ]),
                           ]),
                         ],
@@ -181,13 +191,14 @@ class _PlanningState extends State<Planning> {
                 margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
                 child: Divider(
                   color: MyApp.quaternaryColor,
-            )),
+                )),
             DelayAnimation(
               delay: 500,
               child: Container(
                 width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.05,
                 alignment: Alignment.center,
-                padding: const EdgeInsets.fromLTRB(25, 10, 25, 0),
+                padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                 margin: const EdgeInsets.only(
                   top: 0,
                   bottom: 0,
@@ -211,59 +222,136 @@ class _PlanningState extends State<Planning> {
             DelayAnimation(
               delay: 500,
               child: Container(
-                width: double.infinity,
+                width: MediaQuery.of(context).size.width * 0.9,
                 alignment: Alignment.centerLeft,
-                margin: const EdgeInsets.only(
-                  top: 30,
-                  bottom: 0,
-                  left: 30,
-                  right: 30,
-                ),
+                decoration: BoxDecoration(
+                    color: MyApp.tertiaryColor,
+                    // ignore: prefer_const_constructors
+                    borderRadius: BorderRadius.only(
+                      bottomRight: const Radius.circular(51.0),
+                      bottomLeft: const Radius.circular(51.0),
+                      topLeft: const Radius.circular(51.0),
+                      topRight: const Radius.circular(51.0),
+                    )),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Début des cours: 9h00",
-                      style: TextStyle(
-                        color: MyApp.primaryColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      )),
-                    const SizedBox(height: 10),
-                    Text(
-                      "Fin des cours: 18h00",
-                      style: TextStyle(
-                        color: MyApp.primaryColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      )),
-                    const SizedBox(height: 10),
-                    Text(
-                      "InterCours: 5 minutes",
-                      style: TextStyle(
-                        color: MyApp.primaryColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      )),
-                    const SizedBox(height: 10),
-                    Text(
-                      "Récréation: 15 minutes",
-                      style: TextStyle(
-                        color: MyApp.primaryColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      )),
-                    const SizedBox(height: 10),
-                    Text(
-                      "Retard accepter au maximum: 3 minutes",
-                      style: TextStyle(
-                        color: MyApp.primaryColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  ]),
-                ),
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                        child: Table(
+                          children: [
+                            TableRow(children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                
+                                Text('Début des cours:',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: MyApp.primaryColor))
+                              ]),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                Text('9h00',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: MyApp.primaryColor))
+                              ]),
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                Text('Fin des cours:',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: MyApp.primaryColor))
+                              ]),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                Text('18h00',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: MyApp.primaryColor))
+                              ]),
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                Text('Inter-cours:',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: MyApp.primaryColor))
+                              ]),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                Text('5min',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: MyApp.primaryColor))
+                              ]),
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                Text('Récréation:',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: MyApp.primaryColor))
+                              ]),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                Text('15min',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: MyApp.primaryColor))
+                              ]),
+                            ]),
+                            TableRow(children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                Text('Retard accepté au maximum:',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: MyApp.primaryColor))
+                              ]),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                Text('3min',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: MyApp.primaryColor))
+                              ]),
+                            ]),
+                          ],
+                        ),
+                      ),
+                    ]),
+              ),
             ),
           ],
         ),
