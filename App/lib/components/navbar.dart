@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../dashboard/Home.dart';
 import '../dashboard/profile.dart';
-import '../dashboard/planning.dart';
+import '../admin/planning_admin.dart';
 import '../dashboard/statistique.dart';
 import '../myapp.dart';
 
