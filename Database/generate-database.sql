@@ -271,11 +271,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ArUHere`.`ABSENCES`
+-- Table `ArUHere`.`ABSENCE`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ArUHere`.`ABSENCES` ;
+DROP TABLE IF EXISTS `ArUHere`.`ABSENCE` ;
 
-CREATE TABLE IF NOT EXISTS `ArUHere`.`ABSENCES` (
+CREATE TABLE IF NOT EXISTS `ArUHere`.`ABSENCE` (
   `justification` VARCHAR(255) NULL,
   `acceptedJustification` TINYINT NULL,
   `activityUserUuid` BINARY(16) NULL,
@@ -292,12 +292,12 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ArUHere`.`RETARDS`
+-- Table `ArUHere`.`DELAY`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ArUHere`.`RETARDS` ;
+DROP TABLE IF EXISTS `ArUHere`.`DELAY` ;
 
-CREATE TABLE IF NOT EXISTS `ArUHere`.`RETARDS` (
-  `delay` TIMESTAMP NULL,
+CREATE TABLE IF NOT EXISTS `ArUHere`.`DELAY` (
+  `delayInMinutes` TIMESTAMP NULL,
   `justification` VARCHAR(255) NULL,
   `acceptedJustification` TINYINT NULL,
   `attendedActivity` TINYINT NULL,
@@ -306,7 +306,7 @@ CREATE TABLE IF NOT EXISTS `ArUHere`.`RETARDS` (
   PRIMARY KEY (`uuid`),
   UNIQUE INDEX `uuid_UNIQUE` (`uuid` ASC) VISIBLE,
   INDEX `fk_USER_RETARDS_ACTIVTY_USER_idx` (`activityUserUuid` ASC) VISIBLE,
-  CONSTRAINT `fk_RETARDS_ACTIVTY_USER`
+  CONSTRAINT `fk_DELAY_ACTIVTY_USER`
     FOREIGN KEY (`activityUserUuid`)
     REFERENCES `ArUHere`.`ACTIVITY_USER` (`uuid`)
     ON DELETE CASCADE
