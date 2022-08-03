@@ -1,7 +1,7 @@
 export interface IReport {
-    createdAt?: Date;
+    createdAt: Date;
     reason: string;
     userSendReport: Buffer;
     userReported: Buffer;
-    uuid?: Buffer;
+    uuid: Buffer;
 }

@@ -1,6 +1,6 @@
 export interface IAction {
     log: string;
-    createdAt?: Date;
+    createdAt: Date;
     userHistoryUuid: string;
-    uuid?: Buffer;
+    uuid: Buffer;
 }

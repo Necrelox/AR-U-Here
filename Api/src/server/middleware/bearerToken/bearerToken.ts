@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction} from 'express';
+import {Request} from 'express';
 import * as Tools from '../../tools';
 import * as Models from '../../model';
 import * as DBQueries from '../../database';
@@ -15,7 +15,6 @@ export enum MessageError {
     TOKEN_INVALID_SIGNATURE = 'Token invalid signature.',
 }
 
-
 export class BearerToken {
     private static async getTokenByReflect(tokenReflect: string): Promise<Models.User.IToken> {
         const token: Models.User.IToken[] = await DBQueries.AccountQueries.getToken({token: tokenReflect});
@@ -24,11 +23,11 @@ export class BearerToken {
                 code: CodeError.GET_TOKEN_BY_REFLECT,
                 message: MessageError.TOKEN_NOT_FOUND
             };
-        return token[0]!;
+        return token[0] as Models.User.IToken;
     }
 
     private static async verifyExpiration(token: Models.User.IToken) {
-        if (token!.expireAt! < new Date())
+        if (token.expireAt < new Date())
             throw {
                 code: CodeError.VERIFY_TOKEN_EXPIRATION,
                 message: MessageError.TOKEN_EXPIRED
@@ -43,17 +42,14 @@ export class BearerToken {
             };
     }
 
-    public static async checkToken(req: Request, res: Response, next: NextFunction) {
+    public static async checkToken(req: Request) {
         try {
-            const bearerToken = (req.headers.authorization);
-            await BearerToken.verifySignature(bearerToken!.split(' ')[1]!);
-            const token: Models.User.IToken = await BearerToken.getTokenByReflect(bearerToken!.split(' ')[1]!);
+            const bearerToken = req.headers.authorization?.split(' ')[1] as string;
+            await BearerToken.verifySignature(bearerToken);
+            const token: Models.User.IToken = await BearerToken.getTokenByReflect(bearerToken);
             await BearerToken.verifyExpiration(token);
-            next();
-        } catch (error: any) {
-            res.status(401).json({
-                content: error
-            });
+        } catch (error) {
+            throw error;
         }
     }
 }
