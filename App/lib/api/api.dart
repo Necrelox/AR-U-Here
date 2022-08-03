@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../class/User.dart';
+import '../dashboard/Home.dart';
 
 var ip = 'http://10.0.2.2:3002';
 var token = '';
@@ -36,6 +38,26 @@ Future<http.Response> verify_token(String url, String token) async {
   return response;
 }
 
+// ignore: non_constant_identifier_names
+Future<http.Response> post_logout() async {
+  final response = await http.post(
+    Uri.parse('$ip/account/logout'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Token $token'
+    },
+  );
+
+  if (response.statusCode == 200) {
+    MaterialPageRoute(builder: (context) => const Home());
+    return response;
+  } else {
+    var temp = jsonDecode(response.body);
+    throw Exception('Failed to update user. ${temp['error']['message']}');
+  }
+}
+
 Future<User> fetchUser() async {
   final response = await http.get(Uri.parse('$ip/user/me'), headers: {
     'Content-Type': 'application/json',
@@ -50,7 +72,8 @@ Future<User> fetchUser() async {
   }
 }
 
-Future<User> updateUser(String username, String email, String phone, String address) async {
+Future<User> updateUser(
+    String username, String email, String phone, String address) async {
   final response = await http.put(
     Uri.parse('$ip/user/me'),
     headers: <String, String>{
