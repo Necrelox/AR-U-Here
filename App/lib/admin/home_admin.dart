@@ -113,8 +113,9 @@ class Home_state extends State<Home> {
         Align(
           alignment: Alignment.centerRight,
           child: Text(
-            "Voir la fiche",
-            style: TextStyle(fontSize: 15, color: MyApp.primaryColor),
+            textAlign: TextAlign.right,
+            "Voir fiche",
+            style: TextStyle(fontSize: 13, color: MyApp.primaryColor, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -146,6 +147,7 @@ class Home_state extends State<Home> {
                         fontWeight: FontWeight.w400,
                       )),
                   Text("Absence(s) d'élève(s)",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: MyApp.primaryColor,
                         fontFamily: 'OpenSans',
@@ -172,6 +174,7 @@ class Home_state extends State<Home> {
                         fontWeight: FontWeight.w400,
                       )),
                   Text("Moyenne de la classe",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: MyApp.primaryColor,
                         fontFamily: 'OpenSans',
@@ -205,6 +208,7 @@ class Home_state extends State<Home> {
                     fontWeight: FontWeight.w400,
                   )),
               Text("Session(s)",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     color: MyApp.primaryColor,
                     fontFamily: 'OpenSans',
