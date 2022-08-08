@@ -14,13 +14,35 @@ enum MessageError {
 }
 
 export class ActivityQueries {
-    static getAllActivities() {
-        throw new Error('Method not implemented.');
+
+    static getAllActivities(): Promise<Activity.IActivity[]> {
+        return DatabaseKnex.getInstance().select().into('ACTIVITY')
+        .then((activities: Activity.IActivity[]) => {
+            return activities;
+        }).catch((err: ErrorDatabase) => {
+            throw {
+                code: err?.code,
+                message: DatabaseKnex.createBetterSqlMessageError(err?.code as string, err?.sqlMessage as string),
+                sql: err?.sql,
+            };
+        });
     }
-    static getActivityById(id: string | undefined) {
-        console.log(id);
-        throw new Error('Method not implemented.');
+
+    static getActivityById(uuid: string): Promise<Activity.IActivity[]> {
+        return DatabaseKnex.getInstance().select().into('ACTIVITY')
+        .where({uuid: uuid})
+        .then((activities) => {
+            console.log(activities);
+            return activities;
+        }).catch((err: ErrorDatabase) => {
+            throw {
+                code: err?.code,
+                message: DatabaseKnex.createBetterSqlMessageError(err?.code as string, err?.sqlMessage as string),
+                sql: err?.sql,
+            };
+        });
     }
+
     static async createActivity(activityReflect: Partial<Activity.IActivity>) {
         return (await DatabaseKnex.getInstance()).transaction(async (trx: Transaction) => {
             await ActivityQueries.addActivityTransaction(activityReflect, trx);

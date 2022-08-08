@@ -3,6 +3,7 @@ import {ActivityUtils} from './utils/activityUtils';
 import {MiddlewareManager} from "../../../middleware";
 
 import {Router, IRouter, Request, Response, NextFunction} from 'express';
+import { Activity } from 'server/model';
 
 export class ActivityController extends ActivityUtils {
     private _router: IRouter = Router();
@@ -19,7 +20,7 @@ export class ActivityController extends ActivityUtils {
         this._router.get('/all', async (req: Request, res: Response) => {
             await this.getMethodActivities(req, res);
         });
-        this._router.get('/', async (req: Request, res: Response) => {
+        this._router.get('/:uuid', async (req: Request, res: Response) => {
             await this.getMethodActivityById(req, res);
         });
         this._router.post('/', async (req: Request, res: Response) => {
@@ -33,52 +34,47 @@ export class ActivityController extends ActivityUtils {
         });
     }
 
-    /** 
-     * Activities:
-     * getAllActivities         //call to activity
-     * getActivityById          //call to actity
-     * getActivityByUserId      //call to activity_User
-     * getUserByActivityId      //call to activity_user
-     * 
-     * createActivity           //call to activity
-     * updateActivity           //call to activity
-     * deleteActivity           //call to activity
-     * 
-     * 
-     * 
-     * Delay:
-     * getDelayById             //call to delay
-     * getDelayByActivityId     //call to delay inner join activity_user
-     * getDelayByUserId         //call to delay inner join activity_user
-     * getAllDelays             //call to delay
-     * 
-     * createDelay              //call to delay
-     * updateDelay              //call to delay
-     * deleteDelay              //call to delay
-     * 
-     * 
-     * 
-     * Absences:
-     * getAbsenceById           //call to absence
-     * getAbsenceByActivityId   //call to absence inner join activity_user
-     * getAbsenceByUserId       //call to absence inner join activity_user
-     * getAllAbsences           //call to absence
-     * 
-     * createAbsence            //call to absence
-     * updateAbsence            //call to absence
-     * deleteAbsence            //call to absence
-     */
-
     /** Activities */
     private async getMethodActivities(req: Request, res: Response) {
-        const activities = await DBQueries.ActivityQueries.getAllActivities();
-        console.log(req.body);
-        res.json(activities);
+        try{
+            const activities: Activity.IActivity[] = await DBQueries.ActivityQueries.getAllActivities();
+            console.log(activities);
+            console.log(req);
+            res.status(200).send({
+                code: 'OK',
+                allActivities: activities
+            });
+        } catch (error) {
+            res.status(500).send({
+                code: 'ERROR',
+                message: 'Error creating activity'
+            });
+        }
     }
     
     private async getMethodActivityById(req: Request, res: Response) {
-        const activity = await DBQueries.ActivityQueries.getActivityById(req.params.id);
-        res.json(activity);
+        try{
+            const uuid: string = req.originalUrl.split('/')[2]!;
+            console.log(uuid);
+            const activity = await DBQueries.ActivityQueries.getActivityById(uuid);
+            console.log(activity);
+            res.status(200).send({
+                code: 'OK',
+                activity: {
+                    uuid: activity[0]?.uuid,
+                    name: activity[0]?.name,
+                    startTime: activity[0]?.startTime,
+                    endTime: activity[0]?.endTime,
+                    description: activity[0]?.description,
+                    studyLevel: activity[0]?.studyLevel,
+                }
+            });
+        } catch (error) {
+            res.status(500).send({
+                code: 'ERROR',
+                message: 'Error retrievingg activity by uuid'
+            });
+        }
     }
 
     private async createMethodActivity(req: Request, res: Response) {
@@ -105,11 +101,13 @@ export class ActivityController extends ActivityUtils {
     }
 
     private async updateMethodActivity(req: Request, res: Response) {
+        //todo
         const activity = await DBQueries.ActivityQueries.updateActivity(req.body);
         res.json(activity);
     }
 
     private async deleteMethodActivity(req: Request, res: Response) {
+        //todo
         const activity = await DBQueries.ActivityQueries.deleteActivity(req.params.id);
         res.json(activity);
     }
