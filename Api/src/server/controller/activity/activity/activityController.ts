@@ -85,7 +85,12 @@ export class ActivityController extends ActivityUtils {
 
         try {
 
-            await DBQueries.ActivityQueries.createActivity(req.body);
+            await super.checkPostContainNameANDStartANDEndTime(req.body);
+            await DBQueries.ActivityQueries.createActivity({
+                name: req.body.name,
+                startTime: req.body.startTime,
+                endTime: req.body.endTime,
+            });
 
             res.status(200).send({
                 code: 'OK',
@@ -97,10 +102,6 @@ export class ActivityController extends ActivityUtils {
                 error
             });
         }
-
-
-        const activity = await DBQueries.ActivityQueries.createActivity(req.body);
-        res.json(activity);
     }
 
     private async updateMethodActivity(req: Request, res: Response) {
