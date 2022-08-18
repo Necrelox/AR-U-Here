@@ -4,6 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import {config} from 'dotenv';
+import fileUpload from "express-fileupload";
 
 // const rateLimit = require('express-rate-limit');
 
@@ -26,8 +27,12 @@ export class Server {
         ));
         this.app.use(helmet());
         this.app.use(express.json());
-        this.app.use(express.urlencoded({ extended: false }));
+        this.app.use(express.urlencoded({ extended: true }));
         this.app.set('title', 'Ar-U-Here - API');
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/',
+        }));
         this.initializeRoutes();
         DatabaseKnex.initializeDatabasePool();
     }
@@ -35,10 +40,12 @@ export class Server {
     private initializeRoutes() {
         this.app.use('/account', new Controller.AccountController().getRouter());
         this.app.use('/user', new Controller.UserController().getRouter());
+        this.app.use('/biometric', new Controller.BiometricController().getRouter());
 
     }
 
     public run() {
         this.app.listen(process.env.PORT || 3001);
+        console.log(`Server is running on port ${process.env.PORT || 3001}`);
     }
 }

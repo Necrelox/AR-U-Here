@@ -1,9 +1,9 @@
 import {AccountUtils} from './utils/accountUtils';
-import {Router, IRouter, Request, Response, NextFunction} from 'express';
 import * as Tools from '../../tools';
 import * as Models from '../../model';
 import * as DBQueries from '../../database';
 import {MiddlewareManager} from "../../middleware";
+import {Router, IRouter, Request, Response, NextFunction} from 'express';
 
 export class AccountController extends AccountUtils {
     private _router: IRouter = Router();
