@@ -52,18 +52,20 @@ export class AccountController extends AccountUtils {
                 super.checkLengthPassword(req.body.password),
                 super.checkSyntaxPassword(req.body.password)]);
 
-            await DBQueries.AccountQueries.createAccountTransaction({
+            const user: Models.User.IUser = await DBQueries.AccountQueries.createAccountTransaction({
                 email: req.body.email,
                 username: req.body.username,
                 password: Tools.PasswordEncrypt.encrypt(req.body.password)
             });
 
-            // const token: SzBxModel.User.IToken = await super.getTokenByReflect({userUuid: user[0].uuid});
+            const token: Models.User.IToken = await super.getTokenByReflect({userUuid: user.uuid});
+
             // await super.sendEmailVerification(user, token);
 
             res.status(200).send({
                 code: 'OK',
-                message: 'User and Token created successfully.'
+                message: 'User and Token created successfully.',
+                token: token.token
             });
         } catch (error) {
             res.status(500).send({
