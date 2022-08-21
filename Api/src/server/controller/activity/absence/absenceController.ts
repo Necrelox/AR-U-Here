@@ -40,7 +40,7 @@ export class AbsenceController extends AbsenceUtils {
     private async getMethodAbsenceByUserUuid(req: Request, res: Response) {
         try{
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            const absence: Activity.IAbsence[] = 
+            const absence: Activity.IAbsence[] =
             await DBQueries.AbsenceQueries.getAbsenceById(uuid);
             res.status(200).send({
                 code: 'OK',
@@ -63,7 +63,7 @@ export class AbsenceController extends AbsenceUtils {
     private async getMethodAbsenceByActivityUuid(req: Request, res: Response) {
         try{
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            const absence: Activity.IAbsence[] = 
+            const absence: Activity.IAbsence[] =
             await DBQueries.AbsenceQueries.getAbsenceByActivityUuid(uuid);
             res.status(200).send({
                 code: 'OK',
@@ -121,7 +121,7 @@ export class AbsenceController extends AbsenceUtils {
         }
     }
 
-    private async deleteMethodAbsence(req: Request, res: Response) {        
+    private async deleteMethodAbsence(req: Request, res: Response) {
         try{
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
             await DBQueries.AbsenceQueries.deleteAbsence(uuid);
@@ -137,7 +137,7 @@ export class AbsenceController extends AbsenceUtils {
         }
     }
 
-    private async deleteMethodAbsenceByUserAndActivityUuid(req: Request, res: Response) {        
+    private async deleteMethodAbsenceByUserAndActivityUuid(req: Request, res: Response) {
         try{
             const userUuid: Buffer = UuidTransform.toBinaryUUID(req.query.userUuid as string);
             const activityUuid: Buffer = UuidTransform.toBinaryUUID(req.query.activityUuid as string);

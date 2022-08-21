@@ -42,7 +42,7 @@ export class DelayController extends DelayUtils {
     private async getMethodDelayByUserUuid(req: Request, res: Response) {
         try{
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            const delay: Activity.IDelay[] = 
+            const delay: Activity.IDelay[] =
             await DBQueries.DelayQueries.getDelayById(uuid);
             res.status(200).send({
                 code: 'OK',
@@ -66,7 +66,7 @@ export class DelayController extends DelayUtils {
     private async getMethodDelayByActivityUuid(req: Request, res: Response) {
         try{
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            const delay: Activity.IDelay[] = 
+            const delay: Activity.IDelay[] =
             await DBQueries.DelayQueries.getDelayByActivityUuid(uuid);
             res.status(200).send({
                 code: 'OK',
@@ -142,8 +142,8 @@ export class DelayController extends DelayUtils {
             });
         }
     }
-        
-    private async deleteMethodDelayByUserAndActivityUuid(req: Request, res: Response) {        
+
+    private async deleteMethodDelayByUserAndActivityUuid(req: Request, res: Response) {
         try{
             const userUuid: Buffer = UuidTransform.toBinaryUUID(req.query.userUuid as string);
             const activityUuid: Buffer = UuidTransform.toBinaryUUID(req.query.activityUuid as string);

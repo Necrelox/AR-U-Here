@@ -31,8 +31,8 @@ export class ActivityUserController extends ActivityUserUtils {
             const userUuid: Buffer = UuidTransform.toBinaryUUID(req.query.userUuid as string);
 
             await DBQueries.ActivityUserQueries.createActivityUser({
-                activityUuid: activityUuid,
-                userUuid: userUuid,
+                activityUuid,
+                userUuid,
             });
 
             res.status(200).send({
@@ -50,7 +50,7 @@ export class ActivityUserController extends ActivityUserUtils {
     private async getMethodActivityUserByUuid(req: Request, res: Response) {
         try{
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            const activityUser: Activity.IActivityUser[] = 
+            const activityUser: Activity.IActivityUser[] =
             await DBQueries.ActivityUserQueries.getActivityUserById(uuid);
             res.status(200).send({
                 code: 'OK',

@@ -57,11 +57,11 @@ export class ActivityController extends ActivityUtils {
             });
         }
     }
-    
+
     private async getMethodActivityById(req: Request, res: Response) {
         try{
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            const activity: Activity.IActivity[] = 
+            const activity: Activity.IActivity[] =
             await DBQueries.ActivityQueries.getActivityById({uuid});
             res.status(200).send({
                 code: 'OK',

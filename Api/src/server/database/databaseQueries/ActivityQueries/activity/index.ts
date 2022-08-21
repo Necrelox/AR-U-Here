@@ -61,7 +61,7 @@ export class ActivityQueries {
     static deleteActivity(uuid: Buffer) {
         return DatabaseKnex.getInstance().delete().from('ACTIVITY').where({uuid});
     }
-    
+
 
     /** Simple Queries */
     public static async getToken(activityReflectToFind: Partial<Activity.IActivity>): Promise<Activity.IActivity[]> {

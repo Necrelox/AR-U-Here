@@ -2,7 +2,7 @@ import {DatabaseKnex} from '../../../DatabaseKnex';
 import {Activity} from '../../../../model';
 
 export class AbsenceQueries {
-    
+
     static getAbsenceById(userUuid: Buffer): Promise<Activity.IAbsence[]> {
         return DatabaseKnex.getInstance().select(
             'justification','acceptedJustification',

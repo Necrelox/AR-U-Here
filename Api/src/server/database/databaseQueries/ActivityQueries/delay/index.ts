@@ -20,7 +20,7 @@ export class DelayQueries {
         .innerJoin('ACTIVITY_USER', 'DELAY.ACTIVITYUSERUUID', 'ACTIVITY_USER.UUID')
         .where({activityUuid});
     }
-    static createDelay(delayReflect: Partial<Activity.IDelay>) {        
+    static createDelay(delayReflect: Partial<Activity.IDelay>) {
         return DatabaseKnex.getInstance().insert(delayReflect).into('DELAY');
     }
     static updateDelay(delayReflect: Partial<Activity.IAbsence>, uuid: Buffer) {
