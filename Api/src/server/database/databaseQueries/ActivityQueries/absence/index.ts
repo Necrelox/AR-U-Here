@@ -1,56 +1,38 @@
-import {DatabaseKnex, ErrorDatabase} from '../../../DatabaseKnex';
-import {User} from '../../../../model';
+import {DatabaseKnex} from '../../../DatabaseKnex';
+import {Activity} from '../../../../model';
 
 export class AbsenceQueries {
-
     
-    static getAllAbsences() {
-        throw new Error('Method not implemented.');
+    static getAbsenceById(userUuid: Buffer): Promise<Activity.IAbsence[]> {
+        return DatabaseKnex.getInstance().select(
+            'justification','acceptedJustification',
+            'activityUserUuid', 'ABSENCE.uuid', 'userUuid', 'activityUuid'
+            ).into('ABSENCE')
+        .innerJoin('ACTIVITY_USER', 'ABSENCE.ACTIVITYUSERUUID', 'ACTIVITY_USER.UUID')
+        .where({userUuid});
     }
-    static getAbsenceById(id: string | undefined) {
-        console.log(id);
-        throw new Error('Method not implemented.');
+    static getAbsenceByActivityUuid(activityUuid: Buffer): Promise<Activity.IAbsence[]> {
+        return DatabaseKnex.getInstance().select(
+            'justification','acceptedJustification',
+            'activityUserUuid', 'ABSENCE.uuid', 'userUuid', 'activityUuid'
+            ).into('ABSENCE')
+        .innerJoin('ACTIVITY_USER', 'ABSENCE.ACTIVITYUSERUUID', 'ACTIVITY_USER.UUID')
+        .where({activityUuid});
     }
-    static createAbsence(body: any) {
-        console.log(body);
-        throw new Error('Method not implemented.');
+    static createAbsence(absenceReflect: Partial<Activity.IAbsence>) {
+        return DatabaseKnex.getInstance().insert(absenceReflect).into('ABSENCE');
     }
-    static updateAbsence(body: any) {
-        console.log(body);
-        throw new Error('Method not implemented.');
+    static updateAbsence(absenceReflect: Partial<Activity.IAbsence>, uuid: Buffer) {
+        return DatabaseKnex.getInstance().update(absenceReflect).from('ABSENCE').where({uuid});
     }
-    static deleteAbsence(id: string | undefined) {
-        console.log(id);
-        throw new Error('Method not implemented.');
-    }
-    /** Simple Queries */
-    public static async getToken(tokenReflectToFind: Partial<User.IToken>): Promise<User.IToken[]> {
-        return DatabaseKnex.getInstance().select().from('USER_TOKEN')
-            .where(tokenReflectToFind)
-            .then((tokens: User.IToken[]) => {
-                return tokens;
-            }).catch((err: ErrorDatabase) => {
-                throw {
-                    code: err?.code,
-                    message: DatabaseKnex.createBetterSqlMessageError(err?.code as string, err?.sqlMessage as string),
-                    sql: err?.sql,
-                };
-            });
+    static deleteAbsence(uuid: Buffer) {
+        return DatabaseKnex.getInstance().delete().from('ABSENCE').where({uuid});
     }
 
-    public static async getUser(userReflectToFind: Partial<User.IUser>): Promise<User.IUser[]> {
-        return DatabaseKnex.getInstance().select().from('USER')
-            .where(userReflectToFind)
-            .then((users: User.IUser[]) => {
-                return users;
-            }).catch((err: ErrorDatabase) => {
-                throw {
-                    code: err?.code,
-                    message: DatabaseKnex.createBetterSqlMessageError(err?.code as string, err?.sqlMessage as string),
-                    sql: err?.sql,
-                };
-            });
+    static deleteAbsenceByUserAndActivityUuid(userUuid: Buffer, activityUuid: Buffer) {
+        return DatabaseKnex.getInstance().delete().from('ABSENCE')
+        .innerJoin('ACTIVITY_USER', 'ABSENCE.ACTIVITYUSERUUID', 'ACTIVITY_USER.UUID')
+        .where({activityUuid, userUuid});
     }
-
 
 }

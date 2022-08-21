@@ -255,14 +255,14 @@ CREATE TABLE IF NOT EXISTS `ArUHere`.`ACTIVITY_USER` (
   `uuid` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID(), TRUE)),
   PRIMARY KEY (`uuid`),
   UNIQUE INDEX `uuid_UNIQUE` (`uuid` ASC) VISIBLE,
-  INDEX `fk_ACTIVITY_USER_USER_idx` (`userUuid` ASC) VISIBLE,
-  INDEX `fk_ACTIVITY_USER_ACTIVITY_idx` (`activityUuid` ASC) VISIBLE,
-  CONSTRAINT `fk_ACTIVITY_USER_USER`
+  INDEX `fk_activity_user_user_idx` (`userUuid` ASC) VISIBLE,
+  INDEX `fk_activity_user_activity_idx` (`activityUuid` ASC) VISIBLE,
+  CONSTRAINT `fk_activity_user_user`
     FOREIGN KEY (`userUuid`)
     REFERENCES `ArUHere`.`USER` (`uuid`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ACTIVITY_USER_ACTIVITY`
+  CONSTRAINT `fk_activity_user_activity`
     FOREIGN KEY (`activityUuid`)
     REFERENCES `ArUHere`.`ACTIVITY` (`uuid`)
     ON DELETE CASCADE
@@ -282,8 +282,8 @@ CREATE TABLE IF NOT EXISTS `ArUHere`.`ABSENCE` (
   `uuid` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID(), TRUE)),
   PRIMARY KEY (`uuid`),
   UNIQUE INDEX `uuid_UNIQUE` (`uuid` ASC) VISIBLE,
-  INDEX `fk_USER_ABSENCE_ACTIVITY_USER_idx` (`activityUserUuid` ASC) VISIBLE,
-  CONSTRAINT `fk_ABSENCE_ACTIVITY_USER`
+  INDEX `fk_absence_activityuser_idx` (`activityUserUuid` ASC) VISIBLE,
+  CONSTRAINT `fk_absence_activityuser`
     FOREIGN KEY (`activityUserUuid`)
     REFERENCES `ArUHere`.`ACTIVITY_USER` (`uuid`)
     ON DELETE CASCADE
@@ -297,7 +297,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ArUHere`.`DELAY` ;
 
 CREATE TABLE IF NOT EXISTS `ArUHere`.`DELAY` (
-  `delayInMinutes` TIMESTAMP NULL,
+  `delayInMinutes` INT NULL,
   `justification` VARCHAR(255) NULL,
   `acceptedJustification` TINYINT NULL,
   `attendedActivity` TINYINT NULL,
@@ -305,8 +305,8 @@ CREATE TABLE IF NOT EXISTS `ArUHere`.`DELAY` (
   `uuid` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID(), TRUE)),
   PRIMARY KEY (`uuid`),
   UNIQUE INDEX `uuid_UNIQUE` (`uuid` ASC) VISIBLE,
-  INDEX `fk_USER_RETARDS_ACTIVTY_USER_idx` (`activityUserUuid` ASC) VISIBLE,
-  CONSTRAINT `fk_DELAY_ACTIVTY_USER`
+  INDEX `fk_delay_activityuser_idx` (`activityUserUuid` ASC) VISIBLE,
+  CONSTRAINT `fk_delay_activityuser`
     FOREIGN KEY (`activityUserUuid`)
     REFERENCES `ArUHere`.`ACTIVITY_USER` (`uuid`)
     ON DELETE CASCADE

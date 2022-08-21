@@ -1,7 +1,8 @@
 import * as DBQueries from '../../../database';
 import {ActivityUserUtils} from './utils/activityUserUtils';
 import {MiddlewareManager} from "../../../middleware";
-
+import {UuidTransform} from "../../../tools";
+import { Activity } from 'server/model';
 import {Router, IRouter, Request, Response, NextFunction} from 'express';
 
 export class ActivityUserController extends ActivityUserUtils {
@@ -16,65 +17,58 @@ export class ActivityUserController extends ActivityUserUtils {
         this._router.use('/', async (req: Request, res: Response, next: NextFunction) => {
             await MiddlewareManager.middlewares(req, res, next);
         });
-        this._router.get('/absence/activity', async (req: Request, res: Response) => {
-            await this.getMethodAbsenceByActivityId(req, res);
+        this._router.post('/', async (req: Request, res: Response) => {
+            await this.createMethodActivityUser(req, res);
         });
-        this._router.get('/absence/user', async (req: Request, res: Response) => {
-            await this.getMethodAbsenceByUserId(req, res);
-        });
-        this._router.get('/delay/activity', async (req: Request, res: Response) => {
-            await this.getMethodDelayByActivityId(req, res);
-        });
-        this._router.get('/delay/user', async (req: Request, res: Response) => {
-            await this.getMethodDelayByUserId(req, res);
-        });
-        this._router.get('/user', async (req: Request, res: Response) => {
-            await this.getMethodUserByActivityId(req, res);
-        });
-        this._router.get('/activity', async (req: Request, res: Response) => {
-            await this.getMethodActivityByUserId(req, res);
+        this._router.get('/', async (req: Request, res: Response) => {
+            await this.getMethodActivityUserByUuid(req, res);
         });
     }
 
+    private async createMethodActivityUser(req: Request, res: Response) {
+        try {
+            const activityUuid: Buffer = UuidTransform.toBinaryUUID(req.query.activityUuid as string);
+            const userUuid: Buffer = UuidTransform.toBinaryUUID(req.query.userUuid as string);
 
-    /** Activity */
+            await DBQueries.ActivityUserQueries.createActivityUser({
+                activityUuid: activityUuid,
+                userUuid: userUuid,
+            });
 
-    private async getMethodUserByActivityId(req: Request, res: Response) {
-        const user = await DBQueries.ActivityUserQueries.getUserByActivityId(req.params.id);
-        res.json(user);
+            res.status(200).send({
+                code: 'OK',
+                message: 'ActivityUser created successfully'
+            });
+
+        } catch (error) {
+            res.status(500).send({
+                error
+            });
+        }
     }
 
-    private async getMethodActivityByUserId(req: Request, res: Response) {
-        const activities = await DBQueries.ActivityUserQueries.getActivityByUserId(req.params.id);
-        res.json(activities);
+    private async getMethodActivityUserByUuid(req: Request, res: Response) {
+        try{
+            const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
+            console.log(uuid);
+            const activityUser: Activity.IActivityUser[] = 
+            await DBQueries.ActivityUserQueries.getActivityUserById(uuid);
+            res.status(200).send({
+                code: 'OK',
+                activityUser: activityUser.map(acUser => {
+                    return {
+                        userUuid: UuidTransform.fromBinaryUUID(acUser?.userUuid as Buffer),
+                        activityUuid: UuidTransform.fromBinaryUUID(acUser?.activityUuid as Buffer),
+                        uuid: UuidTransform.fromBinaryUUID(acUser?.uuid as Buffer),
+                    }
+                }),
+            });
+        } catch (error) {
+            res.status(500).send({
+                error
+            });
+        }
     }
-
-
-    /** Absence */
-    
-    private async getMethodAbsenceByActivityId(req: Request, res: Response) {
-        const absences = await DBQueries.ActivityUserQueries.getAbsenceByActivityId(req.params.id);
-        res.json(absences);
-    }
-
-    private async getMethodAbsenceByUserId(req: Request, res: Response) {
-        const absences = await DBQueries.ActivityUserQueries.getAbsenceByUserId(req.params.id);
-        res.json(absences);
-    }
-
-
-    /** Delay */
-
-    private async getMethodDelayByActivityId(req: Request, res: Response) {
-        const delays = await DBQueries.ActivityUserQueries.getDelayByActivityId(req.params.id);
-        res.json(delays);
-    }
-
-    private async getMethodDelayByUserId(req: Request, res: Response) {
-        const delays = await DBQueries.ActivityUserQueries.getDelayByUserId(req.params.id);
-        res.json(delays);
-    }
-
 
     public getRouter(): IRouter {
         return this._router;

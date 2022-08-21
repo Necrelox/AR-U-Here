@@ -36,11 +36,14 @@ enum CodeError {
 export abstract class ActivityUtils extends ControllerUtils {
 
     /** USER */
-    protected async transformBodyToUserForUpdate(body: ReqBody) : Promise<Partial<Models.User.IUser>> {
-        const user: Partial<Models.User.IUser> = {};
-        const b: ReqBody = body;
-        console.log(b);
-        return user;
+    protected async transformBodyToActivityForUpdate(req: ReqBody) : Promise<Partial<Models.Activity.IActivity>> {
+        const activity: Partial<Models.Activity.IActivity> = {};
+        activity.name = req.name;
+        activity.description = req.description;
+        activity.startTime = req.startTime;
+        activity.endTime = req.endTime;
+        activity.studyLevel = req.studyLevel;
+        return activity;
     }
 
     protected async checkPostContainNameANDStartANDEndTime(postData: { name?: string, startTime?: Date, endTime?: Date }) {

@@ -1,56 +1,38 @@
-import {DatabaseKnex, ErrorDatabase} from '../../../DatabaseKnex';
-import {User} from '../../../../model';
+import {DatabaseKnex} from '../../../DatabaseKnex';
+import {Activity} from '../../../../model';
 
 export class DelayQueries {
 
 
-    static getDelayById(id: string | undefined) {
-        console.log(id);
-        throw new Error('Method not implemented.');
+    static getDelayById(userUuid: Buffer) {
+        return DatabaseKnex.getInstance().select(
+            'justification','acceptedJustification', 'attendedActivity', 'delayInMinutes',
+            'activityUserUuid', 'DELAY.uuid', 'userUuid', 'activityUuid'
+            ).into('DELAY')
+        .innerJoin('ACTIVITY_USER', 'DELAY.ACTIVITYUSERUUID', 'ACTIVITY_USER.UUID')
+        .where({userUuid});
     }
-    static getAllDelays() {
-        throw new Error('Method not implemented.');
+    static getDelayByActivityUuid(activityUuid: Buffer) {
+        return DatabaseKnex.getInstance().select(
+            'justification','acceptedJustification', 'attendedActivity', 'delayInMinutes',
+            'activityUserUuid', 'DELAY.uuid', 'userUuid', 'activityUuid'
+            ).into('DELAY')
+        .innerJoin('ACTIVITY_USER', 'DELAY.ACTIVITYUSERUUID', 'ACTIVITY_USER.UUID')
+        .where({activityUuid});
     }
-    static createDelay(body: any) {
-        console.log(body);
-        throw new Error('Method not implemented.');
+    static createDelay(delayReflect: Partial<Activity.IDelay>) {        
+        return DatabaseKnex.getInstance().insert(delayReflect).into('DELAY');
     }
-    static updateDelay(body: any) {
-        console.log(body);
-        throw new Error('Method not implemented.');
-    }
-    static deleteDelay(id: string | undefined) {
-        console.log(id);
-        throw new Error('Method not implemented.');
-    }
-    /** Simple Queries */
-    public static async getToken(tokenReflectToFind: Partial<User.IToken>): Promise<User.IToken[]> {
-        return DatabaseKnex.getInstance().select().from('USER_TOKEN')
-            .where(tokenReflectToFind)
-            .then((tokens: User.IToken[]) => {
-                return tokens;
-            }).catch((err: ErrorDatabase) => {
-                throw {
-                    code: err?.code,
-                    message: DatabaseKnex.createBetterSqlMessageError(err?.code as string, err?.sqlMessage as string),
-                    sql: err?.sql,
-                };
-            });
-    }
+    static updateDelay(delayReflect: Partial<Activity.IAbsence>, uuid: Buffer) {
+        return DatabaseKnex.getInstance().update(delayReflect).from('DELAY').where({uuid});
 
-    public static async getUser(userReflectToFind: Partial<User.IUser>): Promise<User.IUser[]> {
-        return DatabaseKnex.getInstance().select().from('USER')
-            .where(userReflectToFind)
-            .then((users: User.IUser[]) => {
-                return users;
-            }).catch((err: ErrorDatabase) => {
-                throw {
-                    code: err?.code,
-                    message: DatabaseKnex.createBetterSqlMessageError(err?.code as string, err?.sqlMessage as string),
-                    sql: err?.sql,
-                };
-            });
     }
-
-
+    static deleteDelay(uuid: Buffer) {
+        return DatabaseKnex.getInstance().delete().from('DELAY').where({uuid});
+    }
+    static deleteDelayByUserAndActivityUuid(userUuid: Buffer, activityUuid: Buffer) {
+        return DatabaseKnex.getInstance().delete().from('DELAY')
+        .innerJoin('ACTIVITY_USER', 'DELAY.ACTIVITYUSERUUID', 'ACTIVITY_USER.UUID')
+        .where({activityUuid, userUuid});
+    }
 }
