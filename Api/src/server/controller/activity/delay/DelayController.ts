@@ -70,14 +70,14 @@ export class DelayController extends DelayUtils {
             await DBQueries.DelayQueries.getDelayByActivityUuid(uuid);
             res.status(200).send({
                 code: 'OK',
-                delay: delay.map(delay => {
+                delay: delay.map(del => {
                     return{
-                        delayInMinutes: delay?.delayInMinutes,
-                        justification: delay?.justification,
-                        acceptedJustification: delay?.acceptedJustification,
-                        attendedActivity: delay?.attendedActivity,
-                        activityUserUuid: UuidTransform.fromBinaryUUID(delay?.activityUserUuid as Buffer),
-                        uuid: UuidTransform.fromBinaryUUID(delay?.uuid as Buffer),
+                        delayInMinutes: del?.delayInMinutes,
+                        justification: del?.justification,
+                        acceptedJustification: del?.acceptedJustification,
+                        attendedActivity: del?.attendedActivity,
+                        activityUserUuid: UuidTransform.fromBinaryUUID(del?.activityUserUuid as Buffer),
+                        uuid: UuidTransform.fromBinaryUUID(del?.uuid as Buffer),
                 }}),
             });
         } catch (error) {
