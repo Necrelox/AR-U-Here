@@ -62,7 +62,7 @@ export class DelayController extends DelayUtils {
             });
         }
     }
-    
+
     private async getMethodDelayByActivityUuid(req: Request, res: Response) {
         try{
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);

@@ -50,7 +50,6 @@ export class ActivityUserController extends ActivityUserUtils {
     private async getMethodActivityUserByUuid(req: Request, res: Response) {
         try{
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            console.log(uuid);
             const activityUser: Activity.IActivityUser[] = 
             await DBQueries.ActivityUserQueries.getActivityUserById(uuid);
             res.status(200).send({

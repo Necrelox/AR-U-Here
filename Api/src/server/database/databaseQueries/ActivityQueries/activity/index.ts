@@ -29,12 +29,9 @@ export class ActivityQueries {
     }
 
     static getActivityById(activityReflectToFind: Partial<Activity.IActivity>): Promise<Activity.IActivity[]> {
-        console.log(DatabaseKnex.getInstance().select().into('ACTIVITY')
-        .where(activityReflectToFind).toSQL());
         return DatabaseKnex.getInstance().select().into('ACTIVITY')
         .where(activityReflectToFind)
         .then((activities) => {
-            console.log(activities);
             return activities;
         }).catch((err: ErrorDatabase) => {
             throw {

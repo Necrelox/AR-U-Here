@@ -40,7 +40,6 @@ export class AbsenceController extends AbsenceUtils {
     private async getMethodAbsenceByUserUuid(req: Request, res: Response) {
         try{
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            console.log(uuid);
             const absence: Activity.IAbsence[] = 
             await DBQueries.AbsenceQueries.getAbsenceById(uuid);
             res.status(200).send({
@@ -64,7 +63,6 @@ export class AbsenceController extends AbsenceUtils {
     private async getMethodAbsenceByActivityUuid(req: Request, res: Response) {
         try{
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            console.log(uuid);
             const absence: Activity.IAbsence[] = 
             await DBQueries.AbsenceQueries.getAbsenceByActivityUuid(uuid);
             res.status(200).send({
@@ -139,7 +137,6 @@ export class AbsenceController extends AbsenceUtils {
         }
     }
 
-    
     private async deleteMethodAbsenceByUserAndActivityUuid(req: Request, res: Response) {        
         try{
             const userUuid: Buffer = UuidTransform.toBinaryUUID(req.query.userUuid as string);
@@ -156,7 +153,6 @@ export class AbsenceController extends AbsenceUtils {
             });
         }
     }
-
 
     public getRouter(): IRouter {
         return this._router;

@@ -17,8 +17,8 @@ export class ActivityController extends ActivityUtils {
         this._router.use('/', async (req: Request, res: Response, next: NextFunction) => {
             await MiddlewareManager.middlewares(req, res, next);
         });
-        this._router.get('/all', async (req: Request, res: Response) => {
-            await this.getMethodActivities(req, res);
+        this._router.get('/all', async (res: Response) => {
+            await this.getMethodActivities(res);
         });
         this._router.get('/', async (req: Request, res: Response) => {
             await this.getMethodActivityById(req, res);
@@ -34,11 +34,9 @@ export class ActivityController extends ActivityUtils {
         });
     }
 
-    /** Activities */
-    private async getMethodActivities(req: Request, res: Response) {
+    private async getMethodActivities(res: Response) {
         try{
             const activities: Activity.IActivity[] = await DBQueries.ActivityQueries.getAllActivities();
-            console.log(req);
             res.status(200).send({
                 code: 'OK',
                 allActivities: activities.map(activity => {
@@ -63,7 +61,6 @@ export class ActivityController extends ActivityUtils {
     private async getMethodActivityById(req: Request, res: Response) {
         try{
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            console.log(uuid);
             const activity: Activity.IActivity[] = 
             await DBQueries.ActivityQueries.getActivityById({uuid});
             res.status(200).send({
@@ -108,10 +105,8 @@ export class ActivityController extends ActivityUtils {
     }
 
     private async updateMethodActivity(req: Request, res: Response) {
-        //todo
         try{
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            // await super.checkPostContainNameANDStartANDEndTime(req.body);
             const activityReflect = await super.transformBodyToActivityForUpdate(req.body);
             await DBQueries.ActivityQueries.updateActivity(activityReflect, uuid);
             res.status(200).send({
