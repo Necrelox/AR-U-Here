@@ -67,6 +67,11 @@ export class Server {
     private initializeRoutes() {
         this.app.use('/account', new Controller.AccountController().getRouter());
         this.app.use('/user', new Controller.UserController().getRouter());
+        this.app.use('/activity', new Controller.ActivityController().getRouter());
+        this.app.use('/activity-user', new Controller.ActivityUserController().getRouter());
+        this.app.use('/delay', new Controller.DelayController().getRouter());
+        this.app.use('/absence', new Controller.AbsenceController().getRouter());
+
         this.app.use('/biometric', new Controller.BiometricController().getRouter());
     }
 
