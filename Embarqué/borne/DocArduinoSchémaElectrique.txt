@@ -2,6 +2,9 @@ Relay:
 https://arduinogetstarted.com/tutorials/arduino-relay
 https://randomnerdtutorials.com/guide-for-relay-module-with-arduino/
 
+relay vs transistor:
+https://www.ultralibrarian.com/2021/02/09/relays-vs-transistors-which-is-the-correct-choice-ulc#:~:text=A%20relay%20can%20be%20used,with%20AC%20signals%20as%20well
+
 Camera HuskyLens:
 https://wiki.dfrobot.com/HUSKYLENS_V1.0_SKU_SEN0305_SEN0336
 
@@ -13,3 +16,12 @@ Eleego starter kit lesson 29
 
 IR remote: 
 Eleego starter kit lesson 14
+
+Button: 
+Eleego starter kit lesson 5
+
+Thermistor: 
+Eleego starter kit lesson 23
+
+WiFi esp8266:
+https://www.atrakeur.com/blog/diy/wifi-avec-arduino-et-esp8266/
