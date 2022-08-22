@@ -1,6 +1,6 @@
 export interface IMessage {
     message: string;
-    createdAt?: Date;
+    createdAt: Date;
     userHistoryUuid: string;
-    uuid?: Buffer;
+    uuid: Buffer;
 }

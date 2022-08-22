@@ -17,7 +17,7 @@ export class Token {
         const [header, body, signature]: string[] = token.split('.');
 
         const recreateSignature: string = createHmac('sha256', 'Are-U-Here')
-            .update(header! + body!)
+            .update(header as string + body as string)
             .digest('hex');
         return recreateSignature === signature;
     }

@@ -1,9 +1,9 @@
 export interface ILogo {
     path: string;
-    createdAt?: Date;
+    createdAt: Date;
     seed: number;
     sizeMo: number;
-    active?: boolean;
+    active: boolean;
     userUuid: string;
-    uuid?: Buffer;
+    uuid: Buffer;
 }

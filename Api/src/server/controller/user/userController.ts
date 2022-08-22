@@ -1,8 +1,9 @@
-import {Router, IRouter, Request, Response, NextFunction} from 'express';
-import {UserUtils} from './utils/userUtils';
-import {BearerToken} from '../../middleware/bearerToken/bearerToken';
 import * as Models from '../../model';
 import * as DBQueries from '../../database';
+import {UserUtils} from './utils/userUtils';
+import {MiddlewareManager} from "../../middleware";
+
+import {Router, IRouter, Request, Response, NextFunction} from 'express';
 
 export class UserController extends UserUtils {
     private _router: IRouter = Router();
@@ -14,7 +15,7 @@ export class UserController extends UserUtils {
 
     private initializeAccountController() {
         this._router.use('/me', async (req: Request, res: Response, next: NextFunction) => {
-            await BearerToken.checkToken(req, res, next);
+            await MiddlewareManager.middlewares(req, res, next);
         });
         this._router.get('/me', async (req: Request, res: Response) => {
             await this.getMethodMe(req, res);
@@ -22,9 +23,8 @@ export class UserController extends UserUtils {
         this._router.put('/me', async (req: Request, res: Response) => {
             await this.putMethodMe(req, res);
         });
-
         this._router.use('/me/logo', async (req: Request, res: Response, next: NextFunction) => {
-            await BearerToken.checkToken(req, res, next);
+            await MiddlewareManager.middlewares(req, res, next);
         });
         this._router.get('/me/logo', async (req: Request, res: Response) => {
             await this.getMethodMeLogo(req, res);
@@ -41,21 +41,19 @@ export class UserController extends UserUtils {
     private async getMethodMe(req: Request, res: Response) {
         try {
             const tokenFKUser: Models.User.ITokenFKUser[] = await DBQueries.UserQueries.getUserByFKToken({
-                token: (req.headers.authorization)!.split(' ')[1]!
+                token: (req.headers.authorization)?.split(' ')[1]
             });
             res.status(200).send({
                 code: 'OK',
                 user: {
-                    username: tokenFKUser[0]!.username,
-                    email: tokenFKUser[0]!.email,
-                    address: tokenFKUser[0]!.address,
-                    phone: tokenFKUser[0]!.phone,
-                    activityMessage: tokenFKUser[0]!.activityMessage,
-                    isConnected: tokenFKUser[0]!.isConnected,
-                    createdAt: tokenFKUser[0]!.createdAt,
+                    username: (tokenFKUser[0])?.username,
+                    email: (tokenFKUser[0])?.email,
+                    activityMessage: (tokenFKUser[0])?.activityMessage,
+                    isConnected: (tokenFKUser[0])?.isConnected,
+                    createdAt: (tokenFKUser[0])?.createdAt,
                 }
             });
-        } catch (error: any) {
+        } catch (error) {
             res.status(500).send({error});
         }
     }
@@ -65,7 +63,7 @@ export class UserController extends UserUtils {
             if (Object.keys(req.body).length > 0) {
                 const userReflect = await super.transformBodyToUserForUpdate(req.body);
                 await DBQueries.UserQueries.updateUserByTokenTransaction(userReflect, {
-                    token: (req.headers.authorization)!.split(' ')[1]!
+                    token: (req.headers.authorization)?.split(' ')[1]
                 });
             } else {
                 res.status(200).send({
@@ -77,7 +75,7 @@ export class UserController extends UserUtils {
                 code: 'OK',
                 message: 'User updated.'
             });
-        } catch (error: any) {
+        } catch (error) {
             res.status(500).send({error});
         }
     }
@@ -89,7 +87,7 @@ export class UserController extends UserUtils {
             res.status(200).send({
                 code: 'OK',
             });
-        } catch (error: any) {
+        } catch (error) {
             res.status(500).send({error});
         }
     }
@@ -100,7 +98,7 @@ export class UserController extends UserUtils {
             res.status(200).send({
                 code: 'OK',
             });
-        } catch (error: any) {
+        } catch (error) {
             res.status(500).send({error});
         }
     }
@@ -112,12 +110,10 @@ export class UserController extends UserUtils {
                 code: 'OK',
 
             });
-        } catch (error: any) {
+        } catch (error) {
             res.status(500).send({error});
         }
     }
-
-
     public getRouter(): IRouter {
         return this._router;
     }
