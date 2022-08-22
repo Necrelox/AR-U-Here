@@ -237,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `ArUHere`.`ACTIVITY` (
   `description` VARCHAR(255) NULL,
   `startTime` DATETIME NULL,
   `endTime` DATETIME NULL,
-  `studyLevel` INT NULL,
+  `studyLevel` VARCHAR(50) NULL,
   `uuid` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID(), TRUE)),
   PRIMARY KEY (`uuid`),
   UNIQUE INDEX `uuid_UNIQUE` (`uuid` ASC) VISIBLE)
@@ -297,10 +297,9 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ArUHere`.`DELAY` ;
 
 CREATE TABLE IF NOT EXISTS `ArUHere`.`DELAY` (
-  `delayInMinutes` INT NULL,
+  `delayInMinutes` SMALLINT NULL,
   `justification` VARCHAR(255) NULL,
   `acceptedJustification` TINYINT NULL,
-  `attendedActivity` TINYINT NULL,
   `activityUserUuid` BINARY(16) NULL,
   `uuid` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID(), TRUE)),
   PRIMARY KEY (`uuid`),

@@ -8,6 +8,7 @@ export enum CodeError {
     CHECK_LENGTH_USERNAME = 'ControllerUtils::checkLengthUsername',
     CHECK_LENGTH_PASSWORD = 'ControllerUtils::checkLengthPassword',
     CHECK_SYNTAX_PASSWORD = 'ControllerUtils::checkSyntaxPassword',
+    CHECK_POST_CONTAIN_UUID = 'ControllerUtils:checkRequestContainUuid',
 }
 
 export enum MessageError {
@@ -17,6 +18,7 @@ export enum MessageError {
     CHECK_LENGTH_USERNAME = 'Username length is too short or too long. (min: 4, max: 20)',
     CHECK_LENGTH_PASSWORD = 'Password length is too short or too long. (min: 6, max: 20)',
     CHECK_SYNTAX_PASSWORD = 'Password do contain one majuscule and one number minimum.',
+    CHECK_POST_CONTAIN_UUID = 'Missing parameter.',
 }
 
 export abstract class ControllerUtils {
@@ -76,6 +78,15 @@ export abstract class ControllerUtils {
                 message: MessageError.GET_TOKEN_BY_REFLECT
             };
         return token[0] as Models.User.IToken;
+    }
+
+    /** Activities */
+    protected async checkRequestContainUuid(postData: { uuid?: string}) {
+        if (!postData.uuid)
+            throw {
+                code: CodeError.CHECK_POST_CONTAIN_UUID,
+                message: MessageError.CHECK_POST_CONTAIN_UUID + (postData.uuid ? '' : ' uuid')
+            };
     }
 
 }

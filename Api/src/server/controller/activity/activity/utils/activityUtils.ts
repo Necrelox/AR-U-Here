@@ -11,46 +11,43 @@ interface ReqBody {
 }
 
 enum MessageError {
-    CHECK_POST_CONTAIN_MAIL_OR_USERNAME_AND_PASSWORD = 'Missing parameter.',
-    CHECK_POST_CONTAIN_MAIL_AND_USERNAME_AND_PASSWORD = 'Missing parameter.',
-    CHECK_POST_CONTAIN_IP_AND_MACADDRESS_AND_DEVICE_TYPE = 'Missing parameter.',
-    CHECK_USER_PASSWORD = 'Invalid password.',
-    CHECK_USER_IS_BLACKLISTED = 'User is blacklisted.',
-    CHECK_USER_IS_VERIFIED = 'User not verified.',
-    VERIFY_TOKEN_EXPIRATION_AND_SEND_MAIL = 'Token expired, new token generated.',
-    TOKEN_INVALID_SIGNATURE = 'Token invalid signature.',
+    CHECK_POST_CONTAIN_UUID = 'Missing parameter.',
+    CHECK_POST_CONTAIN_NAME_AND_START_AND_ENDTIME = 'Missing parameter.',
 }
 
 enum CodeError {
-    CHECK_POST_CONTAIN_MAIL_OR_USERNAME_AND_PASSWORD = 'AccountUtils::checkPostContainMailORUsernameANDPassword',
-    CHECK_POST_CONTAIN_MAIL_AND_USERNAME_AND_PASSWORD = 'AccountUtils:checkPostContainNameANDStartANDEndTime',
-    CHECK_POST_CONTAIN_IP_AND_MACADDRESS_AND_DEVICE_TYPE = 'AccountUtils::checkPostContainIpANDMacAddressANDDeviceType',
-    CHECK_USER_PASSWORD = 'AccountUtilsError:checkUserPassword',
-    CHECK_USER_IS_BLACKLISTED = 'AccountUtils:checkUserIsBlacklisted',
-    CHECK_USER_IS_VERIFIED = 'AccountUtils:checkUserIsVerified',
-    VERIFY_LOGIN_AND_RETURN_USER = 'AccountUtilsError:verifyLoginAndReturnUser',
-    VERIFY_TOKEN_EXPIRATION_AND_SEND_MAIL = 'AccountUtils::verifyTokenExpirationAndSendMail',
-    VERIFY_TOKEN_SIGNATURE = 'AccountUtils::verifyTokenSignature',
+    CHECK_POST_CONTAIN_UUID = 'ActivityUtils:checkRequestContainUuid',
+    CHECK_POST_CONTAIN_NAME_AND_START_AND_ENDTIME = 'ActivityUtils:checkPostContainNameANDStartANDEndTime',
 }
 
 export abstract class ActivityUtils extends ControllerUtils {
 
     /** USER */
-    protected async transformBodyToActivityForUpdate(req: ReqBody) : Promise<Partial<Models.Activity.IActivity>> {
+    protected async transformBodyToActivityForUpdate(body: ReqBody) : Promise<Partial<Models.Activity.IActivity>> {
         const activity: Partial<Models.Activity.IActivity> = {};
-        activity.name = req.name;
-        activity.description = req.description;
-        activity.startTime = req.startTime;
-        activity.endTime = req.endTime;
-        activity.studyLevel = req.studyLevel;
+        if ('name' in body) {
+            activity.name = body.name;
+        }
+        if ('description' in body) {
+            activity.description = body.description;
+        }
+        if ('startTime' in body) {
+            activity.startTime = body.startTime;
+        }
+        if ('endTime' in body) {
+            activity.endTime = body.endTime;
+        }
+        if ('studyLevel' in body) {
+            activity.studyLevel = body.studyLevel;
+        }
         return activity;
     }
 
     protected async checkPostContainNameANDStartANDEndTime(postData: { name?: string, startTime?: Date, endTime?: Date }) {
         if (!postData.name || !postData.startTime || !postData.endTime)
             throw {
-                code: CodeError.CHECK_POST_CONTAIN_MAIL_AND_USERNAME_AND_PASSWORD,
-                message: MessageError.CHECK_POST_CONTAIN_MAIL_AND_USERNAME_AND_PASSWORD + (postData.name ? '' : ' name') + (postData.startTime ? '' : ' startTime') + (postData.endTime ? '' : ' endTime') + '.'
+                code: CodeError.CHECK_POST_CONTAIN_NAME_AND_START_AND_ENDTIME,
+                message: MessageError.CHECK_POST_CONTAIN_NAME_AND_START_AND_ENDTIME + (postData.name ? '' : ' name') + (postData.startTime ? '' : ' startTime') + (postData.endTime ? '' : ' endTime') + '.'
             };
     }
 }

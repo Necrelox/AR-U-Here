@@ -1,22 +1,10 @@
 import {DatabaseKnex, Transaction, ErrorDatabase} from '../../../DatabaseKnex';
 import {Activity} from '../../../../model';
 
-// enum CodeError {
-//     GET_USER_BY_REFLECT = 'AccountQueries::createAccountTransaction',
-//     SET_VERIFY_USER = 'AccountQueries::setVerifiedUser',
-//     ERROR_TOKEN_NOT_FOUND = 'AccountQueries::logoutUserTransaction',
-// }
-
-// enum MessageError {
-//     GET_USER_BY_REFLECT = 'User not found.',
-//     SET_VERIFY_USER = 'User already verified.',
-//     ERROR_TOKEN_NOT_FOUND = 'Token not found.',
-// }
-
 export class ActivityQueries {
 
     static getAllActivities(): Promise<Activity.IActivity[]> {
-        return DatabaseKnex.getInstance().select().into('ACTIVITY')
+        return DatabaseKnex.getInstance().select().from('ACTIVITY')
         .then((activities: Activity.IActivity[]) => {
             return activities;
         }).catch((err: ErrorDatabase) => {
@@ -28,8 +16,8 @@ export class ActivityQueries {
         });
     }
 
-    static getActivityById(activityReflectToFind: Partial<Activity.IActivity>): Promise<Activity.IActivity[]> {
-        return DatabaseKnex.getInstance().select().into('ACTIVITY')
+    static getActivityByUuid(activityReflectToFind: Partial<Activity.IActivity>): Promise<Activity.IActivity[]> {
+        return DatabaseKnex.getInstance().select().from('ACTIVITY')
         .where(activityReflectToFind)
         .then((activities) => {
             return activities;
@@ -62,44 +50,9 @@ export class ActivityQueries {
         return DatabaseKnex.getInstance().delete().from('ACTIVITY').where({uuid});
     }
 
-
-    /** Simple Queries */
-    public static async getToken(activityReflectToFind: Partial<Activity.IActivity>): Promise<Activity.IActivity[]> {
-        return DatabaseKnex.getInstance().select().from('Activity_TAIActivity')
-            .where(activityReflectToFind)
-            .then((tokens: Activity.IActivity[]) => {
-                return tokens;
-            }).catch((err: ErrorDatabase) => {
-                throw {
-                    code: err?.code,
-                    message: DatabaseKnex.createBetterSqlMessageError(err?.code as string, err?.sqlMessage as string),
-                    sql: err?.sql,
-                };
-            });
+    /** Transaction Queries */
+    private static async addActivityTransaction(activityReflect: Partial<Activity.IActivity>, trx: Transaction) {
+        return DatabaseKnex.getInstance().insert(activityReflect).into('ACTIVITY').transacting(trx);
     }
-
-    public static async getUser(userReflectToFind: Partial<Activity.IActivity>): Promise<Activity.IActivity[]> {
-        return DatabaseKnex.getInstance().select().from('USER')
-            .where(userReflectToFind)
-            .then((users: Activity.IActivity[]) => {
-                return users;
-            }).catch((err: ErrorDatabase) => {
-                throw {
-                    code: err?.code,
-                    message: DatabaseKnex.createBetterSqlMessageError(err?.code as string, err?.sqlMessage as string),
-                    sql: err?.sql,
-                };
-            });
-    }
-
-
-
-        /** Transaction Queries */
-        private static async addActivityTransaction(activityReflect: Partial<Activity.IActivity>, trx: Transaction) {
-            return DatabaseKnex.getInstance().insert(activityReflect).into('ACTIVITY').transacting(trx);
-        }
-        // private static async getActivityTransaction(activityReflectToFind: Partial<Activity.IActivity>, trx: Transaction): Promise<Activity.IActivity[]> {
-        //     return DatabaseKnex.getInstance().select().from('ACTIVITY').where(activityReflectToFind).transacting(trx);
-        // }
 
 }

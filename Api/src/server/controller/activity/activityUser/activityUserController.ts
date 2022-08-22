@@ -1,11 +1,11 @@
 import * as DBQueries from '../../../database';
-import {ActivityUserUtils} from './utils/activityUserUtils';
 import {MiddlewareManager} from "../../../middleware";
 import {UuidTransform} from "../../../tools";
+import {ActivityUserUtils} from './utils/activityUserUtils';
 import { Activity } from 'server/model';
 import {Router, IRouter, Request, Response, NextFunction} from 'express';
 
-export class ActivityUserController extends ActivityUserUtils {
+export class ActivityUserController extends ActivityUserUtils{
     private _router: IRouter = Router();
 
     constructor() {
@@ -18,15 +18,16 @@ export class ActivityUserController extends ActivityUserUtils {
             await MiddlewareManager.middlewares(req, res, next);
         });
         this._router.post('/', async (req: Request, res: Response) => {
-            await this.createMethodActivityUser(req, res);
+            await this.postMethodActivityUser(req, res);
         });
         this._router.get('/', async (req: Request, res: Response) => {
             await this.getMethodActivityUserByUuid(req, res);
         });
     }
 
-    private async createMethodActivityUser(req: Request, res: Response) {
+    private async postMethodActivityUser(req: Request, res: Response) {
         try {
+            super.checkRequestContainBothUuids(req.body);
             const activityUuid: Buffer = UuidTransform.toBinaryUUID(req.query.activityUuid as string);
             const userUuid: Buffer = UuidTransform.toBinaryUUID(req.query.userUuid as string);
 
@@ -49,9 +50,10 @@ export class ActivityUserController extends ActivityUserUtils {
 
     private async getMethodActivityUserByUuid(req: Request, res: Response) {
         try{
+            super.checkRequestContainUuid(req.query);
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
             const activityUser: Activity.IActivityUser[] =
-            await DBQueries.ActivityUserQueries.getActivityUserById(uuid);
+            await DBQueries.ActivityUserQueries.getActivityUserByUuid(uuid);
             res.status(200).send({
                 code: 'OK',
                 activityUser: activityUser.map(acUser => {

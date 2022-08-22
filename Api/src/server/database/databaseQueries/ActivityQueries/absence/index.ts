@@ -3,11 +3,11 @@ import {Activity} from '../../../../model';
 
 export class AbsenceQueries {
 
-    static getAbsenceById(userUuid: Buffer): Promise<Activity.IAbsence[]> {
+    static getAbsenceByUuid(userUuid: Buffer): Promise<Activity.IAbsence[]> {
         return DatabaseKnex.getInstance().select(
             'justification','acceptedJustification',
             'activityUserUuid', 'ABSENCE.uuid', 'userUuid', 'activityUuid'
-            ).into('ABSENCE')
+            ).from('ABSENCE')
         .innerJoin('ACTIVITY_USER', 'ABSENCE.ACTIVITYUSERUUID', 'ACTIVITY_USER.UUID')
         .where({userUuid});
     }
@@ -15,7 +15,7 @@ export class AbsenceQueries {
         return DatabaseKnex.getInstance().select(
             'justification','acceptedJustification',
             'activityUserUuid', 'ABSENCE.uuid', 'userUuid', 'activityUuid'
-            ).into('ABSENCE')
+            ).from('ABSENCE')
         .innerJoin('ACTIVITY_USER', 'ABSENCE.ACTIVITYUSERUUID', 'ACTIVITY_USER.UUID')
         .where({activityUuid});
     }

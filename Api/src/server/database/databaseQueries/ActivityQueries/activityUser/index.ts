@@ -7,8 +7,8 @@ export class ActivityUserQueries {
         return DatabaseKnex.getInstance().insert(activityUserReflect).into('ACTIVITY_USER');
     }
 
-    static getActivityUserById(uuid: Buffer) {
-        return DatabaseKnex.getInstance().select().into('ACTIVITY_USER')
+    static getActivityUserByUuid(uuid: Buffer) {
+        return DatabaseKnex.getInstance().select().from('ACTIVITY_USER')
         .where({uuid});
     }
 }

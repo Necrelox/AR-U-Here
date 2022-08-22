@@ -17,24 +17,24 @@ export class ActivityController extends ActivityUtils {
         this._router.use('/', async (req: Request, res: Response, next: NextFunction) => {
             await MiddlewareManager.middlewares(req, res, next);
         });
-        this._router.get('/all', async (res: Response) => {
-            await this.getMethodActivities(res);
+        this._router.get('/all', async (req: Request, res: Response) => {
+            await this.getMethodActivities(req, res);
         });
         this._router.get('/', async (req: Request, res: Response) => {
-            await this.getMethodActivityById(req, res);
+            await this.getMethodActivityByUuid(req, res);
         });
         this._router.post('/', async (req: Request, res: Response) => {
-            await this.createMethodActivity(req, res);
+            await this.postMethodActivity(req, res);
         });
         this._router.put('/', async (req: Request, res: Response) => {
-            await this.updateMethodActivity(req, res);
+            await this.putMethodActivity(req, res);
         });
         this._router.delete('/', async (req: Request, res: Response) => {
             await this.deleteMethodActivity(req, res);
         });
     }
 
-    private async getMethodActivities(res: Response) {
+    private async getMethodActivities(_req: Request, res: Response) {
         try{
             const activities: Activity.IActivity[] = await DBQueries.ActivityQueries.getAllActivities();
             res.status(200).send({
@@ -58,11 +58,12 @@ export class ActivityController extends ActivityUtils {
         }
     }
 
-    private async getMethodActivityById(req: Request, res: Response) {
+    private async getMethodActivityByUuid(req: Request, res: Response) {
         try{
+            super.checkRequestContainUuid(req.query);
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
             const activity: Activity.IActivity[] =
-            await DBQueries.ActivityQueries.getActivityById({uuid});
+            await DBQueries.ActivityQueries.getActivityByUuid({uuid});
             res.status(200).send({
                 code: 'OK',
                 activity: {
@@ -81,7 +82,7 @@ export class ActivityController extends ActivityUtils {
         }
     }
 
-    private async createMethodActivity(req: Request, res: Response) {
+    private async postMethodActivity(req: Request, res: Response) {
 
         try {
 
@@ -104,11 +105,19 @@ export class ActivityController extends ActivityUtils {
         }
     }
 
-    private async updateMethodActivity(req: Request, res: Response) {
+    private async putMethodActivity(req: Request, res: Response) {
         try{
-            const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            const activityReflect = await super.transformBodyToActivityForUpdate(req.body);
-            await DBQueries.ActivityQueries.updateActivity(activityReflect, uuid);
+            if (Object.keys(req.body).length > 0) {
+                super.checkRequestContainUuid(req.query);
+                const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
+                const activityReflect = await super.transformBodyToActivityForUpdate(req.body);
+                await DBQueries.ActivityQueries.updateActivity(activityReflect, uuid);
+            }else{
+                res.status(200).send({
+                    code: 'OK',
+                    message: 'No data to update'
+                });
+            }
             res.status(200).send({
                 code: 'OK',
                 message: 'Activity updated successfully'
@@ -123,6 +132,7 @@ export class ActivityController extends ActivityUtils {
 
     private async deleteMethodActivity(req: Request, res: Response) {
         try{
+            super.checkRequestContainUuid(req.query);
             const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
             await DBQueries.ActivityQueries.deleteActivity(uuid);
             res.status(200).send({

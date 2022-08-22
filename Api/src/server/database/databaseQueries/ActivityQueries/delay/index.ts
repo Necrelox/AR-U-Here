@@ -2,13 +2,11 @@ import {DatabaseKnex} from '../../../DatabaseKnex';
 import {Activity} from '../../../../model';
 
 export class DelayQueries {
-
-
-    static getDelayById(userUuid: Buffer) {
+    static getDelayByUuid(userUuid: Buffer) {
         return DatabaseKnex.getInstance().select(
             'justification','acceptedJustification', 'attendedActivity', 'delayInMinutes',
             'activityUserUuid', 'DELAY.uuid', 'userUuid', 'activityUuid'
-            ).into('DELAY')
+            ).from('DELAY')
         .innerJoin('ACTIVITY_USER', 'DELAY.ACTIVITYUSERUUID', 'ACTIVITY_USER.UUID')
         .where({userUuid});
     }
@@ -16,7 +14,7 @@ export class DelayQueries {
         return DatabaseKnex.getInstance().select(
             'justification','acceptedJustification', 'attendedActivity', 'delayInMinutes',
             'activityUserUuid', 'DELAY.uuid', 'userUuid', 'activityUuid'
-            ).into('DELAY')
+            ).from('DELAY')
         .innerJoin('ACTIVITY_USER', 'DELAY.ACTIVITYUSERUUID', 'ACTIVITY_USER.UUID')
         .where({activityUuid});
     }
