@@ -20,7 +20,7 @@ export class ActivityController extends ActivityUtils {
         this._router.get('/all', async (req: Request, res: Response) => {
             await this.getMethodActivities(req, res);
         });
-        this._router.get('/activity-uuid', async (req: Request, res: Response) => {
+        this._router.get('/activityUuid', async (req: Request, res: Response) => {
             await this.getMethodActivityByUuid(req, res);
         });
         this._router.post('/', async (req: Request, res: Response) => {
