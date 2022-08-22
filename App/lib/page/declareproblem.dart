@@ -444,7 +444,7 @@ class _DeclareProblemState extends State<DeclareProblem> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const Statistique(),
+                                builder: (context) => const StatistiqueAdmin(),
                               ),
                             )
                           },

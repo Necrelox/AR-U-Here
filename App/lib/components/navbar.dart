@@ -56,21 +56,21 @@ class Naviguation extends State<NavbarDemo> {
         color: MyApp.primaryColor,
         height: MediaQuery.of(context).size.height * 0.10,
         child:
-          if (temp == 'admin') {
+          // if (temp == 'admin') {
             Row(children: <Widget>[
               icon_bar('Accueil', 'asset/home.png', const HomeAdmin()),
               icon_bar('Statistiques', 'asset/stats.png', const StatistiqueAdmin()),
               icon_bar('Calendrier', 'asset/calendar.png', const PlanningAdmin()),
               icon_bar('Profile', 'asset/profile.png', const ProfileAdmin())
-            ]);
-          } else {
-            Row(children: <Widget>[
-            icon_bar('Accueil', 'asset/home.png', const Home()),
-            icon_bar('Statistiques', 'asset/stats.png', const Statistique()),
-            icon_bar('Calendrier', 'asset/calendar.png', const Planning()),
-            icon_bar('Profile', 'asset/profile.png', const Profile())
-            ]);
-          }
+            ])
+          // } else {
+            // Row(children: <Widget>[
+            // icon_bar('Accueil', 'asset/home.png', const Home()),
+            // icon_bar('Statistiques', 'asset/stats.png', const Statistique()),
+            // icon_bar('Calendrier', 'asset/calendar.png', const Planning()),
+            // icon_bar('Profile', 'asset/profile.png', const Profile())
+            // ]);
+          // }
     );
   }
 }
