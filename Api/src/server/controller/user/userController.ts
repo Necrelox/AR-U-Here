@@ -35,6 +35,12 @@ export class UserController extends UserUtils {
         this._router.delete('/me/logo', async (req: Request, res: Response) => {
             await this.deleteMethodMeLogo(req, res);
         });
+        this._router.use('/role', async (req: Request, res: Response, next: NextFunction) => {
+            await MiddlewareManager.middlewares(req, res, next);
+        });
+        this._router.get('/role', async (req: Request, res: Response) => {
+            await this.getMethodRole(req, res);
+        });
     }
 
     /** ME */
@@ -73,7 +79,7 @@ export class UserController extends UserUtils {
             }
             res.status(200).send({
                 code: 'OK',
-                message: 'User updated.'
+                message: 'User updated successfully.'
             });
         } catch (error) {
             res.status(500).send({error});
@@ -114,6 +120,22 @@ export class UserController extends UserUtils {
             res.status(500).send({error});
         }
     }
+
+    /** ROLE */
+    private async getMethodRole(req: Request, res: Response) {
+        try {
+            const tokenFKUser: Models.User.ITokenFKUser[] = await DBQueries.UserQueries.getUserByFKToken({
+                token: (req.headers.authorization)?.split(' ')[1]
+            });
+            res.status(200).send({
+                code: 'OK',
+                role: (tokenFKUser[0])?.role,
+            });
+        } catch (error) {
+            res.status(500).send({error});
+        }
+    }
+
     public getRouter(): IRouter {
         return this._router;
     }

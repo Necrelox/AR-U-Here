@@ -151,7 +151,7 @@ export class AccountQueries {
         }
     }
 
-    public static async createAccountTransaction(userReflect: Partial<User.IUser>) {
+    public static async createAccountTransaction(userReflect: Partial<User.IUser>) : Promise<User.IUser> {
         return (await DatabaseKnex.getInstance()).transaction(async (trx: Transaction) => {
             await AccountQueries.addUserTransaction(userReflect, trx);
             const user: User.IUser[] = await AccountQueries.getUserTransaction({
@@ -169,6 +169,7 @@ export class AccountQueries {
                 userUuid: user[0]?.uuid,
                 expireAt: new Date(Date.now() + (1000 * 60 * 60))
             }, trx);
+            return user[0] as User.IUser;
         }).catch((err: ErrorDatabase) => {
             const message = DatabaseKnex.createBetterSqlMessageError(err?.code as string, err?.sqlMessage as string) ?? err?.message;
             throw {

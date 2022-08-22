@@ -9,3 +9,4 @@ export {ILogo} from './logo/ILogo';
 export {IToken} from './token/IToken';
 export {ITokenFKUser} from './token/ITokenFKUser';
 export {IUser} from './IUser';
+export {IFaceId} from './faceId/IFaceId';

@@ -1,7 +1,7 @@
 export interface IHistory {
-    createdAt?: Date;
-    isMessage?: boolean;
-    isAction?: boolean;
+    createdAt: Date;
+    isMessage: boolean;
+    isAction: boolean;
     userUuid: string;
-    uuid?: Buffer;
+    uuid: Buffer;
 }
