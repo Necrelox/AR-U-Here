@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import '../class/User.dart';
+import 'dart:io';
+import 'package:flutter/material.dart';
 
 var ip = 'http://10.0.2.2:3002';
 var token = '';
@@ -10,6 +12,20 @@ get_token(response) {
   Map<String, dynamic> temp = json.decode(response.body);
   token = temp['token'];
   return token;
+}
+
+Future<http.Response> sendFile(String url, File idFile) async {
+  var uri = Uri.parse(ip + url);
+  print(uri);
+  print(token);
+  var response = await http.post(uri, body: {
+    'idFile': idFile.path
+  }, headers: <String, String>{
+    // 'Content-Type': 'application/json; charset=UTF-8',
+    // 'Accept': 'application/json',
+    'Authorization': 'Token $token'
+  });
+  return response;
 }
 
 Future<http.Response> post_register(
@@ -50,7 +66,8 @@ Future<User> fetchUser() async {
   }
 }
 
-Future<User> updateUser(String username, String email, String phone, String address) async {
+Future<User> updateUser(
+    String username, String email, String phone, String address) async {
   final response = await http.put(
     Uri.parse('$ip/user/me'),
     headers: <String, String>{

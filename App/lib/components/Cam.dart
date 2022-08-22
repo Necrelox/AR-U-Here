@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/appbar.dart';
 
+import '../api/api.dart';
 import '../main.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -33,6 +34,15 @@ class _CameraState extends State<Camera> {
     Navigator.of(context).pop();
   }
 
+  Future<Object> _sendFile() async {
+    if (isLoaded == true) {
+      var response = sendFile('/biometric', imageFile);
+      return response;
+    } else {
+      return 'Aucune image choisi.';
+    }
+  }
+
   Future<void> _showChoiceDialog(BuildContext context) {
     return showDialog(
         context: context,
@@ -62,9 +72,9 @@ class _CameraState extends State<Camera> {
         });
   }
 
-  Widget _decideImageView() {
+  Widget _dispImage() {
     if (isLoaded == false) {
-      return const Text('No image selected.');
+      return const Text('Aucune image sélectionné.');
     } else {
       return Image.file(imageFile);
     }
@@ -78,19 +88,25 @@ class _CameraState extends State<Camera> {
         child: Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            // Text('Aucune image choisie'),
-            _decideImageView(),
-            RaisedButton(
-              onPressed: () {
-                _showChoiceDialog(context);
-              },
-              child: Text("Selectionnez une image"),
-            ),
+          children: [
+            _dispImage(),
+            if (isLoaded == true)
+              RaisedButton(
+                child: Text('Utiliser cette image'),
+                onPressed: () {
+                  _sendFile();
+                },
+              )
+            else
+              RaisedButton(
+                child: Text('Choisir une image'),
+                onPressed: () {
+                  _showChoiceDialog(context);
+                },
+              )
           ],
         )),
       ),
     );
-    throw UnimplementedError();
   }
 }
