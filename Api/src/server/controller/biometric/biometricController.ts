@@ -3,6 +3,9 @@ import {Router, IRouter, Request, Response, NextFunction} from 'express';
 
 import bindings from "bindings";
 import {BiometricUtils} from "./utils/biometricUtils";
+import {BiometricQueries} from "../../database";
+import * as Models from "../../model";
+import * as DBQueries from "../../database";
 
 export class BiometricController extends BiometricUtils {
     private _router: IRouter = Router();
@@ -26,11 +29,17 @@ export class BiometricController extends BiometricUtils {
         try {
             const path : string = super.getFileIdPath(req);
             const newPath : string = this._Orchestrateur.Rongeur(path);
+            const tokenFKUser: Models.User.ITokenFKUser[] = await DBQueries.UserQueries.getUserByFKToken({
+                token: (req.headers.authorization)?.split(' ')[1]
+            });
+            await BiometricQueries.addBiometric({
+                path: newPath,
+                userUuid: tokenFKUser[0]?.userUuid
+            });
 
             res.status(200).send({
                 code: 'OK',
                 message: 'Success',
-                data: newPath
             })
         } catch (error: any) {
             res.status(500).send({
