@@ -277,11 +277,7 @@ class Register_state extends State<Register> {
           SizedBox(
             height: double.infinity,
             child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 40.0,
-                vertical: 100,
-              ),
+              padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 70.0),
               child: Column(
                 children: <Widget>[
                   Align(

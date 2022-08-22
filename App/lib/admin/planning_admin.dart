@@ -23,6 +23,10 @@ tablePlanning(String hour, String cours, String room, String present) {
             fontSize: 15,
             fontWeight: FontWeight.w500,
           )),
+      const Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.0)
+      ),
+          
     ]),
     Column(
       children: [
@@ -51,8 +55,7 @@ tablePlanning(String hour, String cours, String room, String present) {
           style: GoogleFonts.roboto(
             fontSize: 15,
             fontWeight: FontWeight.w500,
-            backgroundColor: const Color.fromARGB(255, 9, 255, 0),
-            color: MyApp.primaryColor,
+            color: const Color.fromARGB(255, 23, 162, 18),
           ),
         ),
       ],
@@ -145,24 +148,28 @@ class _PlanningState extends State<Planning> {
                               Text('Heure',
                                   style: TextStyle(
                                       fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
                                       color: MyApp.primaryColor))
                             ]),
                             Column(children: [
                               Text('Cours',
                                   style: TextStyle(
                                       fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
                                       color: MyApp.primaryColor))
                             ]),
                             Column(children: [
                               Text('Salle',
                                   style: TextStyle(
                                       fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
                                       color: MyApp.primaryColor))
                             ]),
                             Column(children: [
                               Text('Présence',
                                   style: TextStyle(
                                       fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
                                       color: MyApp.primaryColor))
                             ]),
                           ]),
@@ -170,8 +177,7 @@ class _PlanningState extends State<Planning> {
                       ),
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                       alignment: Alignment.bottomCenter,
                       child: Table(
                         children: [

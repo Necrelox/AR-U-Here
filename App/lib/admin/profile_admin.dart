@@ -8,6 +8,7 @@ import '../components/navbar.dart';
 import '../animation.dart';
 import '../api/api.dart';
 import '../class/User.dart';
+import '../welcome_page.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -71,8 +72,20 @@ class _ProfileState extends State<Profile> {
       backgroundColor: const Color(0XFFD2FDFF),
       bottomNavigationBar: const NavbarDemo(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Logout
+        onPressed: () async {
+          response = await post_logout();
+          if (response.statusCode == 200) {
+            // ignore: use_build_context_synchronously
+            Navigator.pushReplacement<void, void>(
+              context,
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => const WelcomePage(),
+              ),
+            );
+            MaterialPageRoute(builder: (context) => const WelcomePage());
+          } else {
+            error = true;
+          }
         },
         backgroundColor: MyApp.secondaryColor,
         child: Icon(Icons.logout_rounded, color: MyApp.primaryColor),

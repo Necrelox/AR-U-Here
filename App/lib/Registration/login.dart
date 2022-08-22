@@ -172,7 +172,7 @@ class Login_state extends State<Login> {
 
   Widget _loginBtn() {
     return Container(
-      padding: const EdgeInsets.only(top: 120.0),
+      padding: const EdgeInsets.only(top: 80.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
@@ -246,14 +246,13 @@ class Login_state extends State<Login> {
       body: Stack(
         children: <Widget>[
           SizedBox(
+            width: double.infinity,
             height: double.infinity,
             child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 40.0,
-                vertical: 100,
-              ),
+            padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 70.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Align(
                     alignment: Alignment.topLeft,
