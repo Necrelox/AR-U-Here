@@ -97,6 +97,7 @@ flutter:
     - asset/calendar.png
     - asset/profile.png
     - asset/home.png
+    - asset/unknow.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
