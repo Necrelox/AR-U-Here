@@ -35,7 +35,7 @@ export abstract class DelayUtils extends ControllerUtils {
         }
         return delay;
     }
-    
+
     protected async checkRequestContainBothUuids(postData: { userUuid?: string, activityUuid?: string}) {
         if (!postData.userUuid || !postData.activityUuid )
             throw {
