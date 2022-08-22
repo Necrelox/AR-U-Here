@@ -12,12 +12,25 @@ enum MessageError {
 export class UserQueries {
     /** Simple Queries */
     public static async getUserByFKToken(token: Partial<User.IToken>): Promise<User.ITokenFKUser[]> {
-        return DatabaseKnex.getInstance().select().into('USER_TOKEN')
+        return DatabaseKnex.getInstance().select().from('USER_TOKEN')
             .where(token)
             .join('USER', 'USER.uuid', '=', 'USER_TOKEN.userUuid')
             .then((tokens: User.ITokenFKUser[]) => {
                 return tokens;
             }).catch((err: ErrorDatabase) => {
+                throw {
+                    code: err?.code,
+                    message: DatabaseKnex.createBetterSqlMessageError(err?.code as string, err?.sqlMessage as string),
+                    sql: err?.sql,
+                };
+            });
+    }
+    
+    public static async getUserByEmail(email: string): Promise<User.IUser[]> {
+        console.log(email);
+        return DatabaseKnex.getInstance().select().from('USER')
+            .where({email})
+            .catch((err: ErrorDatabase) => {
                 throw {
                     code: err?.code,
                     message: DatabaseKnex.createBetterSqlMessageError(err?.code as string, err?.sqlMessage as string),
