@@ -1,0 +1,595 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ar-U-Here - API",
+    "version": "1.0.1",
+    "description": "Welcome to the Ar-U-Here API",
+    "contact": {
+      "name": "Ar-U-Here"
+    },
+    "termsOfService": ""
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "name": "Authorization",
+        "type": "http",
+        "scheme": "bearer",
+        "in": "header"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3002",
+      "description": "Local"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Account",
+      "description": "Account management"
+    },
+    {
+      "name": "User",
+      "description": "User management"
+    },
+    {
+      "name": "Biometric",
+      "description": "Biometric management"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/account/signup": {
+      "post": {
+        "description": "Register user to application",
+        "tags": ["Account"],
+        "requestBody": {
+          "description": "Sign-up Body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "description": "Username of user",
+                    "minLength": 3,
+                    "maxLength": 20,
+                    "pattern": "^[a-zA-Z0-9]+$",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of user",
+                    "minLength": 6,
+                    "maxLength": 20,
+                    "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$",
+                    "required": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email of user",
+                    "required": true
+                  }
+                }
+              },
+              "example": {
+                "username": "Rubya",
+                "email": "rubya@gmail.com",
+                "password": "Rubya89"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "If user is registered successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "OK",
+                  "message": "User and Token created successfully.",
+                  "token" : "2600cdca-64f9-4d8b-bd5d-04d104cb4fc7.6476998dcaa116639a24ac75bf4accfc6c287ac2b2f32d9078b650a9a9ff61ee.0aa616918b8a0d59abb0e66cf624d653058ae02bdd2cf677883ba3c6eb5c1bc5"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "If user is not registered successfully. we can have an error with code and message property or code, message and sql property",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "KO",
+                  "message": "This email : ${email} is already used.",
+                  "sql": "insert into `USER` (`email`, `password`, `username`) values ('rubya@gmail.com', X'27ba01fd81f84d9ab83967c14bc6a081e02d5e992e11e705f3b8477fdc8c48c9c54b1d38e2d09f28a130d497be3314fe2b0fcaeac807728b45286ac9c70c60e44d0be1d9fea95c9f914b4c1a493f981f', 'Rubya')"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/account/verify": {
+      "post": {
+        "description": "Verify user",
+        "tags": ["Account"],
+        "security": [
+          {
+            "bearerAuth": ["Authorization"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "If user is verified successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "OK",
+                  "message": "User verified successfully."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "If user is not verified successfully. we can have an error with code and message property or code, message and sql property",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "KO",
+                  "message": "User already verified."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/account/login": {
+      "post": {
+        "description": "Login user",
+        "tags": ["Account"],
+        "requestBody": {
+          "description": "Login Body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Email of user",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of user",
+                    "minLength": 6,
+                    "maxLength": 20,
+                    "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$",
+                    "required": true
+                  }
+                }
+              },
+              "example": {
+                "email": "rubya@gmail.com",
+                "password": "Rubya89"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "If user is connected successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "OK",
+                  "message": "User logged successfully.",
+                  "token": "a922b9ff-7ca7-4c35-acf0-83cd6f42a78e.95d29be139e9454c58fc6a45b13888a28b8601696e2051c17951800d23b4b78e.b42a9dc604f0454d21800a51a2ce7e5654f79634b857dbd5dd7e99608f3446fd"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "If user is not connected successfully. we can have an error with code and message property or code, message and sql property",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "KO",
+                  "message": "Invalid password."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/account/login-cli": {
+      "post": {
+        "description": "Login CLI user",
+        "tags": ["Account"],
+        "requestBody": {
+          "description": "Login Body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Email of user",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of user",
+                    "minLength": 6,
+                    "maxLength": 20,
+                    "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$",
+                    "required": true
+                  },
+                  "deviceType": {
+                    "type": "string",
+                    "description": "Device type of user",
+                    "required": true
+                  },
+                  "macAddress": {
+                    "type": "string",
+                    "description": "MacAddress of user",
+                    "required": true
+                  },
+                  "ip": {
+                    "type": "string",
+                    "description": "Ip of user",
+                    "required": true
+                  }
+                }
+              },
+              "example": {
+                "email": "rubya@gmail.com",
+                "password": "Rubya89",
+                "deviceType": "chrome",
+                "macAddress": "4C:F0:12:A1:AE:22",
+                "ip": "80.94.110.240"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "If user is connected successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "OK",
+                  "message": "User logged successfully.",
+                  "token": "a922b9ff-7ca7-4c35-acf0-83cd6f42a78e.95d29be139e9454c58fc6a45b13888a28b8601696e2051c17951800d23b4b78e.b42a9dc604f0454d21800a51a2ce7e5654f79634b857dbd5dd7e99608f3446fd"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "If user is not connected successfully. we can have an error with code and message property or code, message and sql property",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "KO",
+                  "message": "Invalid password."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/account/logout": {
+      "post": {
+        "description": "Logout user",
+        "tags": ["Account"],
+        "security": [
+          {
+            "bearerAuth": ["Authorization"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "If user is logout successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "OK",
+                  "message": "User logout successfully."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "If user is not logout successfully. we can have an error with code and message property or code, message and sql property",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "KO",
+                  "message": "Token not found."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/account/check-token": {
+      "get": {
+        "description": "Check token user",
+        "tags": ["Account"],
+        "security": [
+          {
+            "bearerAuth": ["Authorization"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "If check token is successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "OK",
+                  "message": "Token is valid."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "If user is not logout successfully. we can have an error with code and message property or code, message and sql property",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "KO",
+                  "message": "Token not found."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/user/me": {
+      "get": {
+        "description": "Get user",
+        "tags": ["User"],
+        "security": [
+          {
+            "bearerAuth": ["Authorization"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get user information",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "OK",
+                  "user": {
+                    "username": "rubya",
+                    "email": "rubya@gmail.com",
+                    "activityMessage": "I am a very active user",
+                    "isConnected": true,
+                    "createdAt": "2022-21-08T00:00:00.000Z"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "We can have an error with code and message property or code, message and sql property",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "KO",
+                  "message": "Token not found."
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update user information",
+        "tags": ["User"],
+        "security": [
+          {
+            "bearerAuth": ["Authorization"]
+          }
+        ],
+        "requestBody": {
+          "description": "Update user Body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "description": "Username of user",
+                    "minLength": 3,
+                    "maxLength": 20,
+                    "pattern": "^[a-zA-Z0-9]+$",
+                    "required": false
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email of user",
+                    "required": false
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of user",
+                    "minLength": 6,
+                    "maxLength": 20,
+                    "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$",
+                    "required": false
+                  },
+                  "activityMessage": {
+                    "type": "string",
+                    "description": "Activity message of user",
+                    "required": false
+                  },
+                  "address": {
+                    "type": "string",
+                    "description": "Address of user",
+                    "required": false
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "Phone of user",
+                    "required": false
+                  }
+                }
+              },
+              "example": {
+                "username": "rubya",
+                "email": "rubya@gmail.com",
+                "password": "Rubya89",
+                "activityMessage": "I am a very funny user",
+                "address": "Paris",
+                "phone": "0612345678"
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "200": {
+            "description": "update user information",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "OK",
+                  "message": "User updated successfully."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "We can have an error with code and message property or code, message and sql property",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "KO",
+                  "message": "No data to update."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/user/role": {
+      "get": {
+        "description": "Get user role",
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+              "Authorization"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get user information",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "OK",
+                  "role": "user"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "We can have an error with code and message property or code, message and sql property",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "KO",
+                  "message": "Token not found."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/biometric": {
+      "post": {
+        "description": "Send biometric data",
+        "tags": ["Biometric"],
+        "requestBody": {
+          "description": "Biometric Body",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idFile": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Biometric file",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "If user is registered successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "OK",
+                  "message": "User and Token created successfully."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "If user is not registered successfully. we can have an error with code and message property or code, message and sql property",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": "KO",
+                  "message": "This email : ${email} is already used.",
+                  "sql": "insert into `USER` (`email`, `password`, `username`) values ('rubya@gmail.com', X'27ba01fd81f84d9ab83967c14bc6a081e02d5e992e11e705f3b8477fdc8c48c9c54b1d38e2d09f28a130d497be3314fe2b0fcaeac807728b45286ac9c70c60e44d0be1d9fea95c9f914b4c1a493f981f', 'Rubya')"
+                }
+              }
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
