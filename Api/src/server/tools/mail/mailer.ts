@@ -1,6 +1,7 @@
 import * as nodemailer from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import {Transporter} from 'nodemailer';
+import emailTempo from './emailTempo.json';
 
 export enum CodeError {
     CHECK_EMAIL_HAS_BAD_SYNTAX = 'Mailer::checkEmailHasBadSyntax',
@@ -24,7 +25,6 @@ export class Mailer {
     }
 
     public static async checkEmailIsTemporary(email: string) {
-        const emailTempo: string[] = require('./emailTempo.json');
         if ((emailTempo).includes(email.split('@')[1] as string))
             throw {
                 code: CodeError.CHECK_EMAIL_IS_TEMPORARY,
