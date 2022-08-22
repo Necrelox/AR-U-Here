@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import '../forgot_password.dart';
 import 'register.dart';
 import '../dashboard/Home.dart';
+import '../admin/home_admin.dart';
 import '../api/api.dart';
 import '../myapp.dart';
 
@@ -183,14 +184,28 @@ class Login_state extends State<Login> {
           });
           response = await post_login("/account/login/", email, pwd);
           if (response.statusCode == 200) {
+            // Verify roles of user getRoles in api.dart
+            var temp = await get_roles();
+            if (temp == 'admin') {
+              // ignore: use_build_context_synchronously
+              Navigator.pushReplacement<void, void>(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => const HomeAdmin(),
+                ),
+              );
+              MaterialPageRoute(builder: (context) => const HomeAdmin());
+            } else {
+              // ignore: use_build_context_synchronously
+              Navigator.pushReplacement<void, void>(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => const Home(),
+                ),
+              );
+              MaterialPageRoute(builder: (context) => const Home());
+            }
             // ignore: use_build_context_synchronously
-            Navigator.pushReplacement<void, void>(
-              context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => const Home(),
-              ),
-            );
-            MaterialPageRoute(builder: (context) => const Home());
           } else {
             error = true;
           }

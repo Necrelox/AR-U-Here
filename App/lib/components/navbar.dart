@@ -5,7 +5,12 @@ import '../dashboard/Home.dart';
 import '../dashboard/profile.dart';
 import '../dashboard/planning.dart';
 import '../dashboard/statistique.dart';
+import '../admin/home_admin.dart';
+import '../admin/profile_admin.dart';
+import '../admin/planning_admin.dart';
+import '../admin/statistique_admin.dart';
 import '../myapp.dart';
+import '../api/api.dart';
 
 class NavbarDemo extends StatefulWidget {
   const NavbarDemo({Key? key}) : super(key: key);
@@ -50,11 +55,22 @@ class Naviguation extends State<NavbarDemo> {
     return Container(
         color: MyApp.primaryColor,
         height: MediaQuery.of(context).size.height * 0.10,
-        child: Row(children: <Widget>[
-          icon_bar('Accueil', 'asset/home.png', const Home()),
-          icon_bar('Statistiques', 'asset/stats.png', const Statistique()),
-          icon_bar('Calendrier', 'asset/calendar.png', const Planning()),
-          icon_bar('Profile', 'asset/profile.png', const Profile())
-        ]));
+        child:
+          if (temp == 'admin') {
+            Row(children: <Widget>[
+              icon_bar('Accueil', 'asset/home.png', const HomeAdmin()),
+              icon_bar('Statistiques', 'asset/stats.png', const StatistiqueAdmin()),
+              icon_bar('Calendrier', 'asset/calendar.png', const PlanningAdmin()),
+              icon_bar('Profile', 'asset/profile.png', const ProfileAdmin())
+            ]);
+          } else {
+            Row(children: <Widget>[
+            icon_bar('Accueil', 'asset/home.png', const Home()),
+            icon_bar('Statistiques', 'asset/stats.png', const Statistique()),
+            icon_bar('Calendrier', 'asset/calendar.png', const Planning()),
+            icon_bar('Profile', 'asset/profile.png', const Profile())
+            ]);
+          }
+    );
   }
 }

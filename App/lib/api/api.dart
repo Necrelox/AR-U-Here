@@ -45,7 +45,7 @@ Future<http.Response> post_logout() async {
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Token $token'
+      'Authorization': 'Bearer $token'
     },
   );
 
@@ -61,7 +61,7 @@ Future<http.Response> post_logout() async {
 Future<User> fetchUser() async {
   final response = await http.get(Uri.parse('$ip/user/me'), headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Token $token'
+    'Authorization': 'Bearer $token'
   });
 
   if (response.statusCode == 200) {
@@ -79,7 +79,7 @@ Future<User> updateUser(
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json',
-      'Authorization': 'Token $token'
+      'Authorization': 'Bearer $token'
     },
     body: jsonEncode(<String, String>{
       'username': username,
@@ -95,4 +95,16 @@ Future<User> updateUser(
     var temp = jsonDecode(response.body);
     throw Exception('Failed to update user. ${temp['error']['message']}');
   }
+}
+
+Future<http.Response> get_roles() async {
+  final response = await http.get(
+    Uri.parse('$ip/user/roles'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token'
+    },
+  );
+  return response;
 }

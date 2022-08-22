@@ -10,12 +10,12 @@ import '../api/api.dart';
 import '../class/User.dart';
 import '../welcome_page.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class ProfileAdmin extends StatefulWidget {
+  const ProfileAdmin({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _ProfileState createState() => _ProfileState();
+  _ProfileAdminState createState() => _ProfileAdminState();
 }
 
 bool error = false;
@@ -53,7 +53,7 @@ Widget _dispError() {
   }
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfileAdminState extends State<ProfileAdmin> {
   late Future<User> futureUser;
   final TextEditingController _controllerName = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();

@@ -6,12 +6,12 @@ import '../components/navbar.dart';
 import '../components/appbar.dart';
 import '../myapp.dart';
 
-class Planning extends StatefulWidget {
-  const Planning({Key? key}) : super(key: key);
+class PlanningAdmin extends StatefulWidget {
+  const PlanningAdmin({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _PlanningState createState() => _PlanningState();
+  _PlanningAdminState createState() => _PlanningAdminState();
 }
 
 tablePlanning(String hour, String cours, String room, String present) {
@@ -63,7 +63,7 @@ tablePlanning(String hour, String cours, String room, String present) {
   ]);
 }
 
-class _PlanningState extends State<Planning> {
+class _PlanningAdminState extends State<PlanningAdmin> {
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();

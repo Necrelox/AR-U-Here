@@ -5,13 +5,13 @@ import '../components/appbar.dart';
 import '../components/navbar.dart';
 import '../myapp.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class HomeAdmin extends StatefulWidget {
+  const HomeAdmin({Key? key}) : super(key: key);
   @override
   Home_state createState() => Home_state();
 }
 
-class Home_state extends State<Home> {
+class Home_state extends State<HomeAdmin> {
   late Color c;
 
   Widget recap() {

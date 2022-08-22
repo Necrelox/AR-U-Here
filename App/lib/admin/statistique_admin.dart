@@ -429,8 +429,8 @@ Widget _absence(BuildContext context) {
           ))));
 }
 
-class Statistique extends StatelessWidget {
-  const Statistique({Key? key}) : super(key: key);
+class StatistiqueAdmin extends StatelessWidget {
+  const StatistiqueAdmin({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
