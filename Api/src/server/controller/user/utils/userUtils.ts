@@ -53,7 +53,6 @@ export abstract class UserUtils extends ControllerUtils {
                     message: MessageError.PHONE_NUMBER_INVALID
                 };
             }
-
             user.phone = body.phone;
         }
         return user;
