@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../animation.dart';
 import 'package:intl/intl.dart';
+import '../dashboard/statistique.dart';
 
 class ChoicePresence extends StatefulWidget {
   const ChoicePresence({Key? key}) : super(key: key);
@@ -100,7 +101,14 @@ class _ChoicePresenceState extends State<ChoicePresence> {
                                   RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0),
                           ))),
-                      onPressed: () => {},
+                      onPressed: () => {
+                        Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Statistique(),
+                              ),
+                            )
+                        },
                       child: const Text("Annuler",
                           style: TextStyle(fontSize: 16))),
                 ],
