@@ -9,7 +9,7 @@ enum CodeError {
 }
 
 export abstract class ActivityUserUtils extends ControllerUtils {
-        
+
     protected async checkRequestContainBothUuids(postData: { userUuid?: string, activityUuid?: string}) {
         if (!postData.userUuid || !postData.activityUuid )
             throw {

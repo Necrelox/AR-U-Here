@@ -31,7 +31,7 @@ export abstract class AbsenceUtils extends ControllerUtils {
         }
         return absence;
     }
-    
+
     protected async checkRequestContainBothUuids(postData: { userUuid?: string, activityUuid?: string}) {
         if (!postData.userUuid || !postData.activityUuid )
             throw {
