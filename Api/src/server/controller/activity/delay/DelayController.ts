@@ -1,5 +1,5 @@
 import * as DBQueries from '../../../database';
-import {DelayUtils} from './utils/DelayUtils';
+import {DelayUtils} from './utils/delayUtils';
 import {MiddlewareManager} from "../../../middleware";
 
 import {UuidTransform} from "../../../tools";
@@ -18,10 +18,10 @@ export class DelayController extends DelayUtils {
         this._router.use('/', async (req: Request, res: Response, next: NextFunction) => {
             await MiddlewareManager.middlewares(req, res, next);
         });
-        this._router.get('/:userUuid', async (req: Request, res: Response) => {
+        this._router.get('/userUuid', async (req: Request, res: Response) => {
             await this.getMethodDelayByUserUuid(req, res);
         });
-        this._router.get('/:activityUuid', async (req: Request, res: Response) => {
+        this._router.get('/activityUuid', async (req: Request, res: Response) => {
             await this.getMethodDelayByActivityUuid(req, res);
         });
         this._router.post('/', async (req: Request, res: Response) => {
@@ -33,7 +33,7 @@ export class DelayController extends DelayUtils {
         this._router.delete('/', async (req: Request, res: Response) => {
             await this.deleteMethodDelay(req, res);
         });
-        this._router.delete('/:userAndActivityUuid', async (req: Request, res: Response) => {
+        this._router.delete('/userAndActivityUuid', async (req: Request, res: Response) => {
             await this.deleteMethodDelayByUserAndActivityUuid(req, res);
         });
     }
@@ -41,8 +41,8 @@ export class DelayController extends DelayUtils {
 
     private async getMethodDelayByUserUuid(req: Request, res: Response) {
         try{
-            super.checkRequestContainUuid(req.params);
-            const uuid: Buffer = UuidTransform.toBinaryUUID(req.params.uuid as string);
+            super.checkRequestContainUuid(req.query);
+            const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
             const delay: Activity.IDelay[] =
             await DBQueries.DelayQueries.getDelayByUuid(uuid);
             res.status(200).send({
@@ -65,8 +65,8 @@ export class DelayController extends DelayUtils {
 
     private async getMethodDelayByActivityUuid(req: Request, res: Response) {
         try{
-            super.checkRequestContainUuid(req.params);
-            const uuid: Buffer = UuidTransform.toBinaryUUID(req.params.uuid as string);
+            super.checkRequestContainUuid(req.query);
+            const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
             const delay: Activity.IDelay[] =
             await DBQueries.DelayQueries.getDelayByActivityUuid(uuid);
             res.status(200).send({
@@ -89,8 +89,8 @@ export class DelayController extends DelayUtils {
 
     private async postMethodDelay(req: Request, res: Response) {
         try {
-            super.checkRequestContainUuid(req.params);
-            const uuid: Buffer = UuidTransform.toBinaryUUID(req.params.uuid as string);
+            super.checkRequestContainUuid(req.query);
+            const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
             await DBQueries.DelayQueries.createDelay({
                 delayInMinutes: req.body.delayInMinutes,
                 justification: req.body.justification,
@@ -113,8 +113,8 @@ export class DelayController extends DelayUtils {
     private async putMethodDelay(req: Request, res: Response) {
         try{
             if (Object.keys(req.body).length > 0) {
-                super.checkRequestContainUuid(req.params);
-                const uuid: Buffer = UuidTransform.toBinaryUUID(req.params.uuid as string);
+                super.checkRequestContainUuid(req.query);
+                const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
                 const delayReflect = await super.transformBodyToDelayForUpdate(req.body);
                 await DBQueries.DelayQueries.updateDelay(delayReflect, uuid);
             }else{
@@ -137,7 +137,8 @@ export class DelayController extends DelayUtils {
 
     private async deleteMethodDelay(req: Request, res: Response) {
         try{
-            const uuid: Buffer = UuidTransform.toBinaryUUID(req.params.uuid as string);
+            super.checkRequestContainUuid(req.query);
+            const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
             await DBQueries.DelayQueries.deleteDelay(uuid);
             res.status(200).send({
                 code: 'OK',
@@ -153,19 +154,20 @@ export class DelayController extends DelayUtils {
 
     private async deleteMethodDelayByUserAndActivityUuid(req: Request, res: Response) {
         try{
-            const userUuid: Buffer = UuidTransform.toBinaryUUID(req.params.userUuid as string);
-            const activityUuid: Buffer = UuidTransform.toBinaryUUID(req.params.activityUuid as string);
-            const delay = await DBQueries.DelayQueries.deleteDelayByUserAndActivityUuid(userUuid, activityUuid);
+            super.checkRequestContainBothUuids(req.query);
+            const userUuid: Buffer = UuidTransform.toBinaryUUID(req.query.userUuid as string);
+            const activityUuid: Buffer = UuidTransform.toBinaryUUID(req.query.activityUuid as string);
+            await DBQueries.DelayQueries.deleteDelayByUserAndActivityUuid(userUuid, activityUuid);
             res.status(200).send({
                 code: 'OK',
-                message: delay
+                message: "Delay deleted successfully"
             });
-    }
-    catch (error) {
-        res.status(500).send({
-            error
-        });
-    }
+        }
+        catch (error) {
+            res.status(500).send({
+                error
+            });
+        }
     }
 
     public getRouter(): IRouter {

@@ -27,21 +27,19 @@ export class ActivityUserController extends ActivityUserUtils{
 
     private async postMethodActivityUser(req: Request, res: Response) {
         try {
-            super.checkRequestContainBothUuids(req.body);
+            super.checkRequestContainBothUuids(req.query);
             const activityUuid: Buffer = UuidTransform.toBinaryUUID(req.query.activityUuid as string);
             const userUuid: Buffer = UuidTransform.toBinaryUUID(req.query.userUuid as string);
-
             await DBQueries.ActivityUserQueries.createActivityUser({
                 activityUuid,
                 userUuid,
             });
-
             res.status(200).send({
                 code: 'OK',
                 message: 'ActivityUser created successfully'
             });
 
-        } catch (error) {
+        }catch (error) {
             res.status(500).send({
                 error
             });
