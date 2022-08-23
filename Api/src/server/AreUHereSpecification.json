@@ -23,6 +23,10 @@
     {
       "url": "http://localhost:3002",
       "description": "Local"
+    },
+    {
+      "url": "http://51.91.96.23:3000/",
+      "description": "Production"
     }
   ],
   "tags": [
