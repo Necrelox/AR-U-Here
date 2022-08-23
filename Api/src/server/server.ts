@@ -1,13 +1,13 @@
-import {DatabaseKnex} from './database/DatabaseKnex';
 import * as Controller from './controller';
+import AreUHereSpecification from './AreUHereSpecification.json'
+import {DatabaseKnex} from './database/DatabaseKnex';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import {config} from 'dotenv';
-import fileUpload from "express-fileupload";
-import swaggerJSDoc, {OAS3Options} from 'swagger-jsdoc'
 import {serve, setup} from 'swagger-ui-express'
-import AreUHereSpecification from './AreUHereSpecification.json'
+import swaggerJSDoc, {OAS3Options} from 'swagger-jsdoc'
+import fileUpload from "express-fileupload";
 
 // const rateLimit = require('express-rate-limit');
 
@@ -71,7 +71,6 @@ export class Server {
         this.app.use('/activity-user', new Controller.ActivityUserController().getRouter());
         this.app.use('/delay', new Controller.DelayController().getRouter());
         this.app.use('/absence', new Controller.AbsenceController().getRouter());
-
         this.app.use('/biometric', new Controller.BiometricController().getRouter());
     }
 
