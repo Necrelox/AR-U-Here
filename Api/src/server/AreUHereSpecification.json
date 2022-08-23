@@ -23,6 +23,10 @@
     {
       "url": "http://localhost:3002",
       "description": "Local"
+    },
+    {
+      "url": "http://51.91.96.23:3000/",
+      "description": "Production"
     }
   ],
   "tags": [
@@ -386,6 +390,8 @@
                   "user": {
                     "username": "rubya",
                     "email": "rubya@gmail.com",
+                    "phone": "0612345678",
+                    "address": "1 rue de la paix",
                     "activityMessage": "I am a very active user",
                     "isConnected": true,
                     "createdAt": "2022-21-08T00:00:00.000Z"
