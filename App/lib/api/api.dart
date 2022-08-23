@@ -74,10 +74,10 @@ Future<User> updateUser(
       'Authorization': 'Token $token'
     },
     body: jsonEncode(<String, String>{
-      'username': username,
-      'email': email,
-      'phone': phone,
-      'address': address,
+      if (username != null) 'username': username,
+      if (email != null) 'email': email,
+      // if (phone != null) 'phone': phone,
+      if (address != null) 'address': address,
     }),
   );
 
