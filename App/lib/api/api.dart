@@ -57,7 +57,6 @@ Future<User> fetchUser() async {
   });
 
   if (response.statusCode == 200) {
-    print(json.decode(response.body));
     return User.fromJson(json.decode(response.body));
   } else {
     var temp = jsonDecode(response.body);
