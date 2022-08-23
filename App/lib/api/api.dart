@@ -57,6 +57,7 @@ Future<User> fetchUser() async {
   });
 
   if (response.statusCode == 200) {
+    print(json.decode(response.body));
     return User.fromJson(json.decode(response.body));
   } else {
     var temp = jsonDecode(response.body);
@@ -66,10 +67,6 @@ Future<User> fetchUser() async {
 
 Future<User> updateUser(
     String username, String email, String phone, String address) async {
-  print('username = ' + username);
-  print('email = ' + email);
-  print('address = ' + address);
-  print('phone = ' + phone);
   final response = await http.put(
     Uri.parse('$ip/user/me'),
     headers: <String, String>{
