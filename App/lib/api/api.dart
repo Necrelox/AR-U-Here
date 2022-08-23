@@ -16,8 +16,6 @@ get_token(response) {
 
 Future<http.Response> sendFile(String url, File idFile) async {
   var uri = Uri.parse(ip + url);
-  print(uri);
-  print(token);
   var response = await http.post(uri, body: {
     'idFile': idFile.path
   }, headers: <String, String>{
