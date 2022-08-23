@@ -43,7 +43,7 @@ export abstract class DelayUtils extends ControllerUtils {
                 message: MessageError.CHECK_POST_CONTAIN_BOTH_UUIDS + (postData.username ? '' : ' username') + (postData.activityKey ? '' : ' activityKey')
             };
     }
-    
+
     protected async checkRequestContainUsername(postData: { username?: string}) {
         if (!postData.username)
             throw {
@@ -51,7 +51,7 @@ export abstract class DelayUtils extends ControllerUtils {
                 message: MessageError.CHECK_POST_CONTAIN_BOTH_UUIDS + (postData.username ? '' : ' username')
             };
     }
-        
+
     protected async checkRequestContainActivityKey(postData: { activityKey?: string}) {
         if (!postData.activityKey)
             throw {

@@ -36,7 +36,7 @@ export class AbsenceQueries {
     static deleteAbsence(uuid: Buffer) {
         return DatabaseKnex.getInstance().delete().from('ABSENCE').where({uuid});
     }
-    
+
     static getUserByUserName(username: string): Promise<User.IUser[]>{
         return DatabaseKnex.getInstance().select().from('USER').where({username});
     }

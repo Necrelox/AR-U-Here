@@ -49,12 +49,12 @@ export abstract class ActivityUtils extends ControllerUtils {
         if (!postData.name || !postData.startTime || !postData.endTime || !postData.activityKey)
             throw {
                 code: CodeError.CHECK_POST_CONTAIN_NAME_AND_START_AND_ENDTIME,
-                message: MessageError.CHECK_POST_CONTAIN_NAME_AND_START_AND_ENDTIME + 
-                (postData.name ? '' : ' name') + (postData.startTime ? '' : ' startTime') 
+                message: MessageError.CHECK_POST_CONTAIN_NAME_AND_START_AND_ENDTIME +
+                (postData.name ? '' : ' name') + (postData.startTime ? '' : ' startTime')
                 + (postData.endTime ? '' : ' endTime') + (postData.startTime ? '' : ' activityKey') + '.'
             };
     }
-        
+
     protected async checkRequestContainActivityKey(postData: { activityKey?: string}) {
         if (!postData.activityKey)
             throw {
