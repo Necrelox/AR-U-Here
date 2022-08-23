@@ -56,6 +56,8 @@ export class UserController extends UserUtils {
                     email: (tokenFKUser[0])?.email,
                     activityMessage: (tokenFKUser[0])?.activityMessage,
                     isConnected: (tokenFKUser[0])?.isConnected,
+                    phone: (tokenFKUser[0])?.phone,
+                    address: (tokenFKUser[0])?.address,
                     createdAt: (tokenFKUser[0])?.createdAt,
                 }
             });
