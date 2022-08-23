@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import '../admin/statistique_admin.dart';
 import '../animation.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
+import '../admin/statistique_admin.dart';
 
 class DeclareProblem extends StatefulWidget {
   @override
@@ -438,7 +440,14 @@ class _DeclareProblemState extends State<DeclareProblem> {
                               RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0),
                       ))),
-                  onPressed: () => {},
+                      onPressed: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const StatistiqueAdmin(),
+                              ),
+                            )
+                          },
                   child: const Text("Annuler",
                       style: TextStyle(fontSize: 16))),
               ],
