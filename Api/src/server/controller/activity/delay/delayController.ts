@@ -1,7 +1,6 @@
 import * as DBQueries from '../../../database';
 import {DelayUtils} from './utils/delayUtils';
 import {MiddlewareManager} from "../../../middleware";
-
 import {UuidTransform} from "../../../tools";
 import { Activity, User } from 'server/model';
 import {Router, IRouter, Request, Response, NextFunction} from 'express';

@@ -10,9 +10,10 @@ Rongeur::Rongeur(const std::filesystem::path &path, const int wantedWidth, const
     this->crop(wantedWidth, wantedHeight);
     this->resize(wantedWidth, wantedHeight);
 
-    if (!std::filesystem::exists("/home/ruby/Rongeur/"))
-        std::filesystem::create_directory("/home/ruby/Rongeur/");
-    this->_newPath = "/home/ruby/Rongeur/" + Rongeur::generateUUID() + ".jpg";
+    std::string userDir = std::filesystem::current_path().string();
+    if (!std::filesystem::exists(std::filesystem::current_path().string() + "/../Rongeur"))
+        std::filesystem::create_directory(std::filesystem::current_path().string() + "/../Rongeur");
+    this->_newPath = std::filesystem::current_path().string() + "/../Rongeur/" + Rongeur::generateUUID() + ".jpg";
     cv::imwrite(this->_newPath, this->_image);
 }
 

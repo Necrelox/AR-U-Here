@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../myapp.dart';
 
-import '../page/absent.dart';
+import '../page/declareproblem.dart';
 
 Widget _graph_fl(BuildContext context) {
   return Stack(
@@ -411,7 +411,7 @@ Widget _absence(BuildContext context) {
                   padding: const EdgeInsets.all(14),
                 ),
                 child: Text(
-                  "Justifier une absence",
+                  "Déclarer un imprévu",
                   style: GoogleFonts.poppins(
                     color: MyApp.primaryColor,
                     fontSize: 18,
@@ -422,15 +422,15 @@ Widget _absence(BuildContext context) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Absent(),
+                      builder: (context) => DeclareProblem(),
                     ),
                   );
                 }),
           ))));
 }
 
-class Statistique extends StatelessWidget {
-  const Statistique({Key? key}) : super(key: key);
+class StatistiqueAdmin extends StatelessWidget {
+  const StatistiqueAdmin({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
