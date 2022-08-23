@@ -118,5 +118,6 @@ Future<String> fetch_roles() async {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
   });
+  
   return jsonDecode(response.body)['role'];
 }
