@@ -66,6 +66,10 @@ Future<User> fetchUser() async {
 
 Future<User> updateUser(
     String username, String email, String phone, String address) async {
+  print('username = ' + username);
+  print('email = ' + email);
+  print('address = ' + address);
+  print('phone = ' + phone);
   final response = await http.put(
     Uri.parse('$ip/user/me'),
     headers: <String, String>{
@@ -74,10 +78,10 @@ Future<User> updateUser(
       'Authorization': 'Token $token'
     },
     body: jsonEncode(<String, String>{
-      'username': username,
-      'email': email,
-      'phone': phone,
-      'address': address,
+      if (username != null) 'username': username,
+      if (email != null) 'email': email,
+      // if (phone != null) 'phone': phone,
+      if (address != null) 'address': address,
     }),
   );
 
