@@ -27,12 +27,14 @@ export class ActivityUserController extends ActivityUserUtils{
 
     private async postMethodActivityUser(req: Request, res: Response) {
         try {
-            super.checkRequestContainBothUuids(req.query);
-            const activityUuid: Buffer = UuidTransform.toBinaryUUID(req.query.activityUuid as string);
-            const userUuid: Buffer = UuidTransform.toBinaryUUID(req.query.userUuid as string);
+            super.checkRequestContainBothParams(req.query);
+            const activityKey: string = req.query.activityActivityKey as string;
+            const userUserName: string = req.query.userUserName as string;
+            const userUuid: Buffer = (await DBQueries.ActivityUserQueries.getUserByUserName(userUserName))[0]?.uuid as Buffer;
+            const activityUuid: Buffer = (await DBQueries.ActivityUserQueries.getActivityByActivityKey(activityKey))[0]?.uuid as Buffer;
             await DBQueries.ActivityUserQueries.createActivityUser({
-                activityUuid,
                 userUuid,
+                activityUuid,
             });
             res.status(200).send({
                 code: 'OK',

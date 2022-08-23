@@ -49,6 +49,10 @@ export class ActivityQueries {
     static deleteActivity(uuid: Buffer) {
         return DatabaseKnex.getInstance().delete().from('ACTIVITY').where({uuid});
     }
+    
+    static getActivityByActivityKey(activityKey: string): Promise<Activity.IActivity[]>{
+        return DatabaseKnex.getInstance().select().from('ACTIVITY').where({activityKey});
+    }
 
     /** Transaction Queries */
     private static async addActivityTransaction(activityReflect: Partial<Activity.IActivity>, trx: Transaction) {

@@ -12,10 +12,12 @@ interface ReqBody {
 
 enum MessageError {
     CHECK_POST_CONTAIN_UUID = 'Missing parameter.',
+    CHECK_POST_CONTAIN_BOTH_UUIDS = 'Missing parameter.',
     CHECK_POST_CONTAIN_NAME_AND_START_AND_ENDTIME = 'Missing parameter.',
 }
 
 enum CodeError {
+    CHECK_POST_CONTAIN_BOTH_UUIDS = 'AbsenceUtils:checkRequestContainBothUuids',
     CHECK_POST_CONTAIN_UUID = 'ActivityUtils:checkRequestContainUuid',
     CHECK_POST_CONTAIN_NAME_AND_START_AND_ENDTIME = 'ActivityUtils:checkPostContainNameANDStartANDEndTime',
 }
@@ -43,11 +45,21 @@ export abstract class ActivityUtils extends ControllerUtils {
         return activity;
     }
 
-    protected async checkPostContainNameANDStartANDEndTime(postData: { name?: string, startTime?: Date, endTime?: Date }) {
-        if (!postData.name || !postData.startTime || !postData.endTime)
+    protected async checkPostContainActivityKeyANDNameANDStartANDEndTime(postData: { activityKey?: string, name?: string, startTime?: Date, endTime?: Date }) {
+        if (!postData.name || !postData.startTime || !postData.endTime || !postData.activityKey)
             throw {
                 code: CodeError.CHECK_POST_CONTAIN_NAME_AND_START_AND_ENDTIME,
-                message: MessageError.CHECK_POST_CONTAIN_NAME_AND_START_AND_ENDTIME + (postData.name ? '' : ' name') + (postData.startTime ? '' : ' startTime') + (postData.endTime ? '' : ' endTime') + '.'
+                message: MessageError.CHECK_POST_CONTAIN_NAME_AND_START_AND_ENDTIME + 
+                (postData.name ? '' : ' name') + (postData.startTime ? '' : ' startTime') 
+                + (postData.endTime ? '' : ' endTime') + (postData.startTime ? '' : ' activityKey') + '.'
+            };
+    }
+        
+    protected async checkRequestContainActivityKey(postData: { activityKey?: string}) {
+        if (!postData.activityKey)
+            throw {
+                code: CodeError.CHECK_POST_CONTAIN_BOTH_UUIDS,
+                message: MessageError.CHECK_POST_CONTAIN_BOTH_UUIDS + (postData.activityKey ? '' : ' activityKey')
             };
     }
 }

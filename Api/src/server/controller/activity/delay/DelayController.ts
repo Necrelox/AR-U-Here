@@ -3,7 +3,7 @@ import {DelayUtils} from './utils/delayUtils';
 import {MiddlewareManager} from "../../../middleware";
 
 import {UuidTransform} from "../../../tools";
-import { Activity } from 'server/model';
+import { Activity, User } from 'server/model';
 import {Router, IRouter, Request, Response, NextFunction} from 'express';
 
 export class DelayController extends DelayUtils {
@@ -19,7 +19,7 @@ export class DelayController extends DelayUtils {
             await MiddlewareManager.middlewares(req, res, next);
         });
         this._router.get('/userUuid', async (req: Request, res: Response) => {
-            await this.getMethodDelayByUserUuid(req, res);
+            await this.getMethodDelayByUsername(req, res);
         });
         this._router.get('/activityUuid', async (req: Request, res: Response) => {
             await this.getMethodDelayByActivityUuid(req, res);
@@ -33,28 +33,27 @@ export class DelayController extends DelayUtils {
         this._router.delete('/', async (req: Request, res: Response) => {
             await this.deleteMethodDelay(req, res);
         });
-        this._router.delete('/userAndActivityUuid', async (req: Request, res: Response) => {
+        this._router.delete('/usernameAndActivityKey', async (req: Request, res: Response) => {
             await this.deleteMethodDelayByUserAndActivityUuid(req, res);
         });
     }
 
 
-    private async getMethodDelayByUserUuid(req: Request, res: Response) {
+    private async getMethodDelayByUsername(req: Request, res: Response) {
         try{
-            super.checkRequestContainUuid(req.query);
-            const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            const delay: Activity.IDelay[] =
-            await DBQueries.DelayQueries.getDelayByUuid(uuid);
+            super.checkRequestContainUsername(req.query);
+            const username: string = req.query.username as string;
+            const user: User.IUser[] = (await DBQueries.DelayQueries.getUserByUserName(username));
+            const delay: Activity.IDelayFKActivity[] = await DBQueries.DelayQueries.getDelayByUuid(user[0]?.uuid as Buffer);
             res.status(200).send({
                 code: 'OK',
-                delay: delay.map(del => {
-                    return{
-                        delayInMinutes: del?.delayInMinutes,
+                absence: delay.map(del => {
+                    return {
                         justification: del?.justification,
                         acceptedJustification: del?.acceptedJustification,
-                        activityUserUuid: UuidTransform.fromBinaryUUID(del?.activityUserUuid as Buffer),
-                        uuid: UuidTransform.fromBinaryUUID(del?.uuid as Buffer),
-                }}),
+                        activityKey: del.activityKey,
+                    }
+                }),
             });
         } catch (error) {
             res.status(500).send({
@@ -65,20 +64,19 @@ export class DelayController extends DelayUtils {
 
     private async getMethodDelayByActivityUuid(req: Request, res: Response) {
         try{
-            super.checkRequestContainUuid(req.query);
-            const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            const delay: Activity.IDelay[] =
-            await DBQueries.DelayQueries.getDelayByActivityUuid(uuid);
+            super.checkRequestContainActivityKey(req.query);
+            const activityKey: string = req.query.activityKey as string;
+            const activity: Activity.IActivity[] = await DBQueries.DelayQueries.getActivityByActivityKey(activityKey);
+            const delay: Activity.IAbsenceFKUser[] = await DBQueries.DelayQueries.getDelayByActivityUuid(activity[0]?.uuid as Buffer);
             res.status(200).send({
                 code: 'OK',
-                delay: delay.map(del => {
-                    return{
-                        delayInMinutes: del?.delayInMinutes,
+                absence: delay.map(del => {
+                    return {
                         justification: del?.justification,
                         acceptedJustification: del?.acceptedJustification,
-                        activityUserUuid: UuidTransform.fromBinaryUUID(del?.activityUserUuid as Buffer),
-                        uuid: UuidTransform.fromBinaryUUID(del?.uuid as Buffer),
-                }}),
+                        username: del.username,
+                    }
+                }),
             });
         } catch (error) {
             res.status(500).send({
@@ -89,18 +87,23 @@ export class DelayController extends DelayUtils {
 
     private async postMethodDelay(req: Request, res: Response) {
         try {
-            super.checkRequestContainUuid(req.query);
-            const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
+            super.checkRequestContainBothParams(req.query);
+            const activityKey: string = req.query.activityKey as string;
+            const username: string = req.query.username as string;
+            const userUuid: Buffer = (await DBQueries.DelayQueries.getUserByUserName(username))[0]?.uuid as Buffer;
+            const activityUuid: Buffer = (await DBQueries.DelayQueries.getActivityByActivityKey(activityKey))[0]?.uuid as Buffer;
+            const uuid: Buffer = (await DBQueries.DelayQueries
+                .getActivityUserByUsernameAndActivityKey(userUuid, activityUuid))[0]?.uuid as Buffer;
             await DBQueries.DelayQueries.createDelay({
-                delayInMinutes: req.body.delayInMinutes,
                 justification: req.body.justification,
                 acceptedJustification: req.body.acceptedJustification,
+                delayInMinutes: req.body.delayInMinutes,
                 activityUserUuid: uuid,
             });
 
             res.status(200).send({
                 code: 'OK',
-                message: 'Delay created successfully'
+                message: 'Absence created successfully'
             });
 
         } catch (error) {
@@ -113,10 +116,13 @@ export class DelayController extends DelayUtils {
     private async putMethodDelay(req: Request, res: Response) {
         try{
             if (Object.keys(req.body).length > 0) {
-                super.checkRequestContainUuid(req.query);
-                const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
+                super.checkRequestContainBothParams(req.query);
+                const activitykey: string = req.query.activityKey as string;
+                const username: string = req.query.username as string;
+                const userUuid: Buffer = (await DBQueries.DelayQueries.getUserByUserName(username))[0]?.uuid as Buffer;
+                const activityUuid: Buffer = (await DBQueries.DelayQueries.getActivityByActivityKey(activitykey))[0]?.uuid as Buffer;
                 const delayReflect = await super.transformBodyToDelayForUpdate(req.body);
-                await DBQueries.DelayQueries.updateDelay(delayReflect, uuid);
+                await DBQueries.DelayQueries.updateDelay(delayReflect, activityUuid, userUuid);
             }else{
                 res.status(200).send({
                     code: 'OK',
@@ -154,13 +160,15 @@ export class DelayController extends DelayUtils {
 
     private async deleteMethodDelayByUserAndActivityUuid(req: Request, res: Response) {
         try{
-            super.checkRequestContainBothUuids(req.query);
-            const userUuid: Buffer = UuidTransform.toBinaryUUID(req.query.userUuid as string);
-            const activityUuid: Buffer = UuidTransform.toBinaryUUID(req.query.activityUuid as string);
-            await DBQueries.DelayQueries.deleteDelayByUserAndActivityUuid(userUuid, activityUuid);
+            super.checkRequestContainBothParams(req.query);
+            const activityKey: string = req.query.activityKey as string;
+            const username: string = req.query.username as string;
+            const userUuid: Buffer = (await DBQueries.DelayQueries.getUserByUserName(username))[0]?.uuid as Buffer;
+            const activityUuid: Buffer = (await DBQueries.DelayQueries.getActivityByActivityKey(activityKey))[0]?.uuid as Buffer;
+            const delay = await DBQueries.DelayQueries.deleteDelayByUserAndActivityUuid(userUuid, activityUuid);
             res.status(200).send({
                 code: 'OK',
-                message: "Delay deleted successfully"
+                message: delay
             });
         }
         catch (error) {

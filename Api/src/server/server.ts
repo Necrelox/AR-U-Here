@@ -72,7 +72,7 @@ export class Server {
         this.app.use('/delay', new Controller.DelayController().getRouter());
         this.app.use('/absence', new Controller.AbsenceController().getRouter());
 
-        this.app.use('/biometric', new Controller.BiometricController().getRouter());
+        // this.app.use('/biometric', new Controller.BiometricController().getRouter());
     }
 
     public run() {

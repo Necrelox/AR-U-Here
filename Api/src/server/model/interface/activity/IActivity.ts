@@ -1,4 +1,5 @@
 export interface IActivity {
+    activityKey: string;
     name: string;
     description: string;
     startTime: Date;
