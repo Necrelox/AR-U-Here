@@ -32,11 +32,27 @@ export abstract class AbsenceUtils extends ControllerUtils {
         return absence;
     }
 
-    protected async checkRequestContainBothUuids(postData: { userUuid?: string, activityUuid?: string}) {
-        if (!postData.userUuid || !postData.activityUuid )
+    protected async checkRequestContainBothParams(postData: { username?: string, activityKey?: string}) {
+        if (!postData.username || !postData.activityKey )
             throw {
                 code: CodeError.CHECK_POST_CONTAIN_BOTH_UUIDS,
-                message: MessageError.CHECK_POST_CONTAIN_BOTH_UUIDS + (postData.userUuid ? '' : ' userUuid') + (postData.activityUuid ? '' : ' activityUuid')
+                message: MessageError.CHECK_POST_CONTAIN_BOTH_UUIDS + (postData.username ? '' : ' username') + (postData.activityKey ? '' : ' activityKey')
+            };
+    }
+
+    protected async checkRequestContainUsername(postData: { username?: string}) {
+        if (!postData.username)
+            throw {
+                code: CodeError.CHECK_POST_CONTAIN_BOTH_UUIDS,
+                message: MessageError.CHECK_POST_CONTAIN_BOTH_UUIDS + (postData.username ? '' : ' username')
+            };
+    }
+
+    protected async checkRequestContainActivityKey(postData: { activityKey?: string}) {
+        if (!postData.activityKey)
+            throw {
+                code: CodeError.CHECK_POST_CONTAIN_BOTH_UUIDS,
+                message: MessageError.CHECK_POST_CONTAIN_BOTH_UUIDS + (postData.activityKey ? '' : ' activityKey')
             };
     }
 }

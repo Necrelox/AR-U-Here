@@ -2,7 +2,7 @@ import * as DBQueries from '../../../database';
 import {AbsenceUtils} from './utils/absenceUtils';
 import {MiddlewareManager} from "../../../middleware";
 import {UuidTransform} from "../../../tools";
-import { Activity } from 'server/model';
+import { Activity, User } from 'server/model';
 import {Router, IRouter, Request, Response, NextFunction} from 'express';
 
 export class AbsenceController extends AbsenceUtils {
@@ -17,11 +17,11 @@ export class AbsenceController extends AbsenceUtils {
         this._router.use('/', async (req: Request, res: Response, next: NextFunction) => {
             await MiddlewareManager.middlewares(req, res, next);
         });
-        this._router.get('/userUuid', async (req: Request, res: Response) => {
-            await this.getMethodAbsenceByUserUuid(req, res);
+        this._router.get('/username', async (req: Request, res: Response) => {
+            await this.getMethodAbsenceByUsername(req, res);
         });
-        this._router.get('/activityUuid', async (req: Request, res: Response) => {
-            await this.getMethodAbsenceByActivityUuid(req, res);
+        this._router.get('/activityKey', async (req: Request, res: Response) => {
+            await this.getMethodAbsenceByActivityKey(req, res);
         });
         this._router.post('/', async (req: Request, res: Response) => {
             await this.postMethodAbsence(req, res);
@@ -32,25 +32,24 @@ export class AbsenceController extends AbsenceUtils {
         this._router.delete('/', async (req: Request, res: Response) => {
             await this.deleteMethodAbsence(req, res);
         });
-        this._router.delete('/userAndActivityUuid', async (req: Request, res: Response) => {
-            await this.deleteMethodAbsenceByUserAndActivityUuid(req, res);
+        this._router.delete('/usernameAndActivityKey', async (req: Request, res: Response) => {
+            await this.deleteMethodAbsenceByUsernameAndActivityKey(req, res);
         });
     }
 
-    private async getMethodAbsenceByUserUuid(req: Request, res: Response) {
+    private async getMethodAbsenceByUsername(req: Request, res: Response) {
         try{
-            super.checkRequestContainUuid(req.query);
-            const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            const absence: Activity.IAbsence[] =
-            await DBQueries.AbsenceQueries.getAbsenceByUuid(uuid);
+            super.checkRequestContainUsername(req.query);
+            const username: string = req.query.username as string;
+            const user: User.IUser[] = (await DBQueries.AbsenceQueries.getUserByUserName(username));
+            const absence: Activity.IAbsenceFKActivity[] = await DBQueries.AbsenceQueries.getAbsenceByUuid(user[0]?.uuid as Buffer);
             res.status(200).send({
                 code: 'OK',
                 absence: absence.map(abs => {
                     return {
                         justification: abs?.justification,
                         acceptedJustification: abs?.acceptedJustification,
-                        activityUserUuid: UuidTransform.fromBinaryUUID(abs?.activityUserUuid as Buffer),
-                        uuid: UuidTransform.fromBinaryUUID(abs?.uuid as Buffer),
+                        activityKey: abs.activityKey,
                     }
                 }),
             });
@@ -61,20 +60,19 @@ export class AbsenceController extends AbsenceUtils {
         }
     }
 
-    private async getMethodAbsenceByActivityUuid(req: Request, res: Response) {
+    private async getMethodAbsenceByActivityKey(req: Request, res: Response) {
         try{
-            super.checkRequestContainUuid(req.query);
-            const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
-            const absence: Activity.IAbsence[] =
-            await DBQueries.AbsenceQueries.getAbsenceByActivityUuid(uuid);
+            super.checkRequestContainActivityKey(req.query);
+            const activityKey: string = req.query.activityKey as string;
+            const activity: Activity.IActivity[] = await DBQueries.AbsenceQueries.getActivityByActivityKey(activityKey);
+            const absence: Activity.IAbsenceFKUser[] = await DBQueries.AbsenceQueries.getAbsenceByActivityUuid(activity[0]?.uuid as Buffer);
             res.status(200).send({
                 code: 'OK',
                 absence: absence.map(abs => {
                     return {
                         justification: abs?.justification,
                         acceptedJustification: abs?.acceptedJustification,
-                        activityUserUuid: UuidTransform.fromBinaryUUID(abs?.activityUserUuid as Buffer),
-                        uuid: UuidTransform.fromBinaryUUID(abs?.uuid as Buffer),
+                        username: abs.username,
                     }
                 }),
             });
@@ -87,8 +85,13 @@ export class AbsenceController extends AbsenceUtils {
 
     private async postMethodAbsence(req: Request, res: Response) {
         try {
-            super.checkRequestContainUuid(req.query);
-            const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
+            super.checkRequestContainBothParams(req.query);
+            const activityKey: string = req.query.activityKey as string;
+            const username: string = req.query.username as string;
+            const userUuid: Buffer = (await DBQueries.AbsenceQueries.getUserByUserName(username))[0]?.uuid as Buffer;
+            const activityUuid: Buffer = (await DBQueries.AbsenceQueries.getActivityByActivityKey(activityKey))[0]?.uuid as Buffer;
+            const uuid: Buffer = (await DBQueries.AbsenceQueries
+                .getActivityUserByUsernameAndActivityKey(userUuid, activityUuid))[0]?.uuid as Buffer;
             await DBQueries.AbsenceQueries.createAbsence({
                 justification: req.body.justification,
                 acceptedJustification: req.body.acceptedJustification,
@@ -110,10 +113,13 @@ export class AbsenceController extends AbsenceUtils {
     private async putMethodAbsence(req: Request, res: Response) {
         try{
             if (Object.keys(req.body).length > 0) {
-                super.checkRequestContainUuid(req.query);
-                const uuid: Buffer = UuidTransform.toBinaryUUID(req.query.uuid as string);
+                super.checkRequestContainBothParams(req.query);
+                const activitykey: string = req.query.activityKey as string;
+                const username: string = req.query.username as string;
+                const userUuid: Buffer = (await DBQueries.AbsenceQueries.getUserByUserName(username))[0]?.uuid as Buffer;
+                const activityUuid: Buffer = (await DBQueries.AbsenceQueries.getActivityByActivityKey(activitykey))[0]?.uuid as Buffer;
                 const absenceReflect = await super.transformBodyToAbsenceForUpdate(req.body);
-                await DBQueries.AbsenceQueries.updateAbsence(absenceReflect, uuid);
+                await DBQueries.AbsenceQueries.updateAbsence(absenceReflect, activityUuid, userUuid);
             }else{
                 res.status(200).send({
                     code: 'OK',
@@ -149,11 +155,13 @@ export class AbsenceController extends AbsenceUtils {
         }
     }
 
-    private async deleteMethodAbsenceByUserAndActivityUuid(req: Request, res: Response) {
+    private async deleteMethodAbsenceByUsernameAndActivityKey(req: Request, res: Response) {
         try{
-            super.checkRequestContainBothUuids(req.query);
-            const userUuid: Buffer = UuidTransform.toBinaryUUID(req.query.userUuid as string);
-            const activityUuid: Buffer = UuidTransform.toBinaryUUID(req.query.activityUuid as string);
+            super.checkRequestContainBothParams(req.query);
+            const activityKey: string = req.query.activityKey as string;
+            const username: string = req.query.username as string;
+            const userUuid: Buffer = (await DBQueries.AbsenceQueries.getUserByUserName(username))[0]?.uuid as Buffer;
+            const activityUuid: Buffer = (await DBQueries.AbsenceQueries.getActivityByActivityKey(activityKey))[0]?.uuid as Buffer;
             const absence = await DBQueries.AbsenceQueries.deleteAbsenceByUserAndActivityUuid(userUuid, activityUuid);
             res.status(200).send({
                 code: 'OK',
