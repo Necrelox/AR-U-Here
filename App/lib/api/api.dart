@@ -98,13 +98,10 @@ Future<User> updateUser(
 }
 
 Future<http.Response> get_roles() async {
-  final response = await http.get(
-    Uri.parse('$ip/user/roles'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token'
-    },
-  );
+  var uri = Uri.parse('$ip/user/role');
+  var response = await http.get(uri, headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token'
+  });
   return response;
 }
