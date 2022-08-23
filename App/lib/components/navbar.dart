@@ -20,16 +20,67 @@ class NavbarDemo extends StatefulWidget {
 }
 
 class Naviguation extends State<NavbarDemo> {
-  Widget icon_bar(String name, String asset, Widget redirect) {
+  Widget icon_bar(String name, String asset, int redirect) {
     return Expanded(
         child: RaisedButton(
-      onPressed: () => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => redirect,
-          ),
-        )
+      onPressed: () async {
+        if (await fetch_roles() == 'admin') {
+          if (redirect == 1) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeAdmin()));
+          } else if (redirect == 2) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => StatistiqueAdmin()));
+          } else if (redirect == 3) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => PlanningAdmin()));
+          } else if (redirect == 4) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => ProfileAdmin()));
+          }
+        } else if (await fetch_roles() == 'user') {
+          if (redirect == 1) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Home()));
+          } else if (redirect == 2) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Statistique()));
+          } else if (redirect == 3) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Planning()));
+          } else if (redirect == 4) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Profile()));
+          }
+        } else if (await fetch_roles() == 'professor') {
+          if (redirect == 1) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeAdmin()));
+          } else if (redirect == 2) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => StatistiqueAdmin()));
+          } else if (redirect == 3) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => PlanningAdmin()));
+          } else if (redirect == 4) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => ProfileAdmin()));
+          }
+        } else {
+          if (redirect == 1) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Home()));
+          } else if (redirect == 2) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Statistique()));
+          } else if (redirect == 3) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Planning()));
+          } else if (redirect == 4) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Profile()));
+          }
+        }
       },
       color: MyApp.primaryColor,
       child: Column(
@@ -55,22 +106,11 @@ class Naviguation extends State<NavbarDemo> {
     return Container(
         color: MyApp.primaryColor,
         height: MediaQuery.of(context).size.height * 0.10,
-        child:
-          // if (temp == 'admin') {
-            Row(children: <Widget>[
-              icon_bar('Accueil', 'asset/home.png', const HomeAdmin()),
-              icon_bar('Statistiques', 'asset/stats.png', const StatistiqueAdmin()),
-              icon_bar('Calendrier', 'asset/calendar.png', const PlanningAdmin()),
-              icon_bar('Profile', 'asset/profile.png', const ProfileAdmin())
-            ])
-          // } else {
-            // Row(children: <Widget>[
-            // icon_bar('Accueil', 'asset/home.png', const Home()),
-            // icon_bar('Statistiques', 'asset/stats.png', const Statistique()),
-            // icon_bar('Calendrier', 'asset/calendar.png', const Planning()),
-            // icon_bar('Profile', 'asset/profile.png', const Profile())
-            // ]);
-          // }
-    );
+        child: Row(children: <Widget>[
+          icon_bar('Accueil', 'asset/home.png', 1),
+          icon_bar('Statistiques', 'asset/stats.png', 2),
+          icon_bar('Calendrier', 'asset/calendar.png', 3),
+          icon_bar('Profile', 'asset/profile.png', 4)
+        ]));
   }
 }

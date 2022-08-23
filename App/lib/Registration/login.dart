@@ -184,9 +184,25 @@ class Login_state extends State<Login> {
           });
           response = await post_login("/account/login/", email, pwd);
           if (response.statusCode == 200) {
-            // Verify roles of user getRoles in api.dart
-            var temp = await get_roles();
-            if (temp == 'admin') {
+            if (await fetch_roles() == 'admin') {
+              // ignore: use_build_context_synchronously
+              Navigator.pushReplacement<void, void>(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => const HomeAdmin(),
+                ),
+              );
+              MaterialPageRoute(builder: (context) => const HomeAdmin());
+            } else if (await fetch_roles() == 'user') {
+              // ignore: use_build_context_synchronously
+              Navigator.pushReplacement<void, void>(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => const Home(),
+                ),
+              );
+              MaterialPageRoute(builder: (context) => const Home());
+            } else if (await fetch_roles() == 'professor') {
               // ignore: use_build_context_synchronously
               Navigator.pushReplacement<void, void>(
                 context,
@@ -196,14 +212,7 @@ class Login_state extends State<Login> {
               );
               MaterialPageRoute(builder: (context) => const HomeAdmin());
             } else {
-              // ignore: use_build_context_synchronously
-              Navigator.pushReplacement<void, void>(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => const Home(),
-                ),
-              );
-              MaterialPageRoute(builder: (context) => const Home());
+              error = true;
             }
             // ignore: use_build_context_synchronously
           } else {

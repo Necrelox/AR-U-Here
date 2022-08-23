@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../class/User.dart';
+import 'dart:io';
+import 'package:flutter/material.dart';
+
 import '../dashboard/Home.dart';
 
 var ip = 'http://10.0.2.2:3002';
@@ -12,6 +15,18 @@ get_token(response) {
   Map<String, dynamic> temp = json.decode(response.body);
   token = temp['token'];
   return token;
+}
+
+Future<http.Response> sendFile(String url, File idFile) async {
+  var uri = Uri.parse(ip + url);
+  var response = await http.post(uri, body: {
+    'idFile': idFile.path
+  }, headers: <String, String>{
+    // 'Content-Type': 'application/json; charset=UTF-8',
+    // 'Accept': 'application/json',
+    'Authorization': 'Token $token'
+  });
+  return response;
 }
 
 Future<http.Response> post_register(
@@ -82,10 +97,10 @@ Future<User> updateUser(
       'Authorization': 'Bearer $token'
     },
     body: jsonEncode(<String, String>{
-      'username': username,
-      'email': email,
-      'phone': phone,
-      'address': address,
+      if (username != '') 'username': username,
+      if (email != '') 'email': email,
+      // if (phone != '') 'phone': phone,
+      if (address != '') 'address': address,
     }),
   );
 
@@ -97,11 +112,11 @@ Future<User> updateUser(
   }
 }
 
-Future<http.Response> get_roles() async {
+Future<String> fetch_roles() async {
   var uri = Uri.parse('$ip/user/role');
   var response = await http.get(uri, headers: {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
   });
-  return response;
+  return jsonDecode(response.body)['role'];
 }
