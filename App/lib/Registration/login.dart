@@ -193,7 +193,7 @@ class Login_state extends State<Login> {
                 ),
               );
               MaterialPageRoute(builder: (context) => const HomeAdmin());
-            } else if (await fetch_roles() == 'user') {
+            } else if (await fetch_roles() == 'student') {
               // ignore: use_build_context_synchronously
               Navigator.pushReplacement<void, void>(
                 context,
