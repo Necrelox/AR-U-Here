@@ -1,4 +1,7 @@
-export {AccountQueries} from './databaseQueries/AccountQueries';
-export {UserQueries} from './databaseQueries/UserQueries';
-export {ActivityQueries, AbsenceQueries, DelayQueries, ActivityUserQueries} from './databaseQueries/ActivityQueries';
-export {BiometricQueries} from './databaseQueries/BiometricQueries';
+export {AccountQueries} from './queries/controller/account/accountQueries';
+export {UserQueries} from './queries/controller/user/userQueries';
+export {ActivityQueries, AbsenceQueries, DelayQueries, ActivityUserQueries} from './queries/controller/activityQueries';
+export {BiometricQueries} from './queries/controller/biometricQueries';
+export * from './queries/models';
+
+
