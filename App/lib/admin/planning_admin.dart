@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../animation.dart';
+import '../class/Activity.dart';
 import '../components/navbar.dart';
 import '../components/appbar.dart';
 import '../myapp.dart';
+import '../api/api.dart';
 
 class PlanningAdmin extends StatefulWidget {
   const PlanningAdmin({Key? key}) : super(key: key);
@@ -14,68 +16,87 @@ class PlanningAdmin extends StatefulWidget {
   _PlanningAdminState createState() => _PlanningAdminState();
 }
 
-tablePlanning(String hour, String cours, String room, String present) {
-  return TableRow(children: [
-    Column(children: [
-      Text(hour,
-          style: GoogleFonts.inter(
-            color: MyApp.primaryColor,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          )),
-      const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
-    ]),
-    Column(
-      children: [
-        Text(cours,
-            style: GoogleFonts.inter(
-              color: MyApp.primaryColor,
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-            )),
-      ],
-    ),
-    Column(
-      children: [
-        Text(room,
-            style: GoogleFonts.inter(
-              color: MyApp.primaryColor,
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-            )),
-      ],
-    ),
-    Column(
-      children: [
-        Text(
-          present,
-          style: GoogleFonts.roboto(
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-            color: const Color.fromARGB(255, 23, 162, 18),
-          ),
-        ),
-      ],
-    ),
-  ]);
-}
-
 class _PlanningAdminState extends State<PlanningAdmin> {
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+  late Color c;
+  late Future<List<Activity>> futureActivity;
+  Color getColor(String presence) {
+    switch (presence) {
+      //add more color as your wish
+      case "Present":
+        return Colors.green;
+      case "Absent":
+        return Colors.red;
+      case "Retard":
+        return const Color(0XFFFF7A30);
+      case "Exclus":
+        return Colors.black;
+      default:
+    }
+    return Colors.blue;
+  }
 
   final TextEditingController _eventController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    futureActivity = fetchActivity();
   }
 
   @override
   void dispose() {
     _eventController.dispose();
     super.dispose();
+  }
+
+  tablePlanning(String hour, String cours, String room, String present) {
+    Color coulor = getColor(present);
+    return TableRow(children: [
+      Column(children: [
+        Text(hour,
+            style: GoogleFonts.inter(
+              color: MyApp.primaryColor,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            )),
+        const Padding(padding: EdgeInsets.symmetric(vertical: 20.0)),
+      ]),
+      Column(
+        children: [
+          Text(cours,
+              style: GoogleFonts.inter(
+                color: MyApp.primaryColor,
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+              )),
+        ],
+      ),
+      Column(
+        children: [
+          Text(room,
+              style: GoogleFonts.inter(
+                color: MyApp.primaryColor,
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+              )),
+        ],
+      ),
+      Column(
+        children: [
+          Text(
+            present,
+            style: GoogleFonts.roboto(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              color: coulor,
+            ),
+          ),
+        ],
+      ),
+    ]);
   }
 
   @override
@@ -175,18 +196,27 @@ class _PlanningAdminState extends State<PlanningAdmin> {
                     ),
                     Container(
                       padding:
-                          const EdgeInsets.only(left: 20, right: 20, top: 20),
+                          const EdgeInsets.only(left: 20, right: 20, top: 50),
                       alignment: Alignment.bottomCenter,
-                      child: Table(
-                        children: [
-                          tablePlanning('8h', 'Dart', 'Salle 56', 'Validé'),
-                          tablePlanning('9h', 'Dart', 'Gymnase', 'Validé'),
-                          tablePlanning('10h', 'Dart', 'Salle 78', 'Validé'),
-                          tablePlanning('13h', 'Dart', 'Gymnase', 'Validé'),
-                          tablePlanning('15h', 'Dart', 'Gymnase', 'Validé'),
-                          tablePlanning('16h', 'Dart', 'Gymnase', 'Validé'),
-                          tablePlanning('17h', 'Dart', 'Gymnase', 'Validé'),
-                        ],
+                      child: FutureBuilder<List<Activity>>(
+                        future: futureActivity,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                                return Table(
+                                  children: [
+                                    tablePlanning(
+                                        '${snapshot.data![0].startTime!.substring(11, 13)}h', '${snapshot.data![0].endTime!.substring(11, 13)}h', 'Pré-MSc', '${snapshot.data![0].studyLevel}'),
+                                    tablePlanning(
+                                        '${snapshot.data![1].startTime!.substring(11, 13)}h', '${snapshot.data![1].endTime!.substring(11, 13)}h', 'Pré-MSc', '${snapshot.data![1].studyLevel}'),
+                                    tablePlanning(
+                                        '${snapshot.data![2].startTime!.substring(11, 13)}h', '${snapshot.data![2].endTime!.substring(11, 13)}h', 'Pré-MSc', '${snapshot.data![2].studyLevel}'),
+                                  ],
+                                );
+                          } else if (snapshot.hasError) {
+                            return Text("${snapshot.error}");
+                          }
+                          return CircularProgressIndicator();
+                        },
                       ),
                     ),
                   ])),
