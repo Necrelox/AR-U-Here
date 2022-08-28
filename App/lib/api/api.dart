@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/class/FaceId.dart';
 import 'package:http/http.dart' as http;
 import '../class/User.dart';
+import '../class/Activity.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 
@@ -108,6 +109,16 @@ Future<FaceId> fetchImage() async {
     var temp = jsonDecode(response.body);
     throw Exception('Failed to get user. ${temp['error']['message']}');
   }
+}
+
+Future<List<Activity>> fetchActivity() async {
+  final response = await http.get(Uri.parse('$ip/activity'), headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token'
+  });
+
+  Map<String, dynamic> temp = json.decode(response.body);
+  return (temp['activities'] as List<dynamic>).map((e) => Activity.fromJson(e as Map<String, dynamic>)).toList();
 }
 
 Future<User> updateUser(
