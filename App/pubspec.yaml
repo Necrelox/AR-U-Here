@@ -92,12 +92,11 @@ flutter:
     - asset/didactiel3.jpg
     - asset/didac-bar1.png
     - asset/didac-bar2.png
-    - asset/marin.jpg
+    - asset/unknow.jpg
     - asset/stats.png
     - asset/calendar.png
     - asset/profile.png
     - asset/home.png
-    - asset/unknow.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
