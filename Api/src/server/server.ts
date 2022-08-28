@@ -1,6 +1,7 @@
-import * as Controller from './controller';
+import * as Controller from './controllers';
 import AreUHereSpecification from './AreUHereSpecification.json'
 import {DatabaseKnex} from './database/DatabaseKnex';
+
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -35,7 +36,7 @@ export class Server {
 
     private initMiddlewareCors() {
         this.app.use(cors({
-                origin: '*', // Temporary
+                origin: process.env.APP_IP || '*', // Temporary
                 methods: ['GET', 'POST', 'PUT', 'DELETE'],
                 allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
                 credentials: true,
@@ -69,7 +70,7 @@ export class Server {
         this.app.use('/user', new Controller.UserController().getRouter());
         this.app.use('/activity', new Controller.ActivityController().getRouter());
         this.app.use('/activity-user', new Controller.ActivityUserController().getRouter());
-        this.app.use('/delay', new Controller.DelayController().getRouter());
+        // this.app.use('/delay', new Controller.DelayController().getRouter());
         this.app.use('/absence', new Controller.AbsenceController().getRouter());
         this.app.use('/biometric', new Controller.BiometricController().getRouter());
     }

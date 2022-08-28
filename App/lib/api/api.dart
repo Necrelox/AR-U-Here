@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 import '../dashboard/Home.dart';
 
-var ip = 'http://10.0.2.2:3002';
+var ip = 'http://51.91.96.23:3000';
 var token = '';
 
 get_token(response) {
