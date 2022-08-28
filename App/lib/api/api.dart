@@ -88,17 +88,14 @@ Future<User> fetchUser() async {
   }
 }
 
-Future<Activity> fetchActivity() async {
+Future<List<Activity>> fetchActivity() async {
   final response = await http.get(Uri.parse('$ip/activity'), headers: {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
   });
-  print(response.body);
-  var res = response.body[activities];
-  print(res);
+
   Map<String, dynamic> temp = json.decode(response.body);
-  print(temp);
-  return Activity.fromJson(temp);
+  return (temp['activities'] as List<dynamic>).map((e) => Activity.fromJson(e as Map<String, dynamic>)).toList();
 }
 
 Future<User> updateUser(

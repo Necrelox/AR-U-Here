@@ -1,5 +1,5 @@
 class Activity {
-  final int? activityKey;
+  final String? activityKey;
   final String? name;
   final String? startTime;
   final String? endTime;
