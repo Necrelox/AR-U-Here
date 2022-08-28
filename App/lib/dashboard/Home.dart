@@ -285,7 +285,7 @@ class Home_state extends State<Home> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             return Text(
-                              'Salut ${snapshot.data!.username}',
+                              'Bienvenue ${snapshot.data!.username}',
                               style: TextStyle(
                                 color: MyApp.tertiaryColor,
                                 fontFamily: 'OpenSans',

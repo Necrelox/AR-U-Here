@@ -3,6 +3,8 @@ import 'package:table_calendar/table_calendar.dart';
 import '../animation.dart';
 import '../components/navbar.dart';
 import '../components/appbar.dart';
+import '../class/Activity.dart';
+import '../api/api.dart';
 import '../myapp.dart';
 
 class Planning extends StatefulWidget {
@@ -15,6 +17,7 @@ class Planning extends StatefulWidget {
 
 class _PlanningState extends State<Planning> {
   CalendarFormat format = CalendarFormat.month;
+  late Future<List<Activity>> futureActivity;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
 
@@ -23,12 +26,42 @@ class _PlanningState extends State<Planning> {
   @override
   void initState() {
     super.initState();
+    futureActivity = fetchActivity();
   }
 
   @override
   void dispose() {
     _eventController.dispose();
     super.dispose();
+  }
+
+  TableRow table(String startHour, endHour, prof) {
+    return TableRow(children: [
+      Column(children: [
+        Text(startHour,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize:  MediaQuery.of(context).size.width * 0.035,
+          color: MyApp.primaryColor,
+        ),),
+      ]),
+      Column(children: [
+        Text(endHour,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: MediaQuery.of(context).size.width * 0.035,
+          color: MyApp.primaryColor,
+        ),)
+      ]),
+      Column(children: [
+        Text(prof,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: MediaQuery.of(context).size.width * 0.035,
+          color: MyApp.primaryColor,
+        ),)
+      ]),
+    ]);
   }
 
   @override
@@ -163,49 +196,53 @@ class _PlanningState extends State<Planning> {
                       )),
                   child: Column(children: <Widget>[
                     Container(
-                      margin: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+                      margin: const EdgeInsets.fromLTRB(5, 20, 5, 20),
                       child: Table(
                         children: [
                           TableRow(children: [
-                            Column(children: const [
-                              Text('Heure', style: TextStyle(fontSize: 20.0))
+                            Column(children: [
+                              Text('Heure',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0,
+                                      color: MyApp.primaryColor))
                             ]),
-                            Column(children: const [
-                              Text('Cours', style: TextStyle(fontSize: 20.0))
+                            Column(children: [
+                              Text('Cours',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0,
+                                      color: MyApp.primaryColor))
                             ]),
-                            Column(children: const [
-                              Text('Salle', style: TextStyle(fontSize: 20.0))
-                            ]),
-                            Column(children: const [
-                              Text('Prof.', style: TextStyle(fontSize: 20.0))
+                            Column(children: [
+                              Text('Prof.',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0,
+                                      color: MyApp.primaryColor))
                             ]),
                           ]),
                         ],
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.all(20),
-                      child: Table(
-                        children: [
-                          TableRow(children: [
-                            Column(children: const [Text('9h')]),
-                            Column(children: const [Text('E.P.S')]),
-                            Column(children: const [Text('Gymnase')]),
-                            Column(children: const [Text('Mr. Sarde')]),
-                          ]),
-                          TableRow(children: [
-                            Column(children: const [Text('12h')]),
-                            Column(children: const [Text('Repas')]),
-                            Column(children: const [Text('Cantine')]),
-                            Column(children: const [Text('Mr. Brun')]),
-                          ]),
-                          TableRow(children: [
-                            Column(children: const [Text('13h')]),
-                            Column(children: const [Text('S.V.T.')]),
-                            Column(children: const [Text('Math')]),
-                            Column(children: const [Text('Mr. Rose')]),
-                          ]),
-                        ],
+                      margin: const EdgeInsets.fromLTRB(5, 0, 5, 20),
+                      child: FutureBuilder<List<Activity>>(
+                        future: futureActivity,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Table(
+                              children: [
+                                table('${snapshot.data![0].startTime!.substring(11, 13)}h - ${snapshot.data![0].endTime!.substring(11, 13)}h', '${snapshot.data![0].name}', 'Mr. Eric'),
+                                table('${snapshot.data![1].startTime!.substring(11, 13)}h - ${snapshot.data![1].endTime!.substring(11, 13)}h', '${snapshot.data![1].name}', 'Mr. Maxime'),
+                                table('${snapshot.data![2].startTime!.substring(11, 13)}h - ${snapshot.data![2].endTime!.substring(11, 13)}h', '${snapshot.data![2].name}', 'Mr. Sarde'),
+                              ],
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text("${snapshot.error}");
+                          }
+                          return CircularProgressIndicator();
+                        },
                       ),
                     ),
                   ])),
