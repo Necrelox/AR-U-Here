@@ -17,6 +17,7 @@ class Home_state extends State<Home> {
   late Color c;
   var response;
   late Future<User> futureUser;
+  late Future<List<Activity>> futureActivity;
   Color getColor(String presence) {
     switch (presence) {
       //add more color as your wish
@@ -33,11 +34,10 @@ class Home_state extends State<Home> {
     return Colors.blue;
   }
 
-  late Future<List<Activity>> futureActivity;
   @override
   void initState() {
     super.initState();
-    futureActivity = fetchActivity();
+      futureActivity = fetchActivity();
       futureUser = fetchUser();
   }
 
