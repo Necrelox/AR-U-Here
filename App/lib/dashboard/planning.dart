@@ -39,11 +39,10 @@ class _PlanningState extends State<Planning> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: ApplicationBar(
-          color: MyApp.secondaryColor,
-          asset: 'asset/marin.jpg',
-          title: 'Planning',
-          titleColor: MyApp.tertiaryColor
-        ),
+            color: MyApp.secondaryColor,
+            asset: 'asset/unknow.jpg',
+            title: 'Planning',
+            titleColor: MyApp.tertiaryColor),
       ),
       body: SingleChildScrollView(
         child: Column(
