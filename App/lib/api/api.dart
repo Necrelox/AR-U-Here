@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../class/User.dart';
+import '../class/Activity.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 
@@ -87,6 +88,19 @@ Future<User> fetchUser() async {
   }
 }
 
+Future<Activity> fetchActivity() async {
+  final response = await http.get(Uri.parse('$ip/activity'), headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token'
+  });
+  print(response.body);
+  var res = response.body[activities];
+  print(res);
+  Map<String, dynamic> temp = json.decode(response.body);
+  print(temp);
+  return Activity.fromJson(temp);
+}
+
 Future<User> updateUser(
     String username, String email, String phone, String address) async {
   final response = await http.put(
@@ -118,6 +132,6 @@ Future<String> fetch_roles() async {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
   });
-  
+
   return jsonDecode(response.body)['role'];
 }
