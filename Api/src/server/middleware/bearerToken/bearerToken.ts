@@ -1,59 +1,59 @@
-import {Request, Response, NextFunction} from 'express';
-import * as Tools from '../../tools';
-import * as Models from '../../model';
-import * as DBQueries from '../../database';
+import {NextFunction, Request, Response} from 'express';
+import {MessageError} from'../../messageError';
+import {TokenModelQueries} from '../../database';
+import {IToken} from '../../models';
+import {Token} from '../../tools';
 
-export enum CodeError {
-    GET_TOKEN_BY_REFLECT = 'BearerToken::getTokenByReflect',
-    VERIFY_TOKEN_EXPIRATION = 'BearerToken::verifyExpiration',
-    VERIFY_TOKEN_SIGNATURE = 'BearerToken::verifySignature',
+async function verifyExpiration(expiresAt: Date) {
+    if (expiresAt < new Date())
+        throw {
+            code: 'BearerToken::verifyExpiration',
+            message: MessageError.TOKEN_EXPIRED
+        };
 }
 
-export enum MessageError {
-    TOKEN_NOT_FOUND = 'Token not found.',
-    TOKEN_EXPIRED = 'Token expired.',
-    TOKEN_INVALID_SIGNATURE = 'Token invalid signature.',
+async function verifySignature(token: string) {
+    if (!Token.signatureChecker(token))
+        throw {
+            code: 'BearerToken::verifySignature',
+            message: MessageError.TOKEN_INVALID_SIGNATURE
+        };
 }
 
+async function getExpireAt(bearerToken: string) : Promise<Date> {
+    const token: Partial<IToken[]> = await TokenModelQueries.get({
+        token: bearerToken
+    }, {
+        expireAt: true
+    });
+    if (!token || token.length === 0)
+        throw {
+            code: 'BearerToken::getExpireAt',
+            message: MessageError.TOKEN_NOT_FOUND
+        };
+    return token[0]?.expireAt as Date;
+}
 
-export class BearerToken {
-    private static async getTokenByReflect(tokenReflect: string): Promise<Models.User.IToken> {
-        const token: Models.User.IToken[] = await DBQueries.AccountQueries.getToken({token: tokenReflect});
-        if (!token || token.length === 0)
-            throw {
-                code: CodeError.GET_TOKEN_BY_REFLECT,
-                message: MessageError.TOKEN_NOT_FOUND
-            };
-        return token[0]!;
-    }
+async function checkIfAuthorizationExistAndNotEmpty(req: Request) {
+    if (!('authorization' in req.headers)  || req.headers.authorization === undefined || req.headers.authorization === '')
+        throw {
+            code: 'BearerToken::checkIfAuthorizationExistAndNotEmpty',
+            message: MessageError.TOKEN_NOT_GIVEN
+        };
+}
 
-    private static async verifyExpiration(token: Models.User.IToken) {
-        if (token!.expireAt! < new Date())
-            throw {
-                code: CodeError.VERIFY_TOKEN_EXPIRATION,
-                message: MessageError.TOKEN_EXPIRED
-            };
-    }
-
-    private static async verifySignature(token: string) {
-        if (!Tools.Token.signatureChecker(token))
-            throw {
-                code: CodeError.VERIFY_TOKEN_SIGNATURE,
-                message: MessageError.TOKEN_INVALID_SIGNATURE
-            };
-    }
-
-    public static async checkToken(req: Request, res: Response, next: NextFunction) {
-        try {
-            const bearerToken = (req.headers.authorization);
-            await BearerToken.verifySignature(bearerToken!.split(' ')[1]!);
-            const token: Models.User.IToken = await BearerToken.getTokenByReflect(bearerToken!.split(' ')[1]!);
-            await BearerToken.verifyExpiration(token);
-            next();
-        } catch (error: any) {
-            res.status(401).json({
-                content: error
-            });
-        }
+export async function bearerToken(req: Request, res: Response, next: NextFunction) {
+    try {
+        await checkIfAuthorizationExistAndNotEmpty(req);
+        const bearerToken = req.headers.authorization?.split(' ')[1] as string;
+        await Promise.all([
+            verifySignature(bearerToken),
+            verifyExpiration(await getExpireAt(bearerToken))
+        ]);
+        next();
+    } catch (error) {
+        res.status(401).send({
+            content: error
+        });
     }
 }

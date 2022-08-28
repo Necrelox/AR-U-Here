@@ -5,12 +5,14 @@ import '../myapp.dart';
 class ApplicationBar extends StatelessWidget {
   final String asset;
   final String title;
+  final Color titleColor;
   final Color color;
 
   const ApplicationBar({
     Key? key,
     required this.asset,
     required this.title,
+    required this.titleColor,
     required this.color,
   }) : super(key: key);
 
@@ -36,7 +38,7 @@ class ApplicationBar extends StatelessWidget {
       title: Text(
         title,
         style: TextStyle(
-            color: MyApp.tertiaryColor,
+            color: titleColor,
             fontSize: 28.0,
             fontWeight: FontWeight.bold),
       ),

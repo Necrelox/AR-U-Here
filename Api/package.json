@@ -4,8 +4,12 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
-    "build": "npx tsc && cp ./src/server/tools/mail/emailTempo.json ./prod/server/tools/mail/emailTempo.json",
-    "start": "tsc && cp ./src/server/tools/mail/emailTempo.json ./prod/server/tools/mail/emailTempo.json && node prod/app.js",
+    "compile-api": "tsc && echo \"\\033[0;34m➤ API compiled \\033[0m \"",
+    "exec-builder": "ts-node bin/builder.ts && echo \"\\033[0;34m➤ Builder executed \\033[0m\"",
+    "compile-addon": "cmake-js compile -d ./src/addons/ && echo \"\\033[0;34m➤ Addon compiled \\033[0m\"",
+    "build": "npm run compile-addon && npm run compile-api && npm run exec-builder",
+    "build-start": "npm run build && node prod/app.js",
+    "start": "node prod/app.js",
     "test": "jest -c jest.config.json",
     "test:watch": "jest --watch -c jest.config.json",
     "lint": "eslint . --ext .ts",
@@ -15,25 +19,38 @@
   "author": "Ruby",
   "license": "ISC",
   "dependencies": {
+    "bindings": "^1.5.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "express-fileupload": "^1.4.0",
     "express-rate-limit": "^6.3.0",
+    "express-validator": "^6.14.2",
     "faker": "^5.5.3",
     "helmet": "^5.0.2",
     "knex": "^1.0.6",
     "mysql2": "^2.3.3",
-    "nodemailer": "^6.7.3"
+    "nodemailer": "^6.7.3",
+    "swagger-jsdoc": "^6.2.5",
+    "swagger-ui-express": "^4.5.0",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
+    "@types/bindings": "^1.5.1",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/express-fileupload": "^1.2.3",
     "@types/faker": "^6.6.9",
     "@types/nodemailer": "^6.4.4",
+    "@types/swagger-jsdoc": "^6.0.1",
+    "@types/swagger-ui-express": "^4.1.3",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
+    "binding": "^3.0.3",
+    "cmake-js": "^6.3.2",
     "eslint": "^8.15.0",
+    "node-addon-api": "^5.0.0",
     "tslint": "^6.1.3",
-    "typescript": "^4.6.3"
+    "typescript": "^4.7.4"
   }
 }

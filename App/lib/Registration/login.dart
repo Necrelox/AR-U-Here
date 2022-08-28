@@ -4,8 +4,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import '../forgot_password.dart';
 import 'register.dart';
 import '../dashboard/Home.dart';
+import '../admin/home_admin.dart';
 import '../api/api.dart';
 import '../myapp.dart';
 
@@ -130,7 +132,14 @@ class Login_state extends State<Login> {
     return Container(
       alignment: Alignment.centerRight,
       child: FlatButton(
-        onPressed: () => print('Mot de passe oublié'),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => forgot_password(),
+            ),
+          );
+        },
         padding: const EdgeInsets.only(right: 0.0),
         child: Text(
           'Mot de passe oublié ?',
@@ -164,7 +173,7 @@ class Login_state extends State<Login> {
 
   Widget _loginBtn() {
     return Container(
-      padding: const EdgeInsets.only(top: 120.0),
+      padding: const EdgeInsets.only(top: 80.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
@@ -175,14 +184,37 @@ class Login_state extends State<Login> {
           });
           response = await post_login("/account/login/", email, pwd);
           if (response.statusCode == 200) {
+            if (await fetch_roles() == 'admin') {
+              // ignore: use_build_context_synchronously
+              Navigator.pushReplacement<void, void>(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => const HomeAdmin(),
+                ),
+              );
+              MaterialPageRoute(builder: (context) => const HomeAdmin());
+            } else if (await fetch_roles() == 'student') {
+              // ignore: use_build_context_synchronously
+              Navigator.pushReplacement<void, void>(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => const Home(),
+                ),
+              );
+              MaterialPageRoute(builder: (context) => const Home());
+            } else if (await fetch_roles() == 'professor') {
+              // ignore: use_build_context_synchronously
+              Navigator.pushReplacement<void, void>(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => const HomeAdmin(),
+                ),
+              );
+              MaterialPageRoute(builder: (context) => const HomeAdmin());
+            } else {
+              error = true;
+            }
             // ignore: use_build_context_synchronously
-            Navigator.pushReplacement<void, void>(
-              context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => const Home(),
-              ),
-            );
-            MaterialPageRoute(builder: (context) => const Home());
           } else {
             error = true;
           }
@@ -238,14 +270,13 @@ class Login_state extends State<Login> {
       body: Stack(
         children: <Widget>[
           SizedBox(
+            width: double.infinity,
             height: double.infinity,
             child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 40.0,
-                vertical: 100,
-              ),
+            padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 70.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Align(
                     alignment: Alignment.topLeft,

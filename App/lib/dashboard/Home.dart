@@ -240,7 +240,7 @@ class Home_state extends State<Home> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: ApplicationBar(
-              asset: "asset/marin.jpg", color: MyApp.primaryColor, title: '')),
+              asset: "asset/marin.jpg", color: MyApp.primaryColor, title: '', titleColor: MyApp.primaryColor)),
       bottomNavigationBar: const NavbarDemo(),
       body: SingleChildScrollView(
         child: SizedBox(

@@ -13,7 +13,7 @@ export interface ErrorDatabase extends Error {
 }
 
 export class DatabaseKnex {
-    private static instance: any;
+    private static instance: Knex;
 
     public static initializeDatabasePool() {
         DatabaseKnex.instance = knex({

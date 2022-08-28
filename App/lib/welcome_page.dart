@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import './myapp.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'animation.dart';
 import 'Registration/login.dart';
 import './didactiel/didactiel1.dart';
-import 'components/camera.dart';
+import 'myapp.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyApp.secondaryColor,
+      backgroundColor: Color(0XFFF4976C),
       body: SingleChildScrollView(
           child: Column(children: [
         DelayAnimation(

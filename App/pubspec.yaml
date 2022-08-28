@@ -29,6 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cached_network_image: ^3.2.0
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -44,6 +46,8 @@ dependencies:
   firebase_ml_vision: ^0.9.10
   flutter_launcher_icons: "^0.9.2"
   flutter_native_splash: ^2.2.4
+  fl_chart: ^0.55.0
+  image_picker: ^0.8.5+3
 
 flutter_native_splash:
   background_image: asset/backScreen.png
@@ -81,6 +85,10 @@ flutter:
     - asset/logo.png
     - asset/didactiel1.png
     - asset/epitech-logo.png
+    - asset/stats.png
+    - asset/profile.png
+    - asset/calendar.png
+    - asset/home.png
     - asset/didactiel3.jpg
     - asset/didac-bar1.png
     - asset/didac-bar2.png
@@ -89,6 +97,7 @@ flutter:
     - asset/calendar.png
     - asset/profile.png
     - asset/home.png
+    - asset/unknow.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
