@@ -8,7 +8,7 @@ List<CameraDescription>? cameras;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  // FutureBuilder.debugRethrowError = true;
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   cameras = await availableCameras();

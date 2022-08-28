@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../animation.dart';
 import '../api/api.dart';
+import '../class/Activity.dart';
 import '../class/User.dart';
 import '../components/appbar.dart';
 import '../components/navbar.dart';
@@ -14,7 +15,9 @@ class Home extends StatefulWidget {
 
 class Home_state extends State<Home> {
   late Color c;
+  var response;
   late Future<User> futureUser;
+  late Future<List<Activity>> futureActivity;
   Color getColor(String presence) {
     switch (presence) {
       //add more color as your wish
@@ -30,10 +33,12 @@ class Home_state extends State<Home> {
     }
     return Colors.blue;
   }
+
   @override
   void initState() {
     super.initState();
-    futureUser = fetchUser();
+      futureActivity = fetchActivity();
+      futureUser = fetchUser();
   }
 
   Widget recap() {
@@ -72,27 +77,38 @@ class Home_state extends State<Home> {
               )),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.8,
-            child: DataTable(
-              headingRowHeight: 0,
-              columns: const [
-                DataColumn(
-                    label: Text('Matières',
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w300))),
-                DataColumn(
-                  label: Expanded(
-                      child: Text('Présence',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w300))),
-                ),
-              ],
-              rows: [
-                activity("Pré-MSc", "lol", "Absent", "01/01/01", "13h", "14h"),
-                activity("Pré-MSc", "lol", "Retard", "01/01/01", "13h", "14h"),
-                activity("Pré-MSc", "lol", "Exclus", "01/01/01", "13h", "14h"),
-              ],
-            ),
+            child: FutureBuilder<List<Activity>>(
+                future: futureActivity,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return DataTable(
+                      headingRowHeight: 0,
+                      columns: const [
+                        DataColumn(
+                            label: Text('Matières',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w300))),
+                        DataColumn(
+                          label: Expanded(
+                              child: Text('Présence',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w300))),
+                        ),
+                      ],
+                      rows: [
+                        activity("Pré-MSc", "${snapshot.data![0].name}", "${snapshot.data![0].studyLevel}", snapshot.data![0].startTime!.substring(0, 10), "${snapshot.data![0].startTime!.substring(11, 13)}h", "${snapshot.data![0].endTime!.substring(11, 13)}h"),
+                        activity("Pré-MSc", "${snapshot.data![1].name}", "${snapshot.data![1].studyLevel}", snapshot.data![1].startTime!.substring(0, 10), "${snapshot.data![1].startTime!.substring(11, 13)}h", "${snapshot.data![1].endTime!.substring(11, 13)}h"),
+                        activity("Pré-MSc", "${snapshot.data![2].name}", "${snapshot.data![2].studyLevel}", snapshot.data![2].startTime!.substring(0, 10), "${snapshot.data![2].startTime!.substring(11, 13)}h", "${snapshot.data![2].endTime!.substring(11, 13)}h"),
+                      ],
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  }
+                  return const CircularProgressIndicator();
+                }),
           ),
         ],
       ),
@@ -112,14 +128,14 @@ class Home_state extends State<Home> {
             children: <Widget>[
               Text(
                 str,
-                style: TextStyle(fontSize: 15, color: MyApp.primaryColor),
+                style: TextStyle(fontSize: 11, color: MyApp.primaryColor),
               ),
               Row(children: <Widget>[
                 Text(
                   date,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 15,
+                      fontSize: 13,
                       color: MyApp.primaryColor),
                 ),
                 const Text(
@@ -127,7 +143,7 @@ class Home_state extends State<Home> {
                 ),
                 Text(
                   heure,
-                  style: TextStyle(fontSize: 15, color: MyApp.primaryColor),
+                  style: TextStyle(fontSize: 13, color: MyApp.primaryColor),
                 ),
               ]),
             ]),
@@ -137,7 +153,7 @@ class Home_state extends State<Home> {
           alignment: Alignment.centerRight,
           child: Text(
             presence,
-            style: TextStyle(fontSize: 15, color: coulor),
+            style: TextStyle(fontSize: 15, color: coulor, fontWeight: FontWeight.bold),
           ),
         ),
       ),
