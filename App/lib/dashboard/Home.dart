@@ -32,17 +32,13 @@ class Home_state extends State<Home> {
     }
     return Colors.blue;
   }
-  @override
-  void initState() {
-    super.initState();
-    futureUser = fetchUser();
-  }
 
   late Future<List<Activity>> futureActivity;
   @override
   void initState() {
     super.initState();
     futureActivity = fetchActivity();
+      futureUser = fetchUser();
   }
 
   Widget recap() {
