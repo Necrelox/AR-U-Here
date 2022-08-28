@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../animation.dart';
 import '../api/api.dart';
 import '../class/Activity.dart';
+import '../class/User.dart';
 import '../components/appbar.dart';
 import '../components/navbar.dart';
 import '../myapp.dart';
@@ -15,6 +16,7 @@ class Home extends StatefulWidget {
 class Home_state extends State<Home> {
   late Color c;
   var response;
+  late Future<User> futureUser;
   Color getColor(String presence) {
     switch (presence) {
       //add more color as your wish
@@ -29,6 +31,11 @@ class Home_state extends State<Home> {
       default:
     }
     return Colors.blue;
+  }
+  @override
+  void initState() {
+    super.initState();
+    futureUser = fetchUser();
   }
 
   late Future<List<Activity>> futureActivity;
@@ -258,7 +265,7 @@ class Home_state extends State<Home> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: ApplicationBar(
-              asset: "asset/marin.jpg",
+              asset: "asset/unknow.jpg",
               color: MyApp.primaryColor,
               title: '',
               titleColor: MyApp.primaryColor)),
@@ -277,13 +284,26 @@ class Home_state extends State<Home> {
                   delay: 200,
                   child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("Salut Marin",
-                          style: TextStyle(
-                            color: MyApp.tertiaryColor,
-                            fontFamily: 'OpenSans',
-                            fontSize: 48.0,
-                            fontWeight: FontWeight.w400,
-                          ))),
+                      child: FutureBuilder<User>(
+                        future: futureUser,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Text(
+                              'Salut ${snapshot.data!.username}',
+                              style: TextStyle(
+                                color: MyApp.tertiaryColor,
+                                fontFamily: 'OpenSans',
+                                fontSize: 48.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text("${snapshot.error}");
+                          }
+                          return const CircularProgressIndicator();
+                        },
+                      )),
                 ),
                 DelayAnimation(
                   delay: 500,
