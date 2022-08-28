@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../animation.dart';
 import '../api/api.dart';
+import '../class/User.dart';
 import '../components/appbar.dart';
 import '../components/navbar.dart';
 import '../myapp.dart';
@@ -13,6 +14,7 @@ class Home extends StatefulWidget {
 
 class Home_state extends State<Home> {
   late Color c;
+  late Future<User> futureUser;
   Color getColor(String presence) {
     switch (presence) {
       //add more color as your wish
@@ -27,6 +29,11 @@ class Home_state extends State<Home> {
       default:
     }
     return Colors.blue;
+  }
+  @override
+  void initState() {
+    super.initState();
+    futureUser = fetchUser();
   }
 
   Widget recap() {
@@ -140,96 +147,94 @@ class Home_state extends State<Home> {
   Widget totalSession() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: <Widget>[
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Container(
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width * 0.35,
+              height: MediaQuery.of(context).size.height * 0.15,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: MyApp.tertiaryColor,
+              ),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text("10",
+                        style: TextStyle(
+                          color: MyApp.primaryColor,
+                          fontFamily: 'OpenSans',
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w400,
+                        )),
+                    Text("Absence(s)",
+                        style: TextStyle(
+                          color: MyApp.primaryColor,
+                          fontFamily: 'OpenSans',
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w400,
+                        )),
+                  ]),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.35,
+              height: MediaQuery.of(context).size.height * 0.15,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: MyApp.secondaryColor,
+              ),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text("48",
+                        style: TextStyle(
+                          color: MyApp.primaryColor,
+                          fontFamily: 'OpenSans',
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w400,
+                        )),
+                    Text("Présence(s)",
+                        style: TextStyle(
+                          color: MyApp.primaryColor,
+                          fontFamily: 'OpenSans',
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w400,
+                        )),
+                  ]),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.05,
+        ),
+        Container(
             width: MediaQuery.of(context).size.width * 0.35,
             height: MediaQuery.of(context).size.height * 0.15,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
-              color: MyApp.tertiaryColor,
+              color: MyApp.quaternaryColor,
             ),
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text("10",
-                      style: TextStyle(
-                        color: MyApp.primaryColor,
-                        fontFamily: 'OpenSans',
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.w400,
-                      )),
-                  Text("Absence(s)",
-                      style: TextStyle(
-                        color: MyApp.primaryColor,
-                        fontFamily: 'OpenSans',
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
-                      )),
-                ]),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.35,
-            height: MediaQuery.of(context).size.height * 0.15,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: MyApp.secondaryColor,
-            ),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text("48",
-                      style: TextStyle(
-                        color: MyApp.primaryColor,
-                        fontFamily: 'OpenSans',
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.w400,
-                      )),
-                  Text("Présence(s)",
-                      style: TextStyle(
-                        color: MyApp.primaryColor,
-                        fontFamily: 'OpenSans',
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
-                      )),
-                ]),
-          ),
-        ],
-      ),
-
-      SizedBox(
-        height: MediaQuery.of(context).size.height * 0.05,
-      ),
-
-      Container(
-          width: MediaQuery.of(context).size.width * 0.35,
-          height: MediaQuery.of(context).size.height * 0.15,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: MyApp.quaternaryColor,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Text("101",
-                  style: TextStyle(
-                    color: MyApp.primaryColor,
-                    fontFamily: 'OpenSans',
-                    fontSize: 32.0,
-                    fontWeight: FontWeight.w400,
-                  )),
-              Text("Session(s)",
-                  style: TextStyle(
-                    color: MyApp.primaryColor,
-                    fontFamily: 'OpenSans',
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w400,
-                  )),
-            ],
-          )),
-    ],
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Text("101",
+                    style: TextStyle(
+                      color: MyApp.primaryColor,
+                      fontFamily: 'OpenSans',
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.w400,
+                    )),
+                Text("Session(s)",
+                    style: TextStyle(
+                      color: MyApp.primaryColor,
+                      fontFamily: 'OpenSans',
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w400,
+                    )),
+              ],
+            )),
+      ],
     );
   }
 
@@ -240,43 +245,58 @@ class Home_state extends State<Home> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: ApplicationBar(
-              asset: "asset/marin.jpg", color: MyApp.primaryColor, title: '', titleColor: MyApp.primaryColor)),
+              asset: "asset/unknow.jpg",
+              color: MyApp.primaryColor,
+              title: '',
+              titleColor: MyApp.primaryColor)),
       bottomNavigationBar: const NavbarDemo(),
       body: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.10,
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: Column(
-                  children: <Widget>[
-                  DelayAnimation(
-                    delay: 200,
-                    child: Align(
+          child: SizedBox(
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.10,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Column(children: <Widget>[
+                DelayAnimation(
+                  delay: 200,
+                  child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("Salut Marin",
-                        style: TextStyle(
-                          color: MyApp.tertiaryColor,
-                          fontFamily: 'OpenSans',
-                          fontSize: 48.0,
-                          fontWeight: FontWeight.w400,
-                        ))),
-                  ),
-                  DelayAnimation(
-                    delay: 500,
-                    child: Align(
+                      child: FutureBuilder<User>(
+                        future: futureUser,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Text(
+                              'Salut ${snapshot.data!.username}',
+                              style: TextStyle(
+                                color: MyApp.tertiaryColor,
+                                fontFamily: 'OpenSans',
+                                fontSize: 48.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text("${snapshot.error}");
+                          }
+                          return const CircularProgressIndicator();
+                        },
+                      )),
+                ),
+                DelayAnimation(
+                  delay: 500,
+                  child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text("Nouvelles Notifications",
-                        style: TextStyle(
-                          color: MyApp.tertiaryColor,
-                          fontFamily: 'OpenSans',
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w400,
-                        ))),
-                  ),
+                          style: TextStyle(
+                            color: MyApp.tertiaryColor,
+                            fontFamily: 'OpenSans',
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w400,
+                          ))),
+                ),
               ]),
             ),
             DelayAnimation(delay: 500, child: recap()),
@@ -298,8 +318,7 @@ class Home_state extends State<Home> {
                           )),
                     ],
                   ),
-                  )
-                  ),
+                )),
             DelayAnimation(delay: 1000, child: totalSession()),
           ],
         ),

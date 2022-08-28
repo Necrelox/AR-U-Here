@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/myapp.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +10,10 @@ import '../animation.dart';
 import '../api/api.dart';
 import '../class/User.dart';
 import '../welcome_page.dart';
+import 'package:camera/camera.dart';	
+import 'package:flutter/material.dart';	
+import 'package:flutter_application_1/components/appbar.dart';	
+import 'package:image_picker/image_picker.dart';
 
 class ProfileAdmin extends StatefulWidget {
   const ProfileAdmin({Key? key}) : super(key: key);
@@ -38,7 +43,7 @@ Widget label(String textLabel) {
 Widget _dispError() {
   if (error == true) {
     Map<String, dynamic> temp = json.decode(response.body);
-    return Container(
+    return SizedBox(
       height: 50,
       child: Text(temp['error']['message'],
           style: const TextStyle(
@@ -54,6 +59,8 @@ Widget _dispError() {
 }
 
 class _ProfileAdminState extends State<ProfileAdmin> {
+  late File imageFile;	
+  bool isLoaded = false;
   late Future<User> futureUser;
   final TextEditingController _controllerName = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
@@ -65,6 +72,70 @@ class _ProfileAdminState extends State<ProfileAdmin> {
     super.initState();
     futureUser = fetchUser();
   }
+
+   Widget dispPicture() {	
+    if (isLoaded == true) {	
+      return Image.file(imageFile, fit: BoxFit.cover);	
+    } else {	
+      return Image.asset('./asset/unknow.jpg', fit: BoxFit.cover);	
+    }	
+  }	
+  //	
+  _openGallery(BuildContext context) async {	
+    var picture = await ImagePicker().pickImage(source: ImageSource.gallery);	
+    setState(() {	
+      imageFile = File(picture!.path);	
+      isLoaded = true;	
+    });	
+    // ignore: use_build_context_synchronously
+    Navigator.of(context).pop();	
+  }	
+  _openCamera(BuildContext context) async {	
+    var picture = await ImagePicker().pickImage(source: ImageSource.camera);	
+    setState(() {	
+      imageFile = File(picture!.path);	
+      isLoaded = true;	
+    });	
+    // ignore: use_build_context_synchronously
+    Navigator.of(context).pop();	
+  }	
+  Future<Object> _sendFile() async {	
+    if (isLoaded == true) {	
+      var response = sendFile('/biometric', imageFile);	
+      return response;	
+    } else {	
+      return 'Aucune image choisi.';	
+    }	
+  }	
+  Future<void> _showChoiceDialog(BuildContext context) {	
+    return showDialog(	
+        context: context,	
+        builder: (BuildContext context) {	
+          return AlertDialog(	
+            title: const Text('Make a choice'),	
+            content: SingleChildScrollView(	
+              child: ListBody(	
+                children: <Widget>[	
+                  GestureDetector(	
+                    child: const Text("Gallery"),	
+                    onTap: () {	
+                      _openGallery(context);	
+                    },	
+                  ),	
+                  const Padding(padding: EdgeInsets.all(8.0)),	
+                  GestureDetector(	
+                    child: const Text("Camera"),	
+                    onTap: () {	
+                      _openCamera(context);	
+                    },	
+                  ),	
+                ],	
+              ),	
+            ),	
+          );	
+        });	
+  }	
+  //
 
   @override
   Widget build(BuildContext context) {
@@ -113,9 +184,17 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                                   BorderRadius.circular(50), // Image border
                               child: SizedBox.fromSize(
                                 size: const Size.fromRadius(60),
-                                child: Image.asset(
-                                  'asset/marin.jpg',
-                                  fit: BoxFit.cover,
+                                child: Material(	
+                                  child: InkWell(	
+                                    onTap: () {	
+                                      _showChoiceDialog(context);	
+                                    },	
+                                    // onTap: () {},	
+                                    child: ClipRRect(	
+                                      borderRadius: BorderRadius.circular(20.0),	
+                                      child: dispPicture(),	
+                                    ),	
+                                  ),	
                                 ),
                               ),
                             )),

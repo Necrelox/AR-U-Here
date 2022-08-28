@@ -441,7 +441,7 @@ class StatistiqueAdmin extends StatelessWidget {
         preferredSize: const Size.fromHeight(50),
         child: ApplicationBar(
           color: MyApp.tertiaryColor,
-          asset: 'asset/marin.jpg',
+          asset: 'asset/unknow.jpg',
           title: 'Statistiques',
           titleColor: MyApp.primaryColor,
         ),

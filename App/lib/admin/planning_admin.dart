@@ -23,10 +23,7 @@ tablePlanning(String hour, String cours, String room, String present) {
             fontSize: 15,
             fontWeight: FontWeight.w500,
           )),
-      const Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0)
-      ),
-          
+      const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
     ]),
     Column(
       children: [
@@ -90,7 +87,7 @@ class _PlanningAdminState extends State<PlanningAdmin> {
         preferredSize: const Size.fromHeight(50),
         child: ApplicationBar(
             color: MyApp.secondaryColor,
-            asset: 'asset/marin.jpg',
+            asset: 'asset/unknow.jpg',
             title: 'Planning',
             titleColor: MyApp.tertiaryColor),
       ),
@@ -177,7 +174,8 @@ class _PlanningAdminState extends State<PlanningAdmin> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                      padding:
+                          const EdgeInsets.only(left: 20, right: 20, top: 20),
                       alignment: Alignment.bottomCenter,
                       child: Table(
                         children: [
@@ -249,109 +247,108 @@ class _PlanningAdminState extends State<PlanningAdmin> {
                           children: [
                             TableRow(children: [
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                
-                                Text('Début des cours:',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w500,
-                                        color: MyApp.primaryColor))
-                              ]),
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Début des cours:',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w500,
+                                            color: MyApp.primaryColor))
+                                  ]),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                Text('9h00',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        color: MyApp.primaryColor))
-                              ]),
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text('9h00',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            color: MyApp.primaryColor))
+                                  ]),
                             ]),
                             TableRow(children: [
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                Text('Fin des cours:',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w500,
-                                        color: MyApp.primaryColor))
-                              ]),
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Fin des cours:',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w500,
+                                            color: MyApp.primaryColor))
+                                  ]),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                Text('18h00',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        color: MyApp.primaryColor))
-                              ]),
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text('18h00',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            color: MyApp.primaryColor))
+                                  ]),
                             ]),
                             TableRow(children: [
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                Text('Inter-cours:',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w500,
-                                        color: MyApp.primaryColor))
-                              ]),
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Inter-cours:',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w500,
+                                            color: MyApp.primaryColor))
+                                  ]),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                Text('5min',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        color: MyApp.primaryColor))
-                              ]),
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text('5min',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            color: MyApp.primaryColor))
+                                  ]),
                             ]),
                             TableRow(children: [
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                Text('Récréation:',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w500,
-                                        color: MyApp.primaryColor))
-                              ]),
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Récréation:',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w500,
+                                            color: MyApp.primaryColor))
+                                  ]),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                Text('15min',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        color: MyApp.primaryColor))
-                              ]),
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text('15min',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            color: MyApp.primaryColor))
+                                  ]),
                             ]),
                             TableRow(children: [
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                Text('Retard accepté au maximum:',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w500,
-                                        color: MyApp.primaryColor))
-                              ]),
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Retard accepté au maximum:',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w500,
+                                            color: MyApp.primaryColor))
+                                  ]),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                Text('3min',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        color: MyApp.primaryColor))
-                              ]),
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text('3min',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            color: MyApp.primaryColor))
+                                  ]),
                             ]),
                           ],
                         ),
