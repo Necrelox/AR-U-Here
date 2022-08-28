@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/class/FaceId.dart';
 import 'package:flutter_application_1/myapp.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../animation.dart';
@@ -65,6 +66,7 @@ class _ProfileState extends State<Profile> {
   late File imageFile;
   bool isLoaded = false;
   late Future<User> futureUser;
+  late Future<FaceId> futureImg;
   final TextEditingController _controllerName = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPhone = TextEditingController();
@@ -74,6 +76,7 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     futureUser = fetchUser();
+    futureImg = fetchImage();
   }
 
   Widget dispPicture() {
@@ -110,6 +113,11 @@ class _ProfileState extends State<Profile> {
     } else {
       return 'Aucune image choisi.';
     }
+  }
+
+  Future<Object> _getFile() async {
+    var response = getFile('/biometric');
+    return response;
   }
 
   Future<void> _showChoiceDialog(BuildContext context) {
@@ -149,7 +157,7 @@ class _ProfileState extends State<Profile> {
       bottomNavigationBar: const NavbarDemo(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          response = await post_logout();
+          response = await _getFile();
           if (response.statusCode == 200) {
             // ignore: use_build_context_synchronously
             Navigator.pushReplacement<void, void>(
@@ -205,6 +213,22 @@ class _ProfileState extends State<Profile> {
                                 //  Image.file(img, fit: BoxFit.cover,),
                               ),
                             )),
+                      ),
+                      Container(
+                        // futureUser
+                        alignment: Alignment.center,
+                        child: FutureBuilder<FaceId>(
+                          future: futureImg,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              print("ok");
+                            } else if (snapshot.hasError) {
+                              print("error");
+                              return Text("${snapshot.error}");
+                            }
+                            return CircularProgressIndicator();
+                          },
+                        ),
                       ),
                       DelayAnimation(
                           delay: 500,
