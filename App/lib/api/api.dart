@@ -32,7 +32,6 @@ Future<http.Response> getFile(String url) async {
   var uri = Uri.parse(ip + url);
   var response = await http
       .get(uri, headers: <String, String>{'Authorization': 'Token $token'});
-  print(response.body);
   return response;
 }
 
@@ -97,20 +96,6 @@ Future<User> fetchUser() async {
   }
 }
 
-Future<FaceId> fetchImage() async {
-  final response = await http.get(Uri.parse('$ip/biometric'), headers: {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer $token'
-  });
-  print(response);
-  if (response.statusCode == 200) {
-    return FaceId.fromJson(json.decode(response.body));
-  } else {
-    var temp = jsonDecode(response.body);
-    throw Exception('Failed to get user. ${temp['error']['message']}');
-  }
-}
-
 Future<List<Activity>> fetchActivity() async {
   final response = await http.get(Uri.parse('$ip/activity'), headers: {
     'Content-Type': 'application/json',
@@ -118,7 +103,9 @@ Future<List<Activity>> fetchActivity() async {
   });
 
   Map<String, dynamic> temp = json.decode(response.body);
-  return (temp['activities'] as List<dynamic>).map((e) => Activity.fromJson(e as Map<String, dynamic>)).toList();
+  return (temp['activities'] as List<dynamic>)
+      .map((e) => Activity.fromJson(e as Map<String, dynamic>))
+      .toList();
 }
 
 Future<User> updateUser(

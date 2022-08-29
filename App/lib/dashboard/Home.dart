@@ -37,8 +37,8 @@ class Home_state extends State<Home> {
   @override
   void initState() {
     super.initState();
-      futureActivity = fetchActivity();
-      futureUser = fetchUser();
+    futureActivity = fetchActivity();
+    futureUser = fetchUser();
   }
 
   Widget recap() {
@@ -99,9 +99,27 @@ class Home_state extends State<Home> {
                         ),
                       ],
                       rows: [
-                        activity("Pré-MSc", "${snapshot.data![0].name}", "${snapshot.data![0].studyLevel}", snapshot.data![0].startTime!.substring(0, 10), "${snapshot.data![0].startTime!.substring(11, 13)}h", "${snapshot.data![0].endTime!.substring(11, 13)}h"),
-                        activity("Pré-MSc", "${snapshot.data![1].name}", "${snapshot.data![1].studyLevel}", snapshot.data![1].startTime!.substring(0, 10), "${snapshot.data![1].startTime!.substring(11, 13)}h", "${snapshot.data![1].endTime!.substring(11, 13)}h"),
-                        activity("Pré-MSc", "${snapshot.data![2].name}", "${snapshot.data![2].studyLevel}", snapshot.data![2].startTime!.substring(0, 10), "${snapshot.data![2].startTime!.substring(11, 13)}h", "${snapshot.data![2].endTime!.substring(11, 13)}h"),
+                        activity(
+                            "Pré-MSc",
+                            "${snapshot.data![0].name}",
+                            "${snapshot.data![0].studyLevel}",
+                            snapshot.data![0].startTime!.substring(0, 10),
+                            "${snapshot.data![0].startTime!.substring(11, 13)}h",
+                            "${snapshot.data![0].endTime!.substring(11, 13)}h"),
+                        activity(
+                            "Pré-MSc",
+                            "${snapshot.data![1].name}",
+                            "${snapshot.data![1].studyLevel}",
+                            snapshot.data![1].startTime!.substring(0, 10),
+                            "${snapshot.data![1].startTime!.substring(11, 13)}h",
+                            "${snapshot.data![1].endTime!.substring(11, 13)}h"),
+                        activity(
+                            "Pré-MSc",
+                            "${snapshot.data![2].name}",
+                            "${snapshot.data![2].studyLevel}",
+                            snapshot.data![2].startTime!.substring(0, 10),
+                            "${snapshot.data![2].startTime!.substring(11, 13)}h",
+                            "${snapshot.data![2].endTime!.substring(11, 13)}h"),
                       ],
                     );
                   } else if (snapshot.hasError) {
@@ -153,7 +171,8 @@ class Home_state extends State<Home> {
           alignment: Alignment.centerRight,
           child: Text(
             presence,
-            style: TextStyle(fontSize: 15, color: coulor, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 15, color: coulor, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -285,14 +304,13 @@ class Home_state extends State<Home> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             return Text(
-                              'Salut ${snapshot.data!.username}',
+                              'Bienvenue ${snapshot.data!.username}',
                               style: TextStyle(
                                 color: MyApp.tertiaryColor,
                                 fontFamily: 'OpenSans',
-                                fontSize: 48.0,
+                                fontSize: 38.0,
                                 fontWeight: FontWeight.w400,
                               ),
-                              
                             );
                           } else if (snapshot.hasError) {
                             return Text("${snapshot.error}");

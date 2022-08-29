@@ -76,10 +76,10 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     futureUser = fetchUser();
-    futureImg = fetchImage();
   }
 
   Widget dispPicture() {
+    _getFile();
     if (isLoaded == true) {
       return Image.file(imageFile, fit: BoxFit.cover);
     } else {
@@ -116,8 +116,18 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<Object> _getFile() async {
-    var response = getFile('/biometric');
-    return response;
+    var response = await getFile('/biometric');
+    // print(response.body);
+    if (response.statusCode == 200) {
+      // print(json.decode(response.body));
+      // imageFile = response.path as File;
+      imageFile = json.decode(response.body);
+      isLoaded = true;
+      return response.body;
+    } else {
+      isLoaded = false;
+      return 'Erreur lors de la récupération de l\'image.';
+    }
   }
 
   Future<void> _showChoiceDialog(BuildContext context) {
@@ -155,25 +165,25 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: const Color(0XFFD2FDFF),
       bottomNavigationBar: const NavbarDemo(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          response = await _getFile();
-          if (response.statusCode == 200) {
-            // ignore: use_build_context_synchronously
-            Navigator.pushReplacement<void, void>(
-              context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => const WelcomePage(),
-              ),
-            );
-            MaterialPageRoute(builder: (context) => const WelcomePage());
-          } else {
-            error = true;
-          }
-        },
-        backgroundColor: MyApp.secondaryColor,
-        child: Icon(Icons.logout_rounded, color: MyApp.primaryColor),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     response = await _getFile();
+      //     if (response.statusCode == 200) {
+      //       // ignore: use_build_context_synchronously
+      //       Navigator.pushReplacement<void, void>(
+      //         context,
+      //         MaterialPageRoute<void>(
+      //           builder: (BuildContext context) => const WelcomePage(),
+      //         ),
+      //       );
+      //       MaterialPageRoute(builder: (context) => const WelcomePage());
+      //     } else {
+      //       error = true;
+      //     }
+      //   },
+      //   backgroundColor: MyApp.secondaryColor,
+      //   child: Icon(Icons.logout_rounded, color: MyApp.primaryColor),
+      // ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -213,22 +223,6 @@ class _ProfileState extends State<Profile> {
                                 //  Image.file(img, fit: BoxFit.cover,),
                               ),
                             )),
-                      ),
-                      Container(
-                        // futureUser
-                        alignment: Alignment.center,
-                        child: FutureBuilder<FaceId>(
-                          future: futureImg,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              print("ok");
-                            } else if (snapshot.hasError) {
-                              print("error");
-                              return Text("${snapshot.error}");
-                            }
-                            return CircularProgressIndicator();
-                          },
-                        ),
                       ),
                       DelayAnimation(
                           delay: 500,
