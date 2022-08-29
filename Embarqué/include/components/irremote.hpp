@@ -5,7 +5,7 @@
 ** Login   <necrelox@gmail.com>
 **
 ** Started on  Tue Jun 21 12:02:24 2022 Ruby
-** Last update Tue Aug 29 03:16:34 2022 Ruby
+** Last update Tue Aug 29 09:41:40 2022 Ruby
 */
 
 #ifndef REMOTE_HPP_
@@ -13,6 +13,8 @@
 
 #define POWER 0x45
 #define PLAY 0x40
+#define STOP 0x47
+
 
 class IRremote
 {

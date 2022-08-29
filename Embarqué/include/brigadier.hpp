@@ -5,7 +5,7 @@
 ** Login   <necrelox@gmail.com>
 **
 ** Started on  Mon Jul 11 14:09:12 2022 Ruby
-** Last update Tue Aug 29 03:09:42 2022 Ruby
+** Last update Tue Aug 29 09:37:01 2022 Ruby
 */
 
 #ifndef BRIGADIER_HPP_
@@ -36,6 +36,7 @@ class Brigadier
         LCD _lcd;
         Recognition _recognition;
         bool _demo = false;
+        bool _demoB = false;
         // Button button;
         // Motor motor;
         

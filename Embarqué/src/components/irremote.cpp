@@ -5,7 +5,7 @@
 ** Login   <necrelox@gmail.com>
 **
 ** Started on  Mon Jul 11 15:23:48 2022 Ruby
-** Last update Tue Aug 29 03:21:28 2022 Ruby
+** Last update Tue Aug 29 09:44:04 2022 Ruby
 */
 
 #include "components/irremote.hpp"
@@ -14,7 +14,7 @@
 
 bool IRremote::verifInput(const unsigned int code) const
 {
-    return (code == POWER || code == PLAY);
+    return (code == POWER || code == PLAY || code == STOP);
 }
 
 bool IRremote::verifInputNoRepeat(const unsigned int flag) const

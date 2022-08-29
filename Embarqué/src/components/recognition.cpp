@@ -5,7 +5,7 @@
 ** Login   <necrelox@gmail.com>
 **
 ** Started on  Mon Jul 11 15:24:01 2022 Ruby
-** Last update Tue Aug 29 03:24:16 2022 Ruby
+** Last update Tue Aug 29 10:01:02 2022 Ruby
 */
 
 #include "components/recognition.hpp"
@@ -32,7 +32,7 @@ String Recognition::run()
     }
 
     else if (this->_huskylens.available()) {
-        Serial.println("En cours...");
+        // Serial.println("En cours...");
         return "En cours...";
     }
     return "";

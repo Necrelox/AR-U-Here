@@ -5,7 +5,7 @@
 ** Login   <necrelox@gmail.com>
 **
 ** Started on  Mon Jul 11 14:08:56 2022 Ruby
-** Last update Tue Aug 29 03:29:54 2022 Ruby
+** Last update Tue Aug 29 10:03:41 2022 Ruby
 */
 
 #include "brigadier.hpp"
@@ -27,6 +27,9 @@ short Brigadier::commandManager()
         case PLAY:
             this->_demo = !this->_demo;
             break;
+        case STOP:
+            this->_demoB = !this->_demoB;
+            break;
         default:
             break;
         }
@@ -40,9 +43,20 @@ void Brigadier::run()
     this->_led.run(this->_isRunning);
     if (this->_isRunning) {
         String display = this->_recognition.run();
-        if (this->_demo)
+        if (this->_demo) {
             display = "Bonjour Ruby !";
-        this->_lcd.print(display);
+            this->_lcd.print(display);
+            delay(1500);
+            this->_demo = false;
+        }
+        if (this->_demoB) {
+            display = "Non reconnu !";
+            this->_lcd.print(display);
+            delay(1500);
+            this->_demoB = false;
+        }
+        else
+            this->_lcd.print(display);
     } else {
         this->_lcd.cleanLcd();
         this->_demo = false;
