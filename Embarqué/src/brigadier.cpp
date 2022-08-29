@@ -5,7 +5,7 @@
 ** Login   <necrelox@gmail.com>
 **
 ** Started on  Mon Jul 11 14:08:56 2022 Ruby
-** Last update Tue Jul 18 14:12:17 2022 Ruby
+** Last update Tue Aug 29 03:29:54 2022 Ruby
 */
 
 #include "brigadier.hpp"
@@ -15,11 +15,17 @@ short Brigadier::commandManager()
 {
     const uint16_t remoteCommandInput = this->_irremote.getCommand();
     if (remoteCommandInput != static_cast<uint16_t>(-1)) {
+        
         switch (remoteCommandInput) {
         case POWER:
             this->_isRunning = !this->_isRunning;
+            if (this->_isRunning) {
+                this->_lcd.print("Ar-U-Here");
+                delay(2000);
+            }
             break;
         case PLAY:
+            this->_demo = !this->_demo;
             break;
         default:
             break;
@@ -31,9 +37,16 @@ short Brigadier::commandManager()
 void Brigadier::run()
 {
     this->commandManager();
+    this->_led.run(this->_isRunning);
     if (this->_isRunning) {
-        Serial.println(this->_thermo.getTemperature(CELCIUS));
-        //
+        String display = this->_recognition.run();
+        if (this->_demo)
+            display = "Bonjour Ruby !";
+        this->_lcd.print(display);
+    } else {
+        this->_lcd.cleanLcd();
+        this->_demo = false;
+        this->_lcd.setText("");
     }
 
 }
@@ -43,7 +56,9 @@ void Brigadier::setup()
     Serial.println("Brigadier setup");
     Serial.begin(9600);
     this->_irremote.setup();
-    this->_thermo.setup();
+    this->_led.setup();
+    this->_recognition.setup();
+    // this->_thermo.setup();
 }
 
 Brigadier::Brigadier()

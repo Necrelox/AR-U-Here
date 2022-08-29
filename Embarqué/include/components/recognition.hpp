@@ -5,7 +5,7 @@
 ** Login   <necrelox@gmail.com>
 **
 ** Started on  Mon Jun 20 22:42:41 2022 Ruby
-** Last update Tue Jul 11 14:17:08 2022 Ruby
+** Last update Tue Aug 29 02:25:22 2022 Ruby
 */
 
 #ifndef RECOGNITION_HPP_
@@ -15,9 +15,14 @@
 
 class Recognition
 {
+    private:
+        HUSKYLENS _huskylens;
     public:
         Recognition();
         ~Recognition();
+        String run();
+        
+        void setup();
 };
 
 
