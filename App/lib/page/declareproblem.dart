@@ -29,15 +29,17 @@ class _DeclareProblemState extends State<DeclareProblem> {
     super.dispose();
   }
 
-  List<DropdownMenuItem<String>> get dropdownItems{
-  List<DropdownMenuItem<String>> menuItems = [
-    const DropdownMenuItem(value: "Sélectionner", child: Text("Sélectionner")),
-    const DropdownMenuItem(value: "Maladie", child: Text("Maladie")),
-    const DropdownMenuItem(value: "Motif familial", child: Text("Motif familial")),
-    const DropdownMenuItem(value: "Autres", child: Text("Autres")),
-  ];
-  return menuItems;
-}
+  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      const DropdownMenuItem(
+          value: "Sélectionner", child: Text("Sélectionner")),
+      const DropdownMenuItem(value: "Maladie", child: Text("Maladie")),
+      const DropdownMenuItem(
+          value: "Motif familial", child: Text("Motif familial")),
+      const DropdownMenuItem(value: "Autres", child: Text("Autres")),
+    ];
+    return menuItems;
+  }
 
   final format = DateFormat("yyyy-MM-dd HH:mm");
 
@@ -49,7 +51,6 @@ class _DeclareProblemState extends State<DeclareProblem> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -77,7 +78,6 @@ class _DeclareProblemState extends State<DeclareProblem> {
                 )),
               ),
             ),
-
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -106,7 +106,6 @@ class _DeclareProblemState extends State<DeclareProblem> {
                 )),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -134,7 +133,6 @@ class _DeclareProblemState extends State<DeclareProblem> {
                 )),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -156,7 +154,7 @@ class _DeclareProblemState extends State<DeclareProblem> {
                   elevation: 16,
                   style: const TextStyle(color: Color(0XFF303C6C)),
                   underline: const SizedBox(),
-                  onChanged: (String? newValue){
+                  onChanged: (String? newValue) {
                     setState(() {
                       selectedValue = newValue!;
                     });
@@ -165,7 +163,6 @@ class _DeclareProblemState extends State<DeclareProblem> {
                 ),
               ),
             ),
-
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -193,7 +190,6 @@ class _DeclareProblemState extends State<DeclareProblem> {
                 )),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -236,7 +232,6 @@ class _DeclareProblemState extends State<DeclareProblem> {
                 ]),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -264,7 +259,6 @@ class _DeclareProblemState extends State<DeclareProblem> {
                 )),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -307,7 +301,6 @@ class _DeclareProblemState extends State<DeclareProblem> {
                 ]),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -335,7 +328,6 @@ class _DeclareProblemState extends State<DeclareProblem> {
                 )),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -343,8 +335,8 @@ class _DeclareProblemState extends State<DeclareProblem> {
                 margin: const EdgeInsets.only(
                   top: 10,
                   bottom: 0,
-                  left: 50,
-                  right: 50,
+                  left: 40,
+                  right: 40,
                 ),
                 decoration: const BoxDecoration(
                     color: Color(0XFFFBE8A6),
@@ -377,7 +369,6 @@ class _DeclareProblemState extends State<DeclareProblem> {
                 ),
               ),
             ),
-            
             DelayAnimation(
               delay: 500,
               child: Container(
@@ -391,67 +382,62 @@ class _DeclareProblemState extends State<DeclareProblem> {
                   right: 20,
                 ),
                 child: InkWell(
-                  onTap: () async {
-                    final result = await FilePicker.platform.pickFiles();
-                  },
-                  child: const Text(
-                    'Importer un document',
-                    style: TextStyle(
-                      color: Color(0XFF303C6C),
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    )
-                ),
+                    onTap: () async {
+                      final result = await FilePicker.platform.pickFiles();
+                    },
+                    child: const Text(
+                      'Importer un document',
+                      style: TextStyle(
+                        color: Color(0XFF303C6C),
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )),
               ),
             ),
-
             DelayAnimation(
               delay: 500,
               child: Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: Row (
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-
-              ElevatedButton(
-                  style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0XFF303C6C)),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0XFFF4976C)),
-                      shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ))),
-                  onPressed: () => {},
-                  child: const Text("Envoyer",
-                      style: TextStyle(fontSize: 16))),
-
-              ElevatedButton(
-                  style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0XFFF4976C)),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0XFF303C6C)),
-                      shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ))),
-                      onPressed: () => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const StatistiqueAdmin(),
-                              ),
-                            )
-                          },
-                  child: const Text("Annuler",
-                      style: TextStyle(fontSize: 16))),
-              ],
-            ),
+                margin: const EdgeInsets.only(top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    ElevatedButton(
+                        style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                                const Color(0XFF303C6C)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                const Color(0XFFF4976C)),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ))),
+                        onPressed: () => {},
+                        child: const Text("Envoyer",
+                            style: TextStyle(fontSize: 16))),
+                    ElevatedButton(
+                        style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                                const Color(0XFFF4976C)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                const Color(0XFF303C6C)),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ))),
+                        onPressed: () => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const StatistiqueAdmin(),
+                                ),
+                              )
+                            },
+                        child: const Text("Annuler",
+                            style: TextStyle(fontSize: 16))),
+                  ],
+                ),
               ),
             ),
           ],
