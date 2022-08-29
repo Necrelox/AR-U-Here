@@ -145,7 +145,7 @@ class _PlanningAdminState extends State<PlanningAdmin> {
               delay: 500,
               child: Container(
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.35,
                   width: MediaQuery.of(context).size.width * 0.9,
                   decoration: BoxDecoration(
                       color: MyApp.quinaryColor,
@@ -165,28 +165,28 @@ class _PlanningAdminState extends State<PlanningAdmin> {
                             Column(children: [
                               Text('Heure',
                                   style: TextStyle(
-                                      fontSize: 18.0,
+                                      fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                       color: MyApp.primaryColor))
                             ]),
                             Column(children: [
                               Text('Cours',
                                   style: TextStyle(
-                                      fontSize: 18.0,
+                                      fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                       color: MyApp.primaryColor))
                             ]),
                             Column(children: [
                               Text('Salle',
                                   style: TextStyle(
-                                      fontSize: 18.0,
+                                      fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                       color: MyApp.primaryColor))
                             ]),
                             Column(children: [
                               Text('Présence',
                                   style: TextStyle(
-                                      fontSize: 18.0,
+                                      fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                       color: MyApp.primaryColor))
                             ]),
@@ -202,16 +202,25 @@ class _PlanningAdminState extends State<PlanningAdmin> {
                         future: futureActivity,
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                                return Table(
-                                  children: [
-                                    tablePlanning(
-                                        '${snapshot.data![0].startTime!.substring(11, 13)}h', '${snapshot.data![0].endTime!.substring(11, 13)}h', 'Pré-MSc', '${snapshot.data![0].studyLevel}'),
-                                    tablePlanning(
-                                        '${snapshot.data![1].startTime!.substring(11, 13)}h', '${snapshot.data![1].endTime!.substring(11, 13)}h', 'Pré-MSc', '${snapshot.data![1].studyLevel}'),
-                                    tablePlanning(
-                                        '${snapshot.data![2].startTime!.substring(11, 13)}h', '${snapshot.data![2].endTime!.substring(11, 13)}h', 'Pré-MSc', '${snapshot.data![2].studyLevel}'),
-                                  ],
-                                );
+                            return Table(
+                              children: [
+                                tablePlanning(
+                                    '${snapshot.data![0].startTime!.substring(11, 13)}h',
+                                    '${snapshot.data![0].endTime!.substring(11, 13)}h',
+                                    'Pré-MSc',
+                                    '${snapshot.data![0].studyLevel}'),
+                                tablePlanning(
+                                    '${snapshot.data![1].startTime!.substring(11, 13)}h',
+                                    '${snapshot.data![1].endTime!.substring(11, 13)}h',
+                                    'Pré-MSc',
+                                    '${snapshot.data![1].studyLevel}'),
+                                tablePlanning(
+                                    '${snapshot.data![2].startTime!.substring(11, 13)}h',
+                                    '${snapshot.data![2].endTime!.substring(11, 13)}h',
+                                    'Pré-MSc',
+                                    '${snapshot.data![2].studyLevel}'),
+                              ],
+                            );
                           } else if (snapshot.hasError) {
                             return Text("${snapshot.error}");
                           }

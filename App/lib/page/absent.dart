@@ -335,8 +335,8 @@ class _PlanningState extends State<Absent> {
                 margin: const EdgeInsets.only(
                   top: 10,
                   bottom: 0,
-                  left: 50,
-                  right: 50,
+                  left: 40,
+                  right: 40,
                 ),
                 decoration: BoxDecoration(
                     color: MyApp.tertiaryColor,
